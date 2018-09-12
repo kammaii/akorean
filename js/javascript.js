@@ -14,6 +14,3 @@ function btn3() {
 function btn4() {
   window.open("assembly.html","_self");
 }
-function backColor() {
-  $("a").css("background-color", "#eff2f7");
-})
