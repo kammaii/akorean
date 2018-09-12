@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower');
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic');
+# {
+  box-sizing: border-box;
+}
+body {
+  font-size: 16px;
+}
+#wrapper {
+  display: grid;
+  grid-template-rows: .5fr 1fr .9fr 9fr 1fr ;
+  width: 100%;
+  font-size: 0.5rem;
+  margin: 0;
+  font-family: 'Indie Flower', cursive;
+}
+h1 {
+  margin: 0;
+}
+section {
+  display: grid;
+  grid-template-rows: 8fr .8fr;
+}
+header {
+  font-family: 'Indie Flower', cursive;
+}
+nav a {
+  font-family: 'Indie Flower', cursive;
+  display: inline-block;
+  border: 1px solid;
+  border-radius: 5px;
+  width: 97%;
+}
+a {
+  color: black;
+  text-decoration: none;
+  text-align: center;
+}
+a:active {
+  background-color: #eff2f7;
+}
+ul {
+  list-style-type: none;
+}
+nav ul {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: 0;
+  text-align: center;
+}
+aside, #function {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+button, input {
+  font-size: 0.5rem;
+  font-family: 'Indie Flower', cursive;
+}
+.first, .second, .third, .fourth {
+  margin-right: 1px;
+  padding: 0;
+}
+legend {
+  font-size: 1rem;
+}
+fieldset ul {
+  padding-left: 20px;
+}
+#optionButton {
+  display: inline-block;
+}
+table {
+  font-family: 'Nanum Gothic', sans-serif;
+  border-collapse: collapse;
+  width: 50%;
+  margin: 40px 76px 0px 76px;
+}
+td {
+  width: 20px;
+  text-align: center;
+  font-size: 1rem;
+}
+tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
