@@ -4,45 +4,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Awesome Korean</title>
-    <script src="js/modernizr-custom.js"></script>
-    <!-- src지원 못하는 브라우저에 png 적용 -->
-    <script src="js/prefixfree.min.js"></script>
-    <!-- 브라우저 접두사 자동으로 붙이기 -->
-    <script src="js/javascript.js"></script>
-    <script src="js/jquery.js"></script>
-    <script src="js/jquery-migrate-1.4.1.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
   </head>
-  <link rel="stylesheet" href="style.css">
   <body>
-    <div id="wrapper">
-      <header>
-        <h1> Awesome Korean </h1>
-        <hr>
-      </header>
-      <nav>
-        <ul>
-          <li class="first"><a href="learning.html">LEARNING</a></li>
-          <li class="second"><a href="review.html">REVIEW</a></li>
-          <li class="third"><a href="collection.html">COLLECTION</a></li>
-          <li class="fourth"><a href="options.html">OPTIONS</a></li>
-        </ul>
-      </nav>
-      <aside>
-        <button type="button" class="first" onclick="btn1()">Consonants</button>
-        <button type="button" class="second" onclick="btn2()">Vowels</button>
-        <button type="button" class="third" onclick="btn3()">Last Consonants</button>
-        <button type="button" class="fourth" onclick="btn4()">Assembly</button>
-      </aside>
-      <section>
-        <div id="study">
-          <p>section_study</p>
-        </div>
-        <div id="function">
-        </div>
-      </section>
-      <footer>
+    <div data-role="page" id="grid">
+      <div data-role="header">
+        <a href="home.html" class="ui-btn ui-shadow ui-corner-all ui-icon-home ui-btn-icon-notext" data-ajax="false"></a>
+        <h1 id="title"> Awesome Korean </h1>
+        <a href="home.html" data-ajax="false" class="ui-btn ui-shadow ui-corner-all ui-icon-back ui-btn-icon-notext"></a>
+      </div>
+      <div data-role="content">
+        <img src="img/Koreanflag.svg" style="width:300px;"alt="">
+      </div>
+      <div data-role="footer">
         <p>footer</p>
-      </footer>
+      </div>
     </div>
   </body>
 </html>
