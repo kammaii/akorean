@@ -4,95 +4,68 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Awesome Korean</title>
-    <script src="js/modernizr-custom.js"></script>
-    <!-- src지원 못하는 브라우저에 png 적용 -->
-    <script src="js/prefixfree.min.js"></script>
-    <!-- 브라우저 접두사 자동으로 붙이기 -->
-    <script src="js/javascript.js"></script>
-    <script src="js/jquery.js"></script>
-    <script src="js/jquery-migrate-1.4.1.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
   </head>
-  <link rel="stylesheet" href="style.css">
   <body>
-    <div id="wrapper">
-      <header>
-        <h1> Awesome Korean </h1>
-        <hr>
-      </header>
-      <nav>
-        <ul>
-          <li class="first"><a href="learning.html">LEARNING</a></li>
-          <li class="second"><a href="review.html">REVIEW</a></li>
-          <li class="third"><a href="collection.html">COLLECTION</a></li>
-          <li class="fourth"><a href="options.html">OPTIONS</a></li>
-        </ul>
-      </nav>
-      <aside>
-        <button type="button" class="first" onclick="btn1()">Consonants</button>
-        <button type="button" class="second" onclick="btn2()">Vowels</button>
-        <button type="button" class="third" onclick="btn3()">Last Consonants</button>
-        <button type="button" class="fourth" onclick="btn4()">Assembly</button>
-      </aside>
-      <section>
-        <div id="study">
-          <table border="1">
-            <tr>
-              <td><a href="">ㄱ</a></td>
-              <td><a href="">ㄲ</a></td>
-              <td><a href="">ㅋ</a></td>
-            </tr>
-            <tr>
-              <td><a href="">ㄴ</a></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td><a href="">ㄷ</a></td>
-              <td><a href="">ㄸ</a></td>
-              <td><a href="">ㅌ</a></td>
-            </tr>
-            <tr>
-              <td><a href="">ㄹ</a></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td><a href="">ㅁ</a></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td><a href="">ㅂ</a></td>
-              <td><a href="">ㅃ</a></td>
-              <td><a href="">ㅍ</a></td>
-            </tr>
-            <tr>
-              <td><a href="">ㅅ</a></td>
-              <td><a href="">ㅆ</a></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td><a href="">ㅇ</a></td>
-              <td></td>
-              <td><a href="">ㅎ</a></td>
-            </tr>
-            <tr>
-              <td><a href="">ㅈ</a></td>
-              <td><a href="">ㅉ</a></td>
-              <td><a href="">ㅊ</a></td>
-            </tr>
-          </table>
+    <div data-role="page" id="grid">
+      <div data-role="header">
+        <a href="home.html" data-ajax="false"class="ui-btn ui-shadow ui-corner-all ui-icon-home ui-btn-icon-notext"></a>
+        <h1 id="title"> Awesome Korean </h1>
+        <a href="learning.html" data-ajax="false" class="ui-btn ui-shadow ui-corner-all ui-icon-back ui-btn-icon-notext"></a>
+      </div>
+      <div data-role="content">
+        <div class="ui-grid-b" id="uiGrid">
+          <div class="ui-block-a ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false">ㄱ</a></div>
+          <div class="ui-block-b ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false">ㄲ</a></div>
+          <div class="ui-block-c ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false">ㅋ</a></div>
         </div>
-        <div id="function">
-          <button type="button" name="consonants" class="first">Native's voice</button>
-          <button type="button" name="vowels" class="second">My voice</button>
-          <button type="button" name="last" class="third">Writing</button>
-          <button type="button" name="assembly" class="fourth">Hint</button>
+        <div class="ui-grid-b" id="uiGrid">
+          <div class="ui-block-a ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false">ㄴ</a></div>
+          <div class="ui-block-b ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false"></a></div>
+          <div class="ui-block-c ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false"></a></div>
         </div>
-      </section>
-      <footer>
+        <div class="ui-grid-b" id="uiGrid">
+          <div class="ui-block-a ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false">ㄷ</a></div>
+          <div class="ui-block-b ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false">ㄸ</a></div>
+          <div class="ui-block-c ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false">ㅌ</a></div>
+        </div>
+        <div class="ui-grid-b" id="uiGrid">
+          <div class="ui-block-a ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false">ㄹ</a></div>
+          <div class="ui-block-b ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false"></a></div>
+          <div class="ui-block-c ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false"></a></div>
+        </div>
+        <div class="ui-grid-b" id="uiGrid">
+          <div class="ui-block-a ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false">ㅁ</a></div>
+          <div class="ui-block-b ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false"></a></div>
+          <div class="ui-block-c ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false"></a></div>
+        </div>
+        <div class="ui-grid-b" id="uiGrid">
+          <div class="ui-block-a ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false">ㅂ</a></div>
+          <div class="ui-block-b ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false">ㅃ</a></div>
+          <div class="ui-block-c ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false">ㅍ</a></div>
+        </div>
+        <div class="ui-grid-b" id="uiGrid">
+          <div class="ui-block-a ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false">ㅅ</a></div>
+          <div class="ui-block-b ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false">ㅆ</a></div>
+          <div class="ui-block-c ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false"></a></div>
+        </div>
+        <div class="ui-grid-b" id="uiGrid">
+          <div class="ui-block-a ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false">ㅇ</a></div>
+          <div class="ui-block-b ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false"></a></div>
+          <div class="ui-block-c ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false">ㅎ</a></div>
+        </div>
+        <div class="ui-grid-b" id="uiGrid">
+          <div class="ui-block-a ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false">ㅈ</a></div>
+          <div class="ui-block-b ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false">ㅉ</a></div>
+          <div class="ui-block-c ui-btn ui-shadow ui-coner-all"><a href="std_con.html"  data-ajax="false">ㅊ</a></div>
+        </div>
+
+      </div>
+      <div data-role="footer">
         <p>footer</p>
-      </footer>
+      </div>
     </div>
   </body>
-</html>

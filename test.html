@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <!-- jquery UI를 touch로도 작동하게 해줌 -->
+    <script src="js/jquery.ui.touch-punch.min.js"></script>
+  </head>
+  <script>
+  $( function() {
+     $( ".draggable" ).draggable();
+     $( "#droppable" ).droppable({
+       drop: function( event, ui ) {
+         var img = $(".draggable").find("img").attr("src");
+         $( this )
+           .find( "img" )
+             .attr( "src", img );
+       }
+     });
+   } );
+   </script>
+  <style media="screen">
+    .draggable {
+      border: 1px solid;
+      width: 100px;
+    }
+    #droppable {
+      border: 1px solid;
+      width: 200px;
+      height: 200px;
+    }
+  </style>
+  <body>
+    <div id="droppable">
+      <img src="" style="width:200px;" alt="">
+    </div>
+    <div class="draggable" class="ui-widget-content">
+      <img src="ㄱ.png" style="width:100px;" alt="">
+    </div>
+    <div class="draggable" class="ui-widget-content">
+      <img src="ㄱ.png" style="width:100px;" alt="">
+    </div>
+    <div class="draggable" class="ui-widget-content">
+      <img src="ㄱ.png" style="width:100px;" alt="">
+    </div>
+  </body>
+</html>
