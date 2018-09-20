@@ -1,4 +1,0 @@
-# akorean
-
-Hello World
-danny
