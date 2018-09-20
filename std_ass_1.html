@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Awesome Korean</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <!-- jquery UI를 touch로도 작동하게 해줌 -->
+    <script src="js/jquery.ui.touch-punch.min.js"></script>
+  </head>
+  <script>
+  $( function() {
+     $( ".draggable_c" ).draggable();
+     $( ".draggable_v" ).draggable();
+     $( "#droppable_ass_1_c" ).droppable({
+       drop: function( event, ui ) {
+         var img_c = $(".draggable_c").find("img").attr("src");
+         $( this )
+           .find( "img" )
+             .attr( "src", img_c );
+       }
+     });
+     $( "#droppable_ass_1_v" ).droppable({
+       drop: function( event, ui ) {
+         var img_v = $(".draggable_v").find("img").attr("src");
+         $( this )
+           .find( "img" )
+             .attr( "src", img_v );
+       }
+     });
+     $("#btn_con").click(function() {
+       $("#consonants").css("display","block");
+       $("#vowels").css("display","none");
+     })
+     $("#btn_vow").click(function() {
+       $("#consonants").css("display","none");
+       $("#vowels").css("display","block");
+     })
+   } );
+  </script>
+  <body>
+    <div data-role="page" id="grid">
+      <div data-role="header">
+        <a href="home.html" data-ajax="false"class="ui-btn ui-shadow ui-corner-all ui-icon-home ui-btn-icon-notext"></a>
+        <h1 id="title"> Awesome Korean </h1>
+        <a href="assembly.html" data-ajax="false" class="ui-btn ui-shadow ui-corner-all ui-icon-back ui-btn-icon-notext"></a>
+      </div>
+      <div data-role="content">
+        <div id="droppable_ass_1_c" class="ui-widget-header">
+          <img src="" style="width:100px; height:150px" alt="">
+        </div>
+        <div id="droppable_ass_1_v" class="ui-widget-header">
+          <img src="" style="width:50px; height:150px" alt="">
+        </div>
+        <div data-role="controlgroup" data-type="horizontal">
+          <button class="ui-btn ui-btn-inline ui-mini" id="btn_con" >Consonants</button>
+          <button class="ui-btn ui-btn-inline ui-mini" id="btn_vow">Vowels</button>
+        </div>
+        <hr>
+        <div id="consonants">
+          <div class="draggable_c" class="ui-widget-content">
+            <img src="img/ㄱ.svg" style="width:30px;">
+          </div>
+          <div class="draggable_c" class="ui-widget-content">
+            <img src="img/ㄴ.svg" style="width:30px;">
+          </div>
+          <div class="draggable_c" class="ui-widget-content">
+            <img src="img/ㄷ.svg" style="width:30px;">
+          </div>
+        </div>
+        <div id="vowels">
+          <div class="draggable_v" class="ui-widget-content">
+            <img src="img/ㅏ.svg" style="width:30px;">
+          </div>
+          <div class="draggable_v" class="ui-widget-content">
+            <img src="img/ㅑ.svg" style="width:30px;">
+          </div>
+          <div class="draggable_v" class="ui-widget-content">
+            <img src="img/ㅓ.svg" style="width:30px;">
+          </div>
+        </div>
+      </div>
+      <div data-role="footer">
+        <div data-role="controlgroup" data-type="horizontal" id="assBtn">
+          <a href="" data-role="button">Native's voice</a>
+          <a href="" data-role="button">My voice</a>
+          <a href="" data-role="button">Writting</a>
+        </div>
+    </div>
+  </body>

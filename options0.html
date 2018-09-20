@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Awesome Korean</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  </head>
+  <body>
+    <div data-role="page" id="grid">
+      <div data-role="header">
+        <a href="home.html" data-ajax="false"class="ui-btn ui-shadow ui-corner-all ui-icon-home ui-btn-icon-notext"></a>
+        <h1 id="title"> Awesome Korean </h1>
+        <a href="home.html" data-ajax="false" class="ui-btn ui-shadow ui-corner-all ui-icon-back ui-btn-icon-notext"></a>
+      </div>
+      <div data-role="content">
+        <div class="ui-field-contain">
+          <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+            <legend id="option1">Voice gender</legend>
+              <input type="radio" name="radio-choice-h-5" id="radio-choice-h-5a" value="on" checked="checked">
+              <label for="radio-choice-h-5a">Male</label>
+              <input type="radio" name="radio-choice-h-5" id="radio-choice-h-5b" value="off">
+              <label for="radio-choice-h-5b">Female</label>
+          </fieldset>
+          <label for="slider-1" id="option2">Voice speed</label>
+          <input type="range" name="slider-1" id="slider-1" value="3" min="1" max="5" data-highlight="true">
+          <label for="flip-5" id="option3">Alarm</label>
+          <select name="flip-5" id="flip-5" data-role="slider" data-mini="true">
+              <option value="off">OFF</option>
+              <option value="on">ON</option>
+          </select>
+          <input type="time">
+          <div id="save">
+            <label for="submit-1"></label>
+            <button type="submit" id="submit-1" class="ui-shadow ui-btn ui-corner-all"> Save</button>
+          </div>
+        </div>
+      </div>
+      <div data-role="footer">
+        <p>footer</p>
+      </div>
+    </div>
+  </body>
