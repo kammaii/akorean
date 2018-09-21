@@ -1,0 +1,22 @@
+{
+  "name": "simple-webapp",
+  "version": "1.0.0",
+  "description": "A simple Web Application writtn using Node js",
+  "keywords": [
+    "simple",
+    "example"
+  ],
+  "license": "EPL-2.0",
+  "homepage": "https://github.com/kammaii/akorean",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kammaii/akorean.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kammaii/akorean/issues"
+  },
+  "main": "app.js",
+  "dependencies": {
+    "mustache": "3.0.0"
+  }
+}
