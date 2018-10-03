@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mocha/5.2.0/mocha.css" rel="stylesheet"/>
+
+    <title>Javascript Practice in the Browser</title>
+    
+  </head>
+  <body>
+    
+    <h1 style="margin-left: 60px"
+	id="practice-heading">Javascript Practice</h1>
+    
+    <div id="mocha"></div>
+
+    <!-- JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/4.2.0/chai.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/5.2.0/mocha.js"></script>
+
+
+    <!-- Run Mocha Unit Tests -->
+    <script>mocha.setup('tdd')</script>
+    <script src="test.variables.js"></script>
+    <script src="test.array.js"></script>
+    <script src="test.dom.js"></script>
+    <script>
+      mocha.checkLeaks();
+      mocha.run();
+    </script>
+    
+  </body>
+</html>
