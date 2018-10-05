@@ -8,29 +8,29 @@ suite('Document Object Model (test.dom.js)', function() {
 	// matching id
 	var newElement = document.getElementById('practice-heading');
 
-	// Hint: What is the type of the element with id 'practice-heading'? 
-	assert.equal(__, newElement.nodeName);
-	
+	// Hint: What is the type of the element with id 'practice-heading'?
+	assert.equal("H1", newElement.nodeName);
+
     });
-    
+
     test("We can create DOM Elements", function() {
-	
+
 	var newElement = document.createElement('A');
 
 	// Hint: What is the type of the element we just created?
-	assert.equal(__, newElement.nodeName);
-	
+	assert.equal("A", newElement.nodeName);
+
     });
 
     test("We can append children elements to DOM Elements", function() {
-	
+
 	var newElement = document.createElement('A');
 	var newTextNode = document.createTextNode('Click Here!');
-	
+
 	newElement.appendChild(newTextNode);
 
-	assert.equal(__, newElement.innerHTML);
-	
+	assert.equal("Click Here!", newElement.innerHTML);
+
     });
 
     test("We can make new elements appear by adding them to the browser's DOM tree", function() {
@@ -47,11 +47,11 @@ suite('Document Object Model (test.dom.js)', function() {
 	var bodyHtmlElement = document.getElementsByTagName("body")[0];
 
 	// Hint: how can you add "newElement" to the dom?
-	bodyHtmlElement.appendChild(__);
+	bodyHtmlElement.appendChild(newElement);
 
 	// This code checks if the "newElement" has been added to the dom
 	assert.isOk(document.querySelector('.simple-link'));
-	
+
     });
 
 });
