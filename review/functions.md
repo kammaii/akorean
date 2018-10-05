@@ -17,10 +17,10 @@ function americanAge(birthdate) {
   var birthDate = new Date(birthdate);
   var age = today.getFullYear() - birthDate.getFullYear();
   var monthCheck = today.getMonth() - birthDate.getMonth();
-	var dateCheck = today.getDate() - birthDate.getDate();
-	if(monthCheck < 0 || (monthCheck == 0 && dateCheck < 0)) {
-	  age = age - 1;
-	}
+  var dateCheck = today.getDate() - birthDate.getDate();
+  if(monthCheck < 0 || (monthCheck == 0 && dateCheck < 0)) {
+    age = age - 1;
+  }
   return age;
 }
 ```
