@@ -25,7 +25,8 @@ The Goal of all of this is to code and host a simple username and password Login
 
 # Basic Javascript
 
-- [ ] Variables
+- [x] (2018-10-05) Variables and Types (see `docs/javascript_basics.md`)
+- [x] (2018-10-05) Equality
 - [ ] Functions
 - [ ] Scope
 - [ ] Data Structures
