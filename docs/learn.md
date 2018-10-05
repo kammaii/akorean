@@ -27,8 +27,17 @@ The Goal of all of this is to code and host a simple username and password Login
 
 - [x] (2018-10-05) Variables and Types (see `docs/javascript_basics.md`)
 - [x] (2018-10-05) Equality
+- [ ] truthy values (https://developer.mozilla.org/en-US/docs/Glossary/Truthy)
+- [ ] pass-by-value and pass-by-reference
+```
+var myError = new Error("Watch out!");
+throw myError;
+```
 - [ ] Functions
-- [ ] Scope
+- [ ] Closures, Scope, passing functions
+- [ ] Runtime Errors (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
+- [ ] discuss events
+- [ ] Higher order functions?
 - [ ] Data Structures
 - [ ] Libraries
 
