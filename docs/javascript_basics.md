@@ -278,6 +278,93 @@ will return `true`, however, it is doing more than just returning a value.
 > console.log(result);
 true
 ```
+
 Sometimes methods are useful. But you should always try to write pure functions
 if possible. This will make your code much easier to understand. And it will be
 easier to build more complicated programs.
+
+# True and false
+
+In JavaScript, a "truthy" value is a value that is considered  true when
+encountered in a Boolean context. All values are truthy unless they are defined
+as falsy (i.e., except for false, 0, "", null, undefined, and NaN).
+
+https://developer.mozilla.org/en-US/docs/Glossary/Truthy
+
+##False values
+
+- `false`
+- `0`
+- `""`
+- `null`
+- `undefined`
+- `NaN`
+
+## Type Coercion
+
+When you use a non Boolean value in a place where a Boolean value is expected,
+Javascript will "coerce" the variable into a "Boolean".
+
+In the following example, the value of `x` is coerced into a Boolean value.
+When `x` is `""`, it is interpreted as the Boolean value `false`.
+
+```
+> function isEmpty(x) {
+>   if(x) {
+>     return "That is not empty";
+>   } else
+>     return "That is empty"
+>   }
+> }
+>
+> isEmpty("");
+"That is empty"
+> isEmpty("Hello");
+"That is not empty";
+```
+
+## Another Example
+
+When variables are `null`, or `undefined`, they will be coerced to Boolean
+`false`. This can be used to avoid `TypeError` exceptions:
+
+```
+var age = babeRuth && babeRuth.age;
+```
+
+# Blocks, Scope, var, and let
+
+A complicated Javascript program might use the same variable names to describe
+different concepts. We will need to use `scope` to avoid confusion.
+
+Here's a confusing example!
+
+```
+var x = 1;
+
+if (x === 1) {
+  var x = 2;
+
+  console.log(x);
+  // expected output: 2
+}
+
+console.log(x);
+// expected output: ?
+```
+
+To fix this problem, we can use `let`:
+
+```
+let x = 1;
+
+if (x === 1) {
+  let x = 2;
+
+  console.log(x);
+  // expected output: 2
+}
+
+console.log(x);
+// expected output: ?
+```
