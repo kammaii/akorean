@@ -49,6 +49,7 @@ and notice that the value of x is an actual value.
 (04) if(x == 0) {
 (05)   var i = 20;  // this creates a global `window.x` variable.
                     // we should use `let` here instead!
+       let j = 30;
 (06) }
 
 (07) function f1(a, b, c) {
