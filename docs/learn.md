@@ -28,9 +28,9 @@ The Goal of all of this is to code and host a simple username and password Login
 - [x] (2018-10-05) Variables and Types (see `docs/javascript_basics.md`)
 - [x] (2018-10-05) Equality
 - [x] (2018-10-04) Functions
-- [ ] truthy values (https://developer.mozilla.org/en-US/docs/Glossary/Truthy)
+- [x] (2018-10-08) truthy values (https://developer.mozilla.org/en-US/docs/Glossary/Truthy)
+- [ ] code blocks and scope (const, var, and let)
 - [ ] Objects
-- [ ] blocks and scope (const, var, and let)
 - [ ] Closures, passing functions
 - [ ] Runtime Errors (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
 ```
