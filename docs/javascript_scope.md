@@ -40,8 +40,7 @@ Here's a (simplified) diagram of how a computer might allocate memory
 for the program below. Note how the value of z is a memory location.
 and notice that the value of x is an actual value.
 
-![Javascript Scope Diagram]
-(https://upgradingdave.github.io/images/js_scope.png)
+![Javascript Scope Diagram](https://upgradingdave.github.io/images/js_scope.png)
 
 ```
 (01) var x = 0;
