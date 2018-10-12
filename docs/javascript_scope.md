@@ -47,7 +47,7 @@ and notice that the value of x is an actual value.
 (02) let y = 0;     // in the global scope, var is the same as let
 (03) let z = [0];
 (04) if(x == 0) {
-(05)   var i = 20;  // this creates a global `window.x` variable.
+(05)   var i = 20;  // this creates a global `window.i` variable.
                     // we should use `let` here instead!
 (06)   let j = 30;
     }
@@ -69,7 +69,7 @@ and notice that the value of x is an actual value.
 // x = 0
 // y = 0
 // z = [0]
-// i = 0
+// i = 20
 // a, b, c, d, and e are all 'undefined';
 
 (16) f1(x,y,z);
