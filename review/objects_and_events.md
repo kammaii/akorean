@@ -2,8 +2,6 @@
 of Animals. I defined an `Animal` object prototype, a `Reptile`, and a `Frog`
 object prototype.
 
-In addition to my notes, here's a great overview of objects in javascript:
-
 Your challenge is to write object definitions to represent different kinds of
 vehicles.
 
