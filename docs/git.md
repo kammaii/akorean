@@ -66,6 +66,12 @@ a pull request to the original repository.
 
 ## branch
 
+Here's a useful command for moving to a new branch:
+
+```
+git checkout -b my-new-branch
+```
+
 ## tag
 
 ## merge
