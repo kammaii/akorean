@@ -13,9 +13,21 @@ suite('Practice with Functions (test.functions.js)', function() {
     // second century starts at year 101 up to and including 200
 
     function centuryFromYear(year) {
-      return null;
+      let yearStr = "year";
+      if (year.length < 3) {
+        return 1;
+      } else {
+        let yearCen = yearStr.substring(0, yearStr.length-2);
+
+        if ( yearStr.substring (yearStr.length-2, yearStr.length) == "00") {
+          return yearCen;
+        } else {
+          return yearCen + 1;
+        }
+      }
     }
 
+    assert.equal(1, centuryFromYear(87));
     assert.equal(20, centuryFromYear(1905));
     assert.equal(17, centuryFromYear(1700));
     assert.equal(21, centuryFromYear(2001));
@@ -32,7 +44,17 @@ suite('Practice with Functions (test.functions.js)', function() {
     // Given a string, check if it is a palindrome
 
     function isPalindrome(aString) {
-      return null;
+      let lengthString = aString.length;
+
+      for (let i=0; i<=lengthString/2; i++) {
+        //      if (lengthString - 2i == (1 || 2)) break;    [i], [i+1], ... [length-(i+2)], [length-(i+1)]
+
+        if (aString[i] !== aString[lengthString-1-i] ) {
+          return false;
+        }
+
+      };
+      return true;
     }
 
     assert.equal(true, isPalindrome("aba"));

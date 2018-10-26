@@ -23,7 +23,7 @@ suite('Variables (test.variables.js)', function() {
 
     var myArray = [0, 1, 2, 3];
 
-    assert.deepEqual(__, myArray);
+    assert.deepEqual([0,1,2,3], myArray);
 
   });
 
@@ -49,8 +49,8 @@ suite('Variables (test.variables.js)', function() {
     assert.equal('string', typeof(myStringTypeVariable));
     assert.equal('number', typeof(myNumberTypeVariable));
     assert.equal('boolean', typeof(myBooleanTypeVariable));
-    assert.equal('array', typeof(myArrayTypeVariable));
-    assert.equal(__, typeof(myObjectTypeVariable));
+    assert.equal('object', typeof(myArrayTypeVariable));
+    assert.equal('object', typeof(myObjectTypeVariable));
 
   });
 
