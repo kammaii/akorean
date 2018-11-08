@@ -186,6 +186,8 @@ dave.formatName();
 New instances of Person will inherit (copy) the new formatName method. let
 hankAaron = new Person("Hank", "Aaron", "February 4, 1934 00:00");
 
+Note that the `new` operator behaves differently than `Object.create`
+
 Object.prototype.formatName (not defined; returns "undefined")
  |
  +----Person.prototype.formatName (returns "firstName, LastName")
@@ -268,6 +270,9 @@ Definition). This is a combination of #1 and #2.
 We will create a Object Prototype "hierarchy" (or Object Class hierarchy) of
 "Animals"
 
+Note! When you use this technique, `Object.create` does NOT copy properties to
+subclasses.
+
 ```
 let Animal = {
   family: "Animal",
@@ -283,7 +288,6 @@ let Animal = {
 }
 ```
 
-In Javascript, properties and functions are copied from `Animal` to to `Mammal`.
 We can say that `Mammal` "inherits" from `Animal`. Animal is the "parent" class and Mammal is the "child" class. Mammal is a "subclass" of "Animal".
 
 ```
@@ -409,4 +413,37 @@ function printStudent(student, propNames) {
 }
 
 console.log(printStudent(tim, ["firstName"]));
+```
+
+## Accessing the prototype chain
+
+For much more detail, please see this article:
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
+
+Objects inherit properties via a `property chain` also called the `prototype
+chain`. You can inspect the property chain of a javascript Object a few
+different ways:
+
+```
+myobject.__proto__
+Object.getPrototypeOf(myobject)
+```
+
+## The prototype property
+
+The `prototype` property is a special property on which you define properties
+that you want to be inherited.
+
+For subclasses, remember to copy the `prototype` property of the parent class.
+
+## The constructor property
+
+The `constructor` property points to the constructor function used to create
+this instance.
+
+For subclasses, remember to set the `constructor` property.
+
+```
+myobject.prototype.constructor
 ```
