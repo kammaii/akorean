@@ -43,8 +43,7 @@ throw myError;
 ```
 
 - [x] discuss events
-- [ ] Higher order functions?
-- [ ] Data Structures
+- [ ] Higher order functions
 - [x] Libraries (see `docs/packages.md`)
 - [x] pass-by-value and pass-by-reference (see `docs/javascript_scope.md`);
 

@@ -42,7 +42,6 @@ let afterFileWrite = function(nextFn) {
       console.log(err.code);
     } else {
       nextFn();
-      //console.log("Successfully wrote to the file!!");
     }
   }
 }
@@ -70,14 +69,47 @@ let doExitCommand = function() {
   rl.close(); // remember to close after writing
 }
 
-let doToCommand = function(cmdArray, nextFn) {
-  if(cmdArray.length != 2) {
-    console.log("Please provide a username");
-  } else {
-    to = cmdArray[1];
-    prompt = to + ">> ";
+let doesFileExist = function(path) {
+  let result = null;
+  // fs.open is an `asynchronous` function
+  // 1. we can find a synchronous version of fs.open
+  // fs.openSync is a synchronous version of fs.open
+  // 2. we can use "Promise".
+ result = fs.openSync(path, 'r', function(err, fd){
+    if(err) {
+      console.log("file didnt' exist")
+      return false;
+    } else {
+      console.log("file exists")
+      return true;
+    }
+  })
+
+  return result;
+}
+
+// cmdArray ["tell" "danny" "hello"]
+let doTellCommand = function(cmdArray, nextFn) {
+  // Is this a valid "tell" command or did the user make a mistake?
+  if(cmdArray.length != 3) {
+    console.log("Oops, the tell command should look like 'tell <username> <msg>' ")
+    nextFn();
   }
-  nextFn();
+
+  // If it's valid, get the username
+  let username = cmdArray["1"];
+  console.log("username is: " + username);
+  // Is this a valid username?
+  // check if there's a file that has same name
+  let result = doesFileExist(username);
+  console.log(`result: ${result}`);
+  if(result) {
+    writeToFile(username, cmdArray[2], nextFn);
+  } else {
+    console.log("Hmm, looks like that user is not signed in?");
+    nextFn();
+  }
+
 }
 
 /**
@@ -88,26 +120,28 @@ let doToCommand = function(cmdArray, nextFn) {
 let runApp = function() {
   // prompt for next command
   rl.question(prompt, function(cmd) {
-    // a command will be a string like "to danny"
+
+    // a command will be a string like "tell danny hi"
     // we need to break that string into an array of words
-    // "to danny".split(" ") will produce an array like ["to", "danny"]
+    // "to danny".split(" ") will produce an array like ["tell", "danny", "hi"]
     let cmdArray = cmd.split(" ");
 
     if(cmdArray[0] == 'exit') {
       doExitCommand();
       // don't call runApp() again, so the program will just exit
-    } else if(cmdArray[0] == 'to') {
-      doToCommand(cmdArray, runApp);
+    } else if(cmdArray[0] == 'tell') {
+      doTellCommand(cmdArray, runApp);
     } else {
       // whatever the user entered didn't match any commands
       console.log("Hmm, I didn't recognize that command?");
       runApp();
     }
+
   });
 }
 
 /**
- * This is a very simple login function.
+ * This is a very simple "login" function.
  * When the program starts, it asks for a username and then
  * creates a file named the same as the username
  * we also set the global username variable
@@ -127,6 +161,5 @@ let promptForLogin = function(prompt) {
   rl.question(prompt, simpleLogin);
 }
 
-// start things with a very simple login, and then the callbacks
-// run app
+// start things with a very simple login
 promptForLogin("What is your username? ");
