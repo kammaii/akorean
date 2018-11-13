@@ -94,20 +94,23 @@ let doTellCommand = function(cmdArray, nextFn) {
   if(cmdArray.length != 3) {
     console.log("Oops, the tell command should look like 'tell <username> <msg>' ")
     nextFn();
-  }
 
-  // If it's valid, get the username
-  let username = cmdArray["1"];
-  console.log("username is: " + username);
-  // Is this a valid username?
-  // check if there's a file that has same name
-  let result = doesFileExist(username);
-  console.log(`result: ${result}`);
-  if(result) {
-    writeToFile(username, cmdArray[2], nextFn);
   } else {
-    console.log("Hmm, looks like that user is not signed in?");
-    nextFn();
+
+    // If it's valid, get the username
+    let username = cmdArray["1"];
+    console.log("username is: " + username);
+    // Is this a valid username?
+    // check if there's a file that has same name
+    let result = doesFileExist(username);
+    console.log(`result: ${result}`);
+    if(result) {
+      writeToFile(username, cmdArray[2], nextFn);
+    } else {
+      console.log("Hmm, looks like that user is not signed in?");
+      nextFn();
+    }
+
   }
 
 }
