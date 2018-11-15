@@ -1,8 +1,26 @@
+//https://developer.mozilla.org/en-US/docs/Glossary/Hoisting
+
 class Vehicle {
   constructor(hasEngine, canFly) {
     this.hasEngine = hasEngine;
     this.canFly = canFly;
     this.calls = 0;
+  }
+
+  // When using `class` syntax, the only way to access properties
+  // is by adding a "getter" function like so:
+  get hasEngine() {
+    return this._hasEngine;
+  }
+
+  // When using `class` syntax, the only way to set properties
+  // is by adding a "setter" function like so:
+  set hasEngine(value) {
+    if (typeof value != "boolean") {
+      console.log("hasEngine must be a boolean!");
+      return;
+    }
+    this._hasEngine = value;
   }
 
   updateCalls() {

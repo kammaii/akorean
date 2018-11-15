@@ -53,6 +53,7 @@ let writeToFile = function(fileName, msg, nextFn) {
   fs.appendFile(fileName, msg, "utf8", afterFileWrite(nextFn));
 }
 
+
 /**
  * `username` is a "globally" scoped variable. This means
  * we can see it from anywhere in our program
@@ -94,7 +95,6 @@ let doTellCommand = function(cmdArray, nextFn) {
   if(cmdArray.length != 3) {
     console.log("Oops, the tell command should look like 'tell <username> <msg>' ")
     nextFn();
-
   } else {
 
     // If it's valid, get the username
@@ -105,7 +105,7 @@ let doTellCommand = function(cmdArray, nextFn) {
     let result = doesFileExist(username);
     console.log(`result: ${result}`);
     if(result) {
-      writeToFile(username, cmdArray[2], nextFn);
+      writeToFile(username, cmdArray[2]+'\n', nextFn);
     } else {
       console.log("Hmm, looks like that user is not signed in?");
       nextFn();
@@ -113,6 +113,41 @@ let doTellCommand = function(cmdArray, nextFn) {
 
   }
 
+}
+
+let readFile = function(path) {
+  return new Promise(function(resolve, reject) {
+    fs.readFile(username, 'utf8', function(err, data) {
+      if(err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    });
+  });
+}
+
+// cmdArray["check"]
+let doCheckCommand = function(cmdArray, nextFn) {
+  if(cmdArray.length == 1) {
+    console.log(`${username} is checking their messages`);
+    let result = doesFileExist(username);
+    if(result) {
+      //Promises can either be resolved or rejected
+      let readPromise = readFile(username);
+      readPromise.then(function(resolvedValue, rejectValue) {
+        console.log(resolvedValue);
+      });
+      console.log(`readPromise: ${readPromise}`);
+      nextFn();
+    } else {
+      console.log("Hmm, looks like that user is not signed in?");
+      nextFn();
+    }
+  } else {
+    console.log("Oops, please enter 'check <username>'")
+    nextFn();
+  }
 }
 
 /**
@@ -134,6 +169,8 @@ let runApp = function() {
       // don't call runApp() again, so the program will just exit
     } else if(cmdArray[0] == 'tell') {
       doTellCommand(cmdArray, runApp);
+    } else if(cmdArray[0] == 'check') {
+      doCheckCommand(cmdArray, runApp);
     } else {
       // whatever the user entered didn't match any commands
       console.log("Hmm, I didn't recognize that command?");
