@@ -127,6 +127,38 @@ let readFile = function(path) {
   });
 }
 
+// watch a file, and whenever the file changes, write the contents
+// of the file to the standard output
+let doListenCommand = function(cmdArry, nextFn) {
+  // TODONext time, we'll wrap this in a try catch. 
+  if(cmdArray.length == 1) {
+    console.log(`${username} is checking their messages`);
+    let result = doesFileExist(username);
+    if(result) {
+      //Promises can either be resolved or rejected
+
+      fs.watch(username, { encoding: 'buffer' },
+        function(eventType, filename) {
+          if (filename) {
+            console.log(`filename: ${filename}`);
+            console.log(`eventType: ${eventType}`);
+            let readFilePromise = readFile(username);
+            readFilePromise.then(function(resolvedValue, rejectedValue){
+              console.log(resolvedValue);
+              runApp();
+            });
+          }
+      });
+    } else {
+      console.log("Hmm, looks like that user is not signed in?");
+      nextFn();
+    }
+  } else {
+    console.log("Oops, please enter 'check <username>'")
+    nextFn();
+  }
+}
+
 // cmdArray["check"]
 let doCheckCommand = function(cmdArray, nextFn) {
   if(cmdArray.length == 1) {
@@ -137,9 +169,8 @@ let doCheckCommand = function(cmdArray, nextFn) {
       let readPromise = readFile(username);
       readPromise.then(function(resolvedValue, rejectValue) {
         console.log(resolvedValue);
+        nextFn();
       });
-      console.log(`readPromise: ${readPromise}`);
-      nextFn();
     } else {
       console.log("Hmm, looks like that user is not signed in?");
       nextFn();
@@ -171,6 +202,8 @@ let runApp = function() {
       doTellCommand(cmdArray, runApp);
     } else if(cmdArray[0] == 'check') {
       doCheckCommand(cmdArray, runApp);
+    } else if(cmdArray[0] == 'listen') {
+      doListenCommand(cmdArray, runApp);
     } else {
       // whatever the user entered didn't match any commands
       console.log("Hmm, I didn't recognize that command?");

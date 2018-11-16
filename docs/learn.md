@@ -34,14 +34,7 @@ The Goal of all of this is to code and host a simple username and password Login
   `docs/javascript_scope.md`)
 - [x] (2018-10) Objects (see `docs/objects.md`)
 - [x] (2018-10) Closures, passing functions
-- [ ] Runtime Errors
-  (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
-
-```
-var myError = new Error("Watch out!");
-throw myError;
-```
-
+- [x] (2018-11) Runtime Errors
 - [x] discuss events
 - [ ] Higher order functions
 - [x] Libraries (see `docs/packages.md`)
