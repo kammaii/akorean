@@ -129,14 +129,13 @@ let readFile = function(path) {
 
 // watch a file, and whenever the file changes, write the contents
 // of the file to the standard output
-let doListenCommand = function(cmdArry, nextFn) {
-  // TODONext time, we'll wrap this in a try catch. 
+// The syntax is ["listen"]
+let doListenCommand = function(cmdArray, nextFn) {
+  // TODONext time, we'll wrap this in a try catch.
   if(cmdArray.length == 1) {
     console.log(`${username} is checking their messages`);
     let result = doesFileExist(username);
     if(result) {
-      //Promises can either be resolved or rejected
-
       fs.watch(username, { encoding: 'buffer' },
         function(eventType, filename) {
           if (filename) {
@@ -145,7 +144,6 @@ let doListenCommand = function(cmdArry, nextFn) {
             let readFilePromise = readFile(username);
             readFilePromise.then(function(resolvedValue, rejectedValue){
               console.log(resolvedValue);
-              runApp();
             });
           }
       });
@@ -181,36 +179,52 @@ let doCheckCommand = function(cmdArray, nextFn) {
   }
 }
 
+//let ListenError = new Error("Uh oh! Something bad happend inside Listen");
+
 /**
  * This function runs the Main Program Loop. It listens for input,
  * and then calls functions based on what the user has entered into
  * the console
  **/
 let runApp = function() {
-  // prompt for next command
-  rl.question(prompt, function(cmd) {
+//  try {
+    // prompt for next command
+    rl.question(prompt, function(cmd) {
 
-    // a command will be a string like "tell danny hi"
-    // we need to break that string into an array of words
-    // "to danny".split(" ") will produce an array like ["tell", "danny", "hi"]
-    let cmdArray = cmd.split(" ");
+      // a command will be a string like "tell danny hi"
+      // we need to break that string into an array of words
+      // "to danny".split(" ") will produce an array like ["tell", "danny", "hi"]
+      let cmdArray = cmd.split(" ");
 
-    if(cmdArray[0] == 'exit') {
-      doExitCommand();
-      // don't call runApp() again, so the program will just exit
-    } else if(cmdArray[0] == 'tell') {
-      doTellCommand(cmdArray, runApp);
-    } else if(cmdArray[0] == 'check') {
-      doCheckCommand(cmdArray, runApp);
-    } else if(cmdArray[0] == 'listen') {
-      doListenCommand(cmdArray, runApp);
-    } else {
-      // whatever the user entered didn't match any commands
-      console.log("Hmm, I didn't recognize that command?");
-      runApp();
-    }
+      if(cmdArray[0] == 'exit') {
+        doExitCommand();
+        // don't call runApp() again, so the program will just exit
+      } else if(cmdArray[0] == 'tell') {
+        doTellCommand(cmdArray, runApp);
+      } else if(cmdArray[0] == 'check') {
+        doCheckCommand(cmdArray, runApp);
+      } else if(cmdArray[0] == 'listen') {
+        try {
+          doListenCommand(cmdArray, runApp);
+        } catch(err) {
+          console.log(err);
+        } finally {
+          runApp();
+        }
+      } else {
+        // whatever the user entered didn't match any commands
+        console.log("Hmm, I didn't recognize that command?");
+        runApp();
+      }
 
-  });
+    });
+/*  } catch (err) {
+    console.log("Yikes!!");
+    console.log(err);
+    runApp();
+  } finally {
+    console.log("Inside Finally");
+  }*/
 }
 
 /**

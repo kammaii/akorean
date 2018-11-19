@@ -33,3 +33,10 @@ a file with the same name as the username of user2.
 user1 will type a message to user2. The program will store the message inside user2's file.
 
 user2 will read the new message from the file.
+
+# TODO
+
+- Able to send messages longer than one word
+- why does listen show the contents of the file twice?
+- only show the latest message when listening
+- change to use network sockets instead of files.
