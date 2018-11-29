@@ -29,6 +29,8 @@ let doExitCommand = function() {
   rl.close(); // remember to close after writing
 }
 
+let messages = [];
+
 // cmdArray ["tell" "ip address" "hello"]
 let doTellCommand = function(cmdArray, nextFn) {
 
@@ -44,9 +46,16 @@ let doTellCommand = function(cmdArray, nextFn) {
     const client = net.createConnection({ port: port, host: ipAddress},
       function() {
 
+      messages.push(`${cmdArray[2]}\r\n`);
+
+      let packet = {"from": username,
+                    "messages": messages}
+
+      let packetStr = JSON.stringify(packet);
+
       // 'connect' listener
       console.log('connected to server!');
-      client.write(`${cmdArray[2]}\r\n`);
+      client.write(packetStr);
       client.end();
       nextFn();
 
@@ -71,6 +80,8 @@ const server = net.createServer(function (socket) {
 
   socket.on('data', (data) => {
     console.log(data.toString());
+    let response = JSON.parse(data);
+    console.log(`${response.from} just said: ${response.messages[0]} `);
   });
   //socket.write('hello\r\n');
   //socket.pipe(socket);
