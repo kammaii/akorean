@@ -27,14 +27,14 @@ let handleRequest = function(httpRequest, httpResponse) {
   if(httpRequest.url == '/app.js'){
     serveFile('app.js', 'text/javascript', httpResponse);
   } else {
-
-    httpResponse.statusCode = 200;
+    serveFile('app.html', 'text/html', httpResponse);
+    //httpResponse.statusCode = 200;
 
     // Very simple string response
-    httpResponse.setHeader('Content-Type', 'text/html');
+    //httpResponse.setHeader('Content-Type', 'text/html');
 
     // everything after the headers is the "Response Body"
-    let html = "<html><head><title>Jquery</title></head>" +
+    /*let html = "<html><head><title>Jquery</title></head>" +
               "<body>"+
               "<div>Hello Jquery</div>"+
               "<form method=\"POST\" action=\"/login\">"+
@@ -51,9 +51,9 @@ let handleRequest = function(httpRequest, httpResponse) {
              "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js\"></script>"+
              "<script src=\"http://127.0.0.1:3000/app.js\">" +
              "</script>"+
-             "</body>";
+             "</body>";*/
 
-    httpResponse.end(html);
+    //httpResponse.end(html);
   }
 } catch(err) {
   console.log(err);
