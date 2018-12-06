@@ -4,16 +4,21 @@
   </head>
   <body>
     <div>Hello Jquery!</div>
+    <div id="info">
+        <p id="info-msg">Please enter username and password to sign in</p>
+    </div>
     <form method="POST" action="login">
       <div>
         <label for="username">Username</label>
-        <input name="username" type="text"></input>
+        <input id="username" name="username" type="text" value="upgradingdave"></input>
       </div>
       <div>
         <label for="password">Password</label>
-        <input name="password" type="text"></input>
+        <input id="password" name="password" type="text" value="secret"></input>
       </div>
-      <a href="#" id="submitBtn" class="btn" value="Submit">Submit</a>
+      <!--<input type="submit" value=""></input>-->
+      <button id="submitBtn" type="button">Submit</button>
+      <!--<a href="#" id="submitBtn" class="btn" value="Submit">Submit</a>-->
     </form>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script src="http://127.0.0.1:3000/app.js"></script>
