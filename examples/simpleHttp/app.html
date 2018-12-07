@@ -2,6 +2,11 @@
   <head>
     <title>Jquery</title>
   </head>
+  <style>
+    #info-username, #info-password {
+      color: red;
+    }
+  </style>
   <body>
     <div>Hello Jquery!</div>
     <div id="info">
@@ -11,14 +16,14 @@
       <div>
         <label for="username">Username</label>
         <input id="username" name="username" type="text" value="upgradingdave"></input>
+        <label for="username" id="info-username"></label>
       </div>
       <div>
         <label for="password">Password</label>
         <input id="password" name="password" type="text" value="secret"></input>
+        <label for="password" id="info-password"></label>
       </div>
-      <!--<input type="submit" value=""></input>-->
       <button id="submitBtn" type="button">Submit</button>
-      <!--<a href="#" id="submitBtn" class="btn" value="Submit">Submit</a>-->
     </form>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script src="http://127.0.0.1:3000/app.js"></script>
