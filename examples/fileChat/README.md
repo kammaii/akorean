@@ -39,4 +39,3 @@ user2 will read the new message from the file.
 - Able to send messages longer than one word
 - why does listen show the contents of the file twice?
 - only show the latest message when listening
-- change to use network sockets instead of files.
