@@ -33,12 +33,19 @@ Same as before, when we run out of symbols, we can combine them:
 12 (base 8) = 10 (base 10)
 13 (base 8) = 11 (base 10)
 14 (base 8) = 12 (base 10)
+15
+16
+17
+20
+
 ...
 
 In octal, the decimal number "403" would be represented as "623". Remember that we can write the octal number as powers of 8, like this:
 
 6 * 8^2 + 2 * 8^1 + 3 * 8^0
 384     + 16      + 3 = 403
+
+403 (uses 10 digits) == 623 (eight digits)
 
 ## Binary (Base 2)
 
@@ -145,7 +152,7 @@ http://www.unicode.org/charts/
 ```
 let hangulRegex = /[\u3140-\u317F\uAC00-\uD79F\u1100-\u11FF]+/
 
-let n = "ㅗ".charCodeAt(0)
+let n = "ㅗㅎ".charCodeAt(0) //1169
 
 n.toString(16) // convert a decimal (base 10) to unicode (base 16)
 
