@@ -17,17 +17,57 @@ let serveFile = (pathToFile, contentType, httpResponse) => {
   });
 }
 
+let userAccounts = {
+  'upgradingdave': {
+    username: 'upgradingdave',
+    password: 'secret'
+  },
+  'danny': {
+    username: 'danny',
+    password: 'secret2'
+  }
+};
+
 let handleRequest = function(httpRequest, httpResponse) {
   try {
   //console.log(httpResponse);
 
-  // what is this request for?
   // here's where we define the routes
+  // Browsers will send GET or POST requests
+  // If they are GET requests, all the info is in the url like this:
+  //  /login?username=upgradingdave&password=secret
   console.log(httpRequest.url);
-  if(httpRequest.url == '/app.js'){
-    serveFile('app.js', 'text/javascript', httpResponse);
+  console.log(httpRequest.method);
+
+  if(httpRequest.url.match(/\/login.*/)){
+
+    console.log('This is a LOGIN request!');
+    // get paramaters out of GET login url
+    let loginRE = /login\?username=([^&]*)&password=(.*)/
+    let paramResult = httpRequest.url.match(loginRE);
+    let username = paramResult[1];
+    let password = paramResult[2];
+
+    if(userAccounts[username]) {
+      let passwordCheck = userAccounts[username].password;
+      if(passwordCheck === password) {
+        // Authenticated!!
+        serveFile('home.html', 'text/html', httpResponse);
+      } else {
+        // Wrong password!!
+      }
+    } else {
+      // user doesn't exist!!
+    }
+
+
+
+  }
+  // Any request for any ".js" file should return the correct js file. 
+  else if(httpRequest.url == '/login.js'){
+    serveFile('login.js', 'text/javascript', httpResponse);
   } else {
-    serveFile('app.html', 'text/html', httpResponse);
+    serveFile('login.html', 'text/html', httpResponse);
     //httpResponse.statusCode = 200;
 
     // Very simple string response

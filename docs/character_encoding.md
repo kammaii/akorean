@@ -138,6 +138,12 @@ describing Unicode mappings.
 
 There are 8 bits in 1 byte.
 
+You have bytes in a file and without utf-8, or utf-16, or utf-32 there's no way
+to know what those bytes mean.
+
+You need to use utf-8 (or utf-16, or uft-32) to interpret those bytes int Unicode
+characters.
+
 UTF-8 uses 8 bytes to describe characters. UTF-16 uses 16 bytes, and UTF-32 uses
 32 bytes.
 

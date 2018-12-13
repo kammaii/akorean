@@ -12,7 +12,7 @@
     <div id="info">
         <p id="info-msg">Please enter username and password to sign in</p>
     </div>
-    <form method="POST" action="login">
+    <form method="GET" action="login">
       <div>
         <label for="username">Username</label>
         <input id="username" name="username" type="text" value="upgradingdave"></input>
@@ -23,9 +23,9 @@
         <input id="password" name="password" type="text" value="secret"></input>
         <label for="password" id="info-password"></label>
       </div>
-      <button id="submitBtn" type="button">Submit</button>
+      <button id="submitBtn" type="submit">Submit</button>
     </form>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-    <script src="http://127.0.0.1:3000/app.js"></script>
+    <script src="http://127.0.0.1:3000/login.js"></script>
   </body>
 </html>
