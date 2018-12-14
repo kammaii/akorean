@@ -39,7 +39,11 @@ let handleRequest = function(httpRequest, httpResponse) {
   console.log(httpRequest.url);
   console.log(httpRequest.method);
 
-  if(httpRequest.url.match(/\/login.*/)){
+  if(httpRequest.url == '/login.js'){
+
+    serveFile('login.js', 'text/javascript', httpResponse);
+
+  } else if(httpRequest.url.match(/\/login.*/)) {
 
     console.log('This is a LOGIN request!');
     // get paramaters out of GET login url
@@ -59,13 +63,8 @@ let handleRequest = function(httpRequest, httpResponse) {
     } else {
       // user doesn't exist!!
     }
+  // Any request for any ".js" file should return the correct js file.
 
-
-
-  }
-  // Any request for any ".js" file should return the correct js file. 
-  else if(httpRequest.url == '/login.js'){
-    serveFile('login.js', 'text/javascript', httpResponse);
   } else {
     serveFile('login.html', 'text/html', httpResponse);
     //httpResponse.statusCode = 200;
