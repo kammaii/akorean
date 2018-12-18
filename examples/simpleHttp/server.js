@@ -36,10 +36,18 @@ let handleRequest = function(httpRequest, httpResponse) {
   // Browsers will send GET or POST requests
   // If they are GET requests, all the info is in the url like this:
   //  /login?username=upgradingdave&password=secret
-  console.log(httpRequest.url);
+  let decodedUrl = decodeURI(httpRequest.url);
+  //decodedUrl = decodedUrl.replace(/\s/, "");
+  console.log("RAW url: " + httpRequest.url);
+  console.log("Decoded url: " + decodedUrl);
   console.log(httpRequest.method);
 
-  if(httpRequest.url == '/login.js'){
+  if(decodedUrl == '/안녕하세요.html') {
+
+    console.log("Serving a 한글 url!!")
+    serveFile('안녕하세요.html', 'text/javascript', httpResponse);
+    
+  } else if(httpRequest.url == '/login.js'){
 
     serveFile('login.js', 'text/javascript', httpResponse);
 
