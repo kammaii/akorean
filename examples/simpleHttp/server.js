@@ -45,8 +45,8 @@ let handleRequest = function(httpRequest, httpResponse) {
   if(decodedUrl == '/안녕하세요.html') {
 
     console.log("Serving a 한글 url!!")
-    serveFile('안녕하세요.html', 'text/javascript', httpResponse);
-    
+    serveFile('안녕하세요.html', 'text/html', httpResponse);
+
   } else if(httpRequest.url == '/login.js'){
 
     serveFile('login.js', 'text/javascript', httpResponse);
