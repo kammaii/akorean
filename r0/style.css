@@ -1,0 +1,114 @@
+/* @import url('https://fonts.googleapis.com/css?family=Indie+Flower');
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic'); */
+@font-face {
+  font-family: godoMaum;
+  src: url(font/godoMaum.ttf);
+}
+@font-face {
+  font-family: mimi;
+  src: url(font/mimi.ttf);
+}
+#title {
+  font-size: 20px;
+  margin: 0;
+  padding: 7px;
+}
+#grid {
+  display: grid;
+  grid-template-rows: 10% 80% 10%;
+}
+#studyContainer {
+  display: grid;
+  grid-template-columns: 10% 80% 10%;
+  border: 1px solid;
+  width: 80%;
+  height: 60%;
+  margin: auto;
+}
+#studyContents {
+  font-family: godoMaum;
+  font-size: 200px;
+  text-align: center;
+  margin: auto;
+}
+.buttonLeft {
+  display: inline;
+  top: 45%;
+}
+.buttonRight {
+  display: inline;
+  top: 45%;
+}
+#first {
+  margin: 0px;
+}
+#uiGrid {
+  margin: 5px;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+#consonants, .draggable_v {
+  font-family: godoMaum;
+  border: 1px solid;
+  width: 30px;
+  height: 30px;
+  float: left;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+#droppable_ass_1_c {
+  border: 1px solid;
+  width: 100px;
+  height: 150px;
+  padding: 0.5em;
+  float: left;
+}
+#droppable_ass_1_v {
+  border: 1px solid;
+  width: 50px;
+  height: 150px;
+  padding: 0.5em;
+  float: left;
+}
+
+/* .study {
+  font-family: 'Nanum Gothic', sans-serif;
+  text-align: center;
+}
+.bx-wrapper {
+  margin-top: 30px;
+}
+#assBtn {
+  text-align: center;
+}
+#option1, #option2, #option3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+#save {
+  margin-top: 30px;
+} */
+/* #contentContainer {
+  border: 1px solid;
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: 20% 30% 10% 40%;
+  grid-template-rows: 16% 16% 16% 16% 16%;
+  grid-template-areas:
+    'empty empty empty empty'
+    'empty consonant vowel empty'
+    'empty consonant vowel empty'
+    'empty consonant vowel empty'
+    'empty empty empty empty';
+}
+#droppable_ass_1_c {
+  grid-area: consonant;
+  background-color: red;
+}
+#droppable_ass_1_v {
+  grid-area: vowel;
+  background-color: blue;
+} */
