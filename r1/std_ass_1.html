@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Awesome Korean</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <style>
+  </style>
+  <body>
+    <div id="header">
+      <a href="#"><img src="img/home.svg" alt="home" class="icon"></a>
+      <h1>Awesome Korean</h1>
+      <a href="#"><img src="img/back.svg" alt="back" class="icon"></a>
+    </div>
+    <div id="content">
+      <div id="assembly">
+        <div id="assemblyConsonant_1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        <div id="assemblyVowel_1"></div>
+      </div>
+      <div id="button">
+        <hr>
+        <button type="button" class="btn">Consonant</button>
+        <button type="button" class="btn">Vowel</button>
+      </div>
+      <div id="containerConsonant"></div>
+      <div id="containerVowel"></div>
+    </div>
+    <div id="footer">
+      <p>footer</p>
+    </div>
+
+  </body>
+  <script>
+  let consonantArray = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ", "ㄲ", "ㄸ", "ㅃ", "ㅆ", "ㅉ"];
+  let vowelArray = ["ㅏ", "ㅑ", "ㅓ", "ㅕ", "ㅗ", "ㅛ", "ㅜ", "ㅠ", "ㅡ", "ㅣ", "ㅐ", "ㅒ", "ㅔ", "ㅖ", "ㅘ", "ㅝ", "ㅢ", "ㅙ", "ㅞ", "ㅚ", "ㅟ"];
+
+  //Function to make boxes of consonant and vowels
+  function createCharacters(character, num) {
+    let newElement = document.createElement("div");
+    newElement.setAttribute("class", "consonant");
+    newElement.setAttribute("id", "consonant"+num);
+    newElement.setAttribute("draggable", "true");
+    newElement.setAttribute("ondragstart", "drag(event)");
+    let newCharacterNode = document.createTextNode(character);
+    newElement.appendChild(newCharacterNode);
+    return newElement;
+  }
+  let currentDiv = document.getElementById("containerConsonant")
+
+  for(let i=0; i<consonantArray.length; i++) {
+    let consonant = createCharacters(consonantArray[i], i);
+    currentDiv.appendChild(consonant);
+  }
+
+  //Drag and drop : javascript
+  function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+  }
+  function drop(ev) {
+    ev.preventDefault();
+    let data = ev.dataTransfer.getData("text");
+    let content = document.getElementById(data).textContent;
+    document.getElementById("assemblyConsonant_1").innerHTML = content;
+    //document.getElementById("drag").style.color = 'black';
+  }
+  function allowDrop(ev) {
+    //ev.target.style.color = 'blue';
+    ev.preventDefault();
+  }
+  </script>
+</html>
