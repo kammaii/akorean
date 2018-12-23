@@ -15,16 +15,23 @@
     </div>
     <div id="content">
       <div id="assembly">
-        <div id="assemblyConsonant_1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-        <div id="assemblyVowel_1"></div>
+        <div id="assembly_consonant_1" ondrop="drop(event)" ondragover="allowDrop(event)">C</div>
+        <div id="assembly_vowel_1" ondrop="drop(event)" ondragover="allowDrop(event)">V</div>
       </div>
-      <div id="button">
-        <hr>
-        <button type="button" class="btn">Consonant</button>
-        <button type="button" class="btn">Vowel</button>
+      <div id="message"></div>
+      <div id="button_conVow">
+        <button type="button" class="button" onclick="btn_function('consonant')">Consonant</button>
+        <button type="button" class="button" onclick="btn_function('vowel')">Vowel</button>
       </div>
-      <div id="containerConsonant"></div>
-      <div id="containerVowel"></div>
+      <div>
+        <div id="container_consonant"></div>
+        <div id="container_vowel"></div>
+      </div>
+      <div id="button_function">
+        <button type="button" class="button">Native's voice</button>
+        <button type="button" class="button">My voice</button>
+        <button type="button" class="button">Writing</button>
+      </div>
     </div>
     <div id="footer">
       <p>footer</p>
@@ -32,41 +39,74 @@
 
   </body>
   <script>
-  let consonantArray = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ", "ㄲ", "ㄸ", "ㅃ", "ㅆ", "ㅉ"];
-  let vowelArray = ["ㅏ", "ㅑ", "ㅓ", "ㅕ", "ㅗ", "ㅛ", "ㅜ", "ㅠ", "ㅡ", "ㅣ", "ㅐ", "ㅒ", "ㅔ", "ㅖ", "ㅘ", "ㅝ", "ㅢ", "ㅙ", "ㅞ", "ㅚ", "ㅟ"];
+  let consonant_array = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ", "ㄲ", "ㄸ", "ㅃ", "ㅆ", "ㅉ"];
+  let vowel_array = ["ㅏ", "ㅑ", "ㅓ", "ㅕ", "ㅣ", "ㅐ", "ㅒ", "ㅔ", "ㅖ"];
 
   //Function to make boxes of consonant and vowels
-  function createCharacters(character, num) {
+  function createCharacters(character, num, conVow) {
     let newElement = document.createElement("div");
-    newElement.setAttribute("class", "consonant");
-    newElement.setAttribute("id", "consonant"+num);
+    newElement.setAttribute("class", conVow);
+    newElement.setAttribute("id", conVow+num);
     newElement.setAttribute("draggable", "true");
     newElement.setAttribute("ondragstart", "drag(event)");
     let newCharacterNode = document.createTextNode(character);
     newElement.appendChild(newCharacterNode);
     return newElement;
   }
-  let currentDiv = document.getElementById("containerConsonant")
+  let currentDiv = document.getElementById("container_consonant")
 
-  for(let i=0; i<consonantArray.length; i++) {
-    let consonant = createCharacters(consonantArray[i], i);
+  for(let i=0; i<consonant_array.length; i++) {
+    let consonant = createCharacters(consonant_array[i], i, "consonant");
     currentDiv.appendChild(consonant);
   }
+  for(let i=0; i<vowel_array.length; i++) {
+    let vowel = createCharacters(vowel_array[i], i, "vowel");
+    currentDiv.appendChild(vowel);
+  }
+
 
   //Drag and drop : javascript
   function drag(ev) {
+    document.getElementById("message").innerHTML = "";
     ev.dataTransfer.setData("text", ev.target.id);
   }
   function drop(ev) {
     ev.preventDefault();
     let data = ev.dataTransfer.getData("text");
     let content = document.getElementById(data).textContent;
-    document.getElementById("assemblyConsonant_1").innerHTML = content;
-    //document.getElementById("drag").style.color = 'black';
+    // Check matching if consonant and vowel are placed exactly.
+    if(ev.target.id == "assembly_consonant_1" && consonant_array.includes(content)) {
+      document.getElementById("assembly_consonant_1").innerHTML = content;
+      document.getElementById("assembly_consonant_1").style.color = 'black';
+    } else if(ev.target.id == "assembly_vowel_1" && vowel_array.includes(content)) {
+      document.getElementById("assembly_vowel_1").innerHTML = content;
+      document.getElementById("assembly_vowel_1").style.color = 'black';
+    } else {
+      document.getElementById("message").innerHTML = "Consonant and vowel should be placed in each place.";
+    }
   }
   function allowDrop(ev) {
     //ev.target.style.color = 'blue';
     ev.preventDefault();
+  }
+
+  //Button Function
+  let btn_function = function(conVow) {
+    if(conVow == "consonant") {
+      for(i=0; i<consonant_array.length; i++) {
+        document.getElementById("consonant"+i).style.display = "initial";
+      }
+      for(i=0; i<vowel_array.length; i++) {
+        document.getElementById("vowel"+i).style.display = "none";
+      }
+    } else if(conVow == "vowel") {
+      for(i=0; i<consonant_array.length; i++) {
+        document.getElementById("consonant"+i).style.display = "none";
+      }
+      for(i=0; i<vowel_array.length; i++) {
+        document.getElementById("vowel"+i).style.display = "initial";
+      }
+    }
   }
   </script>
 </html>

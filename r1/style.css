@@ -24,35 +24,42 @@ body {
 }
 #content {
   display: grid;
-  grid-template-rows: 45% 10% 45%;
+  grid-template-rows: 45% 5% 10% 30% 10%;
 }
 #assembly {
-  margin: 30px auto 0px auto;
+  margin: 80px auto 0px auto;
 }
-#assemblyConsonant_1 {
+#message {
   font-family: godoMaum;
-  border: 1px solid;
-  width: 350px;
-  height: 90%;
-  float: left;
-  font-size: 10em;
+  font-size: 4em;
   text-align: center;
+  color: #8FB299;
 }
-#assemblyVowel_1 {
-  border: 1px solid;
-  width: 200px;
+#assembly_consonant_1, #assembly_vowel_1 {
+  font-family: godoMaum;
+  border: 1px solid black;
+  width: 300px;
   height: 90%;
   float: left;
+  font-size: 25em;
+  text-align: center;
+  color: #e5e7ea;
 }
-#button {
-  margin: 10px;
+#button_conVow {
+  display: grid;
+  grid-template-columns: 50% 50%;
 }
-.btn {
-  font-size: 2em;
+.button {
+  height: 80%;
+  font-size: 2.5em;
   padding: 20px;
   float: right;
 }
-.consonant {
+#button_function {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+}
+.consonant, .vowel {
   font-family: godoMaum;
   font-size: 6em;
   text-align: center;
@@ -64,7 +71,9 @@ body {
   float: left;
   margin-left: auto;
   margin-right: auto;
-
+}
+.vowel {
+  display: none;
 }
 #footer {
   background-color: #e6e9ef;
