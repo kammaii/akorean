@@ -1,0 +1,30 @@
+@font-face {
+  font-family: godoMaum;
+  src: url(font/godoMaum.ttf);
+}
+#content {
+  display: grid;
+  grid-template-rows: 90% 10%;
+}
+#content_study {
+  display: grid;
+  grid-template-columns: 10% 80% 10%;
+  margin: 100px auto auto;
+  border: 1px solid black;
+  width: 80%;
+  height: 60%;
+}
+#content_study > a {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+#study_conVow {
+  font-family: godoMaum;
+  font-size: 30em;
+  text-align: center;
+  margin: auto;
+}
+#content_button_function {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+}

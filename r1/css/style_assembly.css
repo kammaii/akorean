@@ -1,0 +1,45 @@
+@font-face {
+  font-family: godoMaum;
+  src: url(font/godoMaum.ttf);
+}
+#content {
+  display: grid;
+  grid-template-rows: 45% 5% 10% 30% 10%;
+}
+#content_assembly {
+  margin: 80px auto 0px auto;
+}
+#assembly_consonant_1, #assembly_vowel_1 {
+  font-family: godoMaum;
+  border: 1px solid black;
+  width: 300px;
+  height: 90%;
+  float: left;
+  font-size: 25em;
+  text-align: center;
+  color: #e5e7ea;
+}
+#content_button_conVow {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+#content_button_function {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+}
+.consonant, .vowel {
+  font-family: godoMaum;
+  font-size: 6em;
+  text-align: center;
+  background-color: white;
+  margin: 5px;
+  border: 1px solid;
+  width: 120px;
+  height: 120px;
+  float: left;
+  margin-left: auto;
+  margin-right: auto;
+}
+.vowel {
+  display: none;
+}

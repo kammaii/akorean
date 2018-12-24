@@ -3,23 +3,22 @@
   <head>
     <meta charset="utf-8">
     <title>Awesome Korean</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style_main.css">
+    <link rel="stylesheet" href="css/style_assembly.css">
   </head>
-  <style>
-  </style>
   <body>
     <div id="header">
-      <a href="#"><img src="img/home.svg" alt="home" class="icon"></a>
+      <a href="home.html"><img src="img/home.svg" alt="home" class="icon"></a>
       <h1>Awesome Korean</h1>
       <a href="#"><img src="img/back.svg" alt="back" class="icon"></a>
     </div>
     <div id="content">
-      <div id="assembly">
+      <div id="content_assembly">
         <div id="assembly_consonant_1" ondrop="drop(event)" ondragover="allowDrop(event)">C</div>
         <div id="assembly_vowel_1" ondrop="drop(event)" ondragover="allowDrop(event)">V</div>
       </div>
-      <div id="message"></div>
-      <div id="button_conVow">
+      <div id="content_message"></div>
+      <div id="content_button_conVow">
         <button type="button" class="button" onclick="btn_function('consonant')">Consonant</button>
         <button type="button" class="button" onclick="btn_function('vowel')">Vowel</button>
       </div>
@@ -27,7 +26,7 @@
         <div id="container_consonant"></div>
         <div id="container_vowel"></div>
       </div>
-      <div id="button_function">
+      <div id="content_button_function">
         <button type="button" class="button">Native's voice</button>
         <button type="button" class="button">My voice</button>
         <button type="button" class="button">Writing</button>
@@ -39,6 +38,7 @@
 
   </body>
   <script>
+
   let consonant_array = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ", "ㄲ", "ㄸ", "ㅃ", "ㅆ", "ㅉ"];
   let vowel_array = ["ㅏ", "ㅑ", "ㅓ", "ㅕ", "ㅣ", "ㅐ", "ㅒ", "ㅔ", "ㅖ"];
 
@@ -47,12 +47,16 @@
     let newElement = document.createElement("div");
     newElement.setAttribute("class", conVow);
     newElement.setAttribute("id", conVow+num);
-    newElement.setAttribute("draggable", "true");
-    newElement.setAttribute("ondragstart", "drag(event)");
+    // newElement.setAttribute("draggable", "true");
+    // newElement.setAttribute("ondragstart", "drag(event)");
+    newElement.addEventListener("touchstart", touchDrag, false);
+    newElement.addEventListener("touchend", touchDrop, false);
+
     let newCharacterNode = document.createTextNode(character);
     newElement.appendChild(newCharacterNode);
     return newElement;
   }
+
   let currentDiv = document.getElementById("container_consonant")
 
   for(let i=0; i<consonant_array.length; i++) {
@@ -64,31 +68,55 @@
     currentDiv.appendChild(vowel);
   }
 
+  // Mobile Touch drag and drop
+    var lastTouchId = null;
+    function touchDrag(ev) {
+      ev.preventDefault();
+      document.getElementById("content_message").innerHTML = "";
+      lastTouchId = ev.target.id;
+    }
+    function touchDrop(ev) {
+      ev.preventDefault();
+      let content = document.getElementById(lastTouchId).textContent;
+
+      var changedTouch = ev.changedTouches[0];
+      var elem = document.elementFromPoint(changedTouch.clientX, changedTouch.clientY);
+      // Check matching if consonant and vowel are placed exactly.
+      if(elem.id == "assembly_consonant_1" && consonant_array.includes(content)) {
+        document.getElementById("assembly_consonant_1").innerHTML = content;
+        document.getElementById("assembly_consonant_1").style.color = 'black';
+      } else if(elem.id == "assembly_vowel_1" && vowel_array.includes(content)) {
+        document.getElementById("assembly_vowel_1").innerHTML = content;
+        document.getElementById("assembly_vowel_1").style.color = 'black';
+      } else {
+        document.getElementById("content_message").innerHTML = "Consonant and vowel should be placed in each place.";
+      }
+    }
 
   //Drag and drop : javascript
-  function drag(ev) {
-    document.getElementById("message").innerHTML = "";
-    ev.dataTransfer.setData("text", ev.target.id);
-  }
-  function drop(ev) {
-    ev.preventDefault();
-    let data = ev.dataTransfer.getData("text");
-    let content = document.getElementById(data).textContent;
-    // Check matching if consonant and vowel are placed exactly.
-    if(ev.target.id == "assembly_consonant_1" && consonant_array.includes(content)) {
-      document.getElementById("assembly_consonant_1").innerHTML = content;
-      document.getElementById("assembly_consonant_1").style.color = 'black';
-    } else if(ev.target.id == "assembly_vowel_1" && vowel_array.includes(content)) {
-      document.getElementById("assembly_vowel_1").innerHTML = content;
-      document.getElementById("assembly_vowel_1").style.color = 'black';
-    } else {
-      document.getElementById("message").innerHTML = "Consonant and vowel should be placed in each place.";
-    }
-  }
-  function allowDrop(ev) {
-    //ev.target.style.color = 'blue';
-    ev.preventDefault();
-  }
+  // function drag(ev) {
+  //   document.getElementById("content_message").innerHTML = "";
+  //   ev.dataTransfer.setData("text", ev.target.id);
+  // }
+  // function drop(ev) {
+  //   ev.preventDefault();
+  //   let data = ev.dataTransfer.getData("text");
+  //   let content = document.getElementById(data).textContent;
+  //   // Check matching if consonant and vowel are placed exactly.
+  //   if(ev.target.id == "assembly_consonant_1" && consonant_array.includes(content)) {
+  //     document.getElementById("assembly_consonant_1").innerHTML = content;
+  //     document.getElementById("assembly_consonant_1").style.color = 'black';
+  //   } else if(ev.target.id == "assembly_vowel_1" && vowel_array.includes(content)) {
+  //     document.getElementById("assembly_vowel_1").innerHTML = content;
+  //     document.getElementById("assembly_vowel_1").style.color = 'black';
+  //   } else {
+  //     document.getElementById("content_message").innerHTML = "Consonant and vowel should be placed in each place.";
+  //   }
+  // }
+  // function allowDrop(ev) {
+  //   //ev.target.style.color = 'blue';
+  //   ev.preventDefault();
+  // }
 
   //Button Function
   let btn_function = function(conVow) {
