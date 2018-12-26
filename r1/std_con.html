@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Awesome Korean</title>
+    <link rel="stylesheet" href="css/style_main.css">
+    <link rel="stylesheet" href="css/style_study.css">
+    <!-- <link rel="stylesheet" href="js/jquery.mobile-1.4.5.min.css">
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery.mobile-1.4.5.min.js"></script> -->
+  </head>
+  <body>
+    <div id="header">
+      <a href="home.html"><img src="img/home.svg" alt="home" class="icon"></a>
+      <h1>Awesome Korean</h1>
+      <a href="Consonants.html"><img src="img/back.svg" alt="back" class="icon"></a>
+    </div>
+    <div id="content">
+      <div id="content_study">
+        <a href="" id="button_left" ontouchstart="leftHangul()"><img src="img/left.svg" alt="left" class="icon button_left"></a>
+        <div id="study_conVow">ㄱ</div>
+        <a href="" id="button_right" ontouchstart="rightHangul()"><img src="img/right.svg" alt="right" class="icon button_right"></a>
+      </div>
+      <div id="content_button_function">
+        <button type="button" class="button">Native's voice</button>
+        <button type="button" class="button">My voice</button>
+        <button type="button" class="button">Writing</button>
+        <button type="button" class="button">Hint</button>
+      </div>
+    </div>
+    <div id="footer">
+      <p>footer</p>
+    </div>
+  </body>
+  <script>
+    let consonantArray = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ", "ㄲ", "ㄸ", "ㅃ", "ㅆ", "ㅉ"];
+
+    // window.onload = init();
+    // function init(){
+    //   document.getElementById("button_left").onclick = beforeHangul;
+    // }
+    let countClick = 0;
+    function leftHangul() {
+      countClick = countClick - 1;
+      if(countClick < 0 ) {
+        countClick = consonantArray.length-1;
+      }
+      document.getElementById("study_conVow").innerHTML = consonantArray[countClick];
+    }
+    function rightHangul() {
+      countClick = countClick + 1;
+      if(countClick == consonantArray.length) {
+        countClick = 0;
+      }
+      document.getElementById("study_conVow").innerHTML = consonantArray[countClick];
+    }
+
+    // Swipe event for pure Javascript
+    function swipedetect(el, callback) {
+      let touchsurface = el,
+      swipedir,
+      startX,
+      startY,
+      distX,
+      distY,
+      threshold = 150, //required min distance traveled to be considered swipe
+      restraint = 100, // maximum distance allowed at the same time in perpendicular direction
+      allowedTime = 300, // maximum time allowed to travel that distance
+      elapsedTime,
+      startTime,
+      handleswipe = callback || function(swipedir){}
+
+      touchsurface.addEventListener('touchstart', function(e) {
+          let touchobj = e.changedTouches[0]
+          swipedir = 'none'
+          dist = 0
+          startX = touchobj.pageX
+          startY = touchobj.pageY
+          startTime = new Date().getTime() // record time when finger first makes contact with surface
+          e.preventDefault()
+      }, false)
+
+      touchsurface.addEventListener('touchmove', function(e) {
+          e.preventDefault() // prevent scrolling when inside DIV
+      }, false)
+
+      touchsurface.addEventListener('touchend', function(e) {
+          let touchobj = e.changedTouches[0]
+          distX = touchobj.pageX - startX // get horizontal dist traveled by finger while in contact with surface
+          distY = touchobj.pageY - startY // get vertical dist traveled by finger while in contact with surface
+          elapsedTime = new Date().getTime() - startTime // get time elapsed
+          if (elapsedTime <= allowedTime){ // first condition for awipe met
+              if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint){ // 2nd condition for horizontal swipe met
+                  swipedir = (distX < 0)? 'left' : 'right' // if dist traveled is negative, it indicates left swipe
+              }
+          }
+          handleswipe(swipedir)
+          e.preventDefault()
+      }, false)
+    }
+//USAGE:
+    let el = document.getElementById('content');
+    swipedetect(el, function(swipedir) {
+      if(swipedir == "left") {
+        leftHangul();
+      } else if(swipedir == "right") {
+        rightHangul();
+      }
+    });
+
+
+    //   fadeOut(element);
+    // }
+    // function fadeOut(element) {
+    //   var op = 1;  // initial opacity
+    //   var timer = setInterval(function () {
+    //     if (op <= 0.1){
+    //       clearInterval(timer);
+    //       element.style.display = 'none';
+    //     }
+    //     element.style.opacity = op;
+    //     element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+    //     op -= op * 0.1;
+    //   }, 50);
+    // }
+
+  </script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- // //Hangul change and fade in/out with jquery
+  // let countClick = 0;
+  // let nextHangul = function() {
+  //   $("#study_conVow").fadeOut(300, function() {
+  //     countClick = countClick + 1;
+  //     if(countClick == consonantArray.length) {
+  //       countClick = 0;
+  //     }
+  //     $("#study_conVow").html(consonantArray[countClick]);
+  //     $("#study_conVow").fadeIn(300);
+  //   });
+  // };
+  // let beforeHangul = function() {
+  //   $("#study_conVow").fadeOut(300, function() {
+  //     countClick = countClick - 1;
+  //     if(countClick < 0 ) {
+  //       countClick = consonantArray.length-1;
+  //     }
+  //     $("#study_conVow").html(consonantArray[countClick]);
+  //     $("#study_conVow").fadeIn(300);
+  //   });
+  // };
+  // //Hangul change function trigger
+  // $(document).ready(function() {
+  //   $(".button_right").click(function() {
+  //     nextHangul();
+  //   });
+  //   $(".button_left").click(function() {
+  //     beforeHangul();
+  //   });
+  // });
+  // //Hangul change function trigger with swipe
+  // $(function() {
+  //   $("#content_study").on("swipeleft", function() {
+  //     nextHangul();
+  //   });
+  //   $("#content_study").on("swiperight", function() {
+  //     beforeHangul();
+  //   });
+  // }); -->
