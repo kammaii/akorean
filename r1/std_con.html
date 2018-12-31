@@ -5,9 +5,6 @@
     <title>Awesome Korean</title>
     <link rel="stylesheet" href="css/style_main.css">
     <link rel="stylesheet" href="css/style_study.css">
-    <!-- <link rel="stylesheet" href="js/jquery.mobile-1.4.5.min.css">
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="js/jquery.mobile-1.4.5.min.js"></script> -->
   </head>
   <body>
     <div id="header">
@@ -21,11 +18,12 @@
         <div id="study_conVow">ㄱ</div>
         <a href="" id="button_right" ontouchstart="rightHangul()"><img src="img/right.svg" alt="right" class="icon button_right"></a>
       </div>
+      <div id="content_message">Teaching message</div>
       <div id="content_button_function">
-        <button type="button" class="button">Native's voice</button>
-        <button type="button" class="button">My voice</button>
+        <button type="button" class="button" ontouchstart="audioPlay()">Listening</button>
+        <button type="button" class="button">Speaking</button>
         <button type="button" class="button">Writing</button>
-        <button type="button" class="button">Hint</button>
+        <button type="button" id="button_hint" class="button">Hint</button>
       </div>
     </div>
     <div id="footer">
@@ -34,148 +32,118 @@
   </body>
   <script>
     let consonantArray = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ", "ㄲ", "ㄸ", "ㅃ", "ㅆ", "ㅉ"];
-
-    // window.onload = init();
-    // function init(){
-    //   document.getElementById("button_left").onclick = beforeHangul;
-    // }
     let countClick = 0;
+    let hangul = document.getElementById("study_conVow");
+
     function leftHangul() {
-      countClick = countClick - 1;
-      if(countClick < 0 ) {
-        countClick = consonantArray.length-1;
-      }
-      document.getElementById("study_conVow").innerHTML = consonantArray[countClick];
+      fadeOut();
+      setTimeout(function() {
+        countClick = countClick - 1;
+        audioPlay();
+        if(countClick < 0 ) {
+          countClick = consonantArray.length-1;
+        }
+        hangul.innerHTML = consonantArray[countClick];
+      },300);
+      setTimeout(fadeIn, 300);
     }
     function rightHangul() {
-      countClick = countClick + 1;
-      if(countClick == consonantArray.length) {
-        countClick = 0;
-      }
-      document.getElementById("study_conVow").innerHTML = consonantArray[countClick];
+      fadeOut();
+      setTimeout(function() {
+        countClick = countClick + 1;
+        audioPlay();
+        if(countClick == consonantArray.length) {
+          countClick = 0;
+        }
+        hangul.innerHTML = consonantArray[countClick];
+      }, 300);
+      setTimeout(fadeIn, 300);
     }
 
     // Swipe event for pure Javascript
-    function swipedetect(el, callback) {
-      let touchsurface = el,
-      swipedir,
-      startX,
-      startY,
-      distX,
-      distY,
-      threshold = 150, //required min distance traveled to be considered swipe
-      restraint = 100, // maximum distance allowed at the same time in perpendicular direction
-      allowedTime = 300, // maximum time allowed to travel that distance
-      elapsedTime,
-      startTime,
-      handleswipe = callback || function(swipedir){}
-
-      touchsurface.addEventListener('touchstart', function(e) {
-          let touchobj = e.changedTouches[0]
-          swipedir = 'none'
-          dist = 0
-          startX = touchobj.pageX
-          startY = touchobj.pageY
-          startTime = new Date().getTime() // record time when finger first makes contact with surface
-          e.preventDefault()
-      }, false)
-
-      touchsurface.addEventListener('touchmove', function(e) {
-          e.preventDefault() // prevent scrolling when inside DIV
-      }, false)
-
-      touchsurface.addEventListener('touchend', function(e) {
-          let touchobj = e.changedTouches[0]
-          distX = touchobj.pageX - startX // get horizontal dist traveled by finger while in contact with surface
-          distY = touchobj.pageY - startY // get vertical dist traveled by finger while in contact with surface
-          elapsedTime = new Date().getTime() - startTime // get time elapsed
-          if (elapsedTime <= allowedTime){ // first condition for awipe met
-              if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint){ // 2nd condition for horizontal swipe met
-                  swipedir = (distX < 0)? 'left' : 'right' // if dist traveled is negative, it indicates left swipe
-              }
-          }
-          handleswipe(swipedir)
-          e.preventDefault()
-      }, false)
-    }
-//USAGE:
     let el = document.getElementById('content');
-    swipedetect(el, function(swipedir) {
-      if(swipedir == "left") {
-        leftHangul();
-      } else if(swipedir == "right") {
-        rightHangul();
+    let touchsurface = el,
+        swipedir,
+        startX,
+        startY,
+        distX,
+        distY,
+        threshold = 150, //required min distance traveled to be considered swipe
+        restraint = 100, // maximum distance allowed at the same time in perpendicular direction
+        allowedTime = 300, // maximum time allowed to travel that distance
+        elapsedTime,
+        startTime;
+
+    touchsurface.addEventListener('touchstart', function(e) {
+      e.preventDefault()
+      let touchobj = e.changedTouches[0]
+      swipedir = 'none'
+      dist = 0
+      startX = touchobj.pageX
+      startY = touchobj.pageY
+      startTime = new Date().getTime() // record time when finger first makes contact with surface
+    }, false)
+
+    touchsurface.addEventListener('touchmove', function(e) {
+      e.preventDefault() // prevent scrolling when inside DIV
+    }, false)
+
+    touchsurface.addEventListener('touchend', function(e) {
+      let touchobj = e.changedTouches[0]
+      distX = touchobj.pageX - startX // get horizontal dist traveled by finger while in contact with surface
+      distY = touchobj.pageY - startY // get vertical dist traveled by finger while in contact with surface
+      elapsedTime = new Date().getTime() - startTime // get time elapsed
+      if (elapsedTime <= allowedTime){ // first condition for awipe met
+        if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint){ // 2nd condition for horizontal swipe met
+          swipedir = (distX < 0)? 'left' : 'right' // if dist traveled is negative, it indicates left swipe
+        }
       }
-    });
+      if(swipedir == "left") {
+        rightHangul();
+      } else if(swipedir == "right") {
+        leftHangul();
+      }
+
+    }, false)
+
+    // Fade event function with pure Javascript
+    function fadeIn(){
+      hangul.classList.add('show');
+      hangul.classList.remove('hide');
+    }
+    function fadeOut(){
+      hangul.classList.add('hide');
+      hangul.classList.remove('show');
+    }
+
+    // Audio play
+    function audioPlay() {
+      let audio = new Audio('audio/'+consonantArray[countClick]+'.mp3');
+      audio.play()
+    }
+
+    // Hint touch event
+    let hint = document.getElementById('button_hint');
+    hint.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      hint.disable = false;
+      //쌍자음 힌트버튼 잠그기
+      if(consonantArray[countClick] == "ㅉ") {
+        hint.disable = true;
+      } else {
+        hangul.innerHTML = "<img src=img/"+consonantArray[countClick]+".svg width=600 height=580 align=middle>";
+      }
+    }, false);
+
+    touchsurface.addEventListener('touchend', function(e) {
+      e.preventDefault();
+      hangul.innerHTML = consonantArray[countClick];
+    }, false)
+    // 힌트에 fadein 기능 추가
+    // 각 힌트 이미지 만들기 (o)
+    // 한글별 힌트 여는 기능 만들기 (o)
 
 
-    //   fadeOut(element);
-    // }
-    // function fadeOut(element) {
-    //   var op = 1;  // initial opacity
-    //   var timer = setInterval(function () {
-    //     if (op <= 0.1){
-    //       clearInterval(timer);
-    //       element.style.display = 'none';
-    //     }
-    //     element.style.opacity = op;
-    //     element.style.filter = 'alpha(opacity=' + op * 100 + ")";
-    //     op -= op * 0.1;
-    //   }, 50);
-    // }
 
   </script>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <!-- // //Hangul change and fade in/out with jquery
-  // let countClick = 0;
-  // let nextHangul = function() {
-  //   $("#study_conVow").fadeOut(300, function() {
-  //     countClick = countClick + 1;
-  //     if(countClick == consonantArray.length) {
-  //       countClick = 0;
-  //     }
-  //     $("#study_conVow").html(consonantArray[countClick]);
-  //     $("#study_conVow").fadeIn(300);
-  //   });
-  // };
-  // let beforeHangul = function() {
-  //   $("#study_conVow").fadeOut(300, function() {
-  //     countClick = countClick - 1;
-  //     if(countClick < 0 ) {
-  //       countClick = consonantArray.length-1;
-  //     }
-  //     $("#study_conVow").html(consonantArray[countClick]);
-  //     $("#study_conVow").fadeIn(300);
-  //   });
-  // };
-  // //Hangul change function trigger
-  // $(document).ready(function() {
-  //   $(".button_right").click(function() {
-  //     nextHangul();
-  //   });
-  //   $(".button_left").click(function() {
-  //     beforeHangul();
-  //   });
-  // });
-  // //Hangul change function trigger with swipe
-  // $(function() {
-  //   $("#content_study").on("swipeleft", function() {
-  //     nextHangul();
-  //   });
-  //   $("#content_study").on("swiperight", function() {
-  //     beforeHangul();
-  //   });
-  // }); -->

@@ -4,7 +4,7 @@
 }
 #content {
   display: grid;
-  grid-template-rows: 90% 10%;
+  grid-template-rows: 80% 10% 10%;
 }
 #content_study {
   display: grid;
@@ -20,11 +20,27 @@
 }
 #study_conVow {
   font-family: godoMaum;
-  font-size: 30em;
+  font-size: 40em;
   text-align: center;
   margin: auto;
 }
 #content_button_function {
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
+}
+
+.show {
+  opacity: 1;
+  transition: opacity 500ms;
+}
+
+.hide {
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+#study_conVow > img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
