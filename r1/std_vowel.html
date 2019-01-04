@@ -16,14 +16,14 @@
     <div id="content">
       <div id="content_study">
         <a href="" id="button_left" ontouchstart="leftHangul()"><img src="img/left.svg" alt="left" class="icon button_left"></a>
-        <div id="study_conVow">ㄱ</div>
+        <div id="study_conVow">ㅏ</div>
         <a href="" id="button_right" ontouchstart="rightHangul()"><img src="img/right.svg" alt="right" class="icon button_right"></a>
       </div>
-      <div id="content_message">기역</div>
+      <div id="content_message"></div>
       <div id="content_button_function">
         <button type="button" class="button" ontouchstart="audioPlay()">Listening</button>
         <button type="button" id="button_writing"class="button" ontouchstart="writingPlay()">Writing</button>
-        <button type="button" id="button_hint" class="button">Hint</button>
+        <button type="button" id="button_hint" class="button" disabled="true">Hint</button>
       </div>
     </div>
     <div id="footer">
@@ -31,29 +31,23 @@
     </div>
   </body>
   <script>
-    let consonantArray = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ", "ㄲ", "ㄸ", "ㅃ", "ㅆ", "ㅉ"];
+    let vowelArray = ["ㅏ", "ㅑ", "ㅓ", "ㅕ", "ㅗ", "ㅛ", "ㅜ", "ㅠ", "ㅡ", "ㅣ", "ㅐ", "ㅒ", "ㅔ", "ㅖ", "ㅘ", "ㅝ", "ㅙ", "ㅞ", "ㅚ", "ㅟ", "ㅢ"];
     let countClick = 0;
     let hangul = document.getElementById("study_conVow");
-    let hint = document.getElementById('button_hint');
     let currentSound = null;
     let currentMsg = document.getElementById('content_message')
-    let teachingMsg = ["기역", "니은", "디귿", "리을", "미음", "비읍", "시옷", "이응, No sound", "지읒", "치읓", "키읔", "티읕", "피읖", "히읗", "쌍기역", "쌍디귿", "쌍비읍", "쌍시옷", "쌍지읒"]
+    let teachingMsg = ["", "", "", "", "", "", "", "", "", "", "", "", "almost same with [ㅐ]", "almost same with [ㅒ]", "ㅗ + ㅏ", "ㅜ + ㅓ", "ㅗ + ㅐ", "ㅜ + ㅔ</br> almost same with [ㅙ]", "ㅗ + ㅣ</br>[ㅙ] also available (recommend)", "ㅜ + ㅣ", "ㅡ + ㅣ"]
 
     function leftHangul() {
       fadeOut();
       setTimeout(function() {
         if(countClick - 1 < 0 ) {
-          countClick = consonantArray.length-1;
+          countClick = vowelArray.length-1;
         } else {
           countClick = countClick - 1;
         }
-        if(consonantArray[countClick] == "ㄲ" || consonantArray[countClick] == "ㄸ" || consonantArray[countClick] == "ㅃ" || consonantArray[countClick] == "ㅆ" || consonantArray[countClick] == "ㅉ") {
-          hint.disabled = true;
-        } else {
-          hint.disabled = false;
-        }
         audioPlay();
-        hangul.innerHTML = consonantArray[countClick];
+        hangul.innerHTML = vowelArray[countClick];
         currentMsg.innerHTML = teachingMsg[countClick];
       },300);
       setTimeout(fadeIn, 300);
@@ -61,18 +55,13 @@
     function rightHangul() {
       fadeOut();
       setTimeout(function() {
-        if(countClick + 1 == consonantArray.length) {
+        if(countClick + 1 == vowelArray.length) {
           countClick = 0;
         } else {
           countClick = countClick + 1;
         }
-        if(consonantArray[countClick] == "ㄲ" || consonantArray[countClick] == "ㄸ" || consonantArray[countClick] == "ㅃ" || consonantArray[countClick] == "ㅆ" || consonantArray[countClick] == "ㅉ") {
-          hint.disabled = true;
-        } else {
-          hint.disabled = false;
-        }
         audioPlay();
-        hangul.innerHTML = consonantArray[countClick];
+        hangul.innerHTML = vowelArray[countClick];
         currentMsg.innerHTML = teachingMsg[countClick];
       }, 300);
       setTimeout(fadeIn, 300);
@@ -121,7 +110,6 @@
       } else if(swipedir == "right") {
         leftHangul();
       }
-
     }, false)
 
     // Fade event function with pure Javascript
@@ -140,28 +128,18 @@
         currentSound.pause();
         currentSound.currentTime = 0;
       }
-      currentSound = new Audio('audio/consonant/'+consonantArray[countClick]+'.mp3');
+      currentSound = new Audio('audio/vowel/'+vowelArray[countClick]+'.mp3');
       currentSound.play()
     }
 
     // Writing play function
     function writingPlay() {
-      hangul.innerHTML = "<img src=img/consonant/"+consonantArray[countClick]+".svg width=600 height=580 align=middle>";
+      hangul.innerHTML = "<img src=img/vowel/"+vowelArray[countClick]+".svg width=600 height=580 align=middle>";
     }
-
-    // Hint touch event
-    hint.addEventListener('touchstart', function(e) {
-      e.preventDefault();
-      if(hint.disabled == false) {
-        hangul.innerHTML = "<img src=img/hint/"+consonantArray[countClick]+"_hint.svg width=600 height=580 align=middle>";
-      } else {
-        hint.disabled = true;
-      }
-    }, false);
 
     touchsurface.addEventListener('touchend', function(e) {
       e.preventDefault();
-      hangul.innerHTML = consonantArray[countClick];
+      hangul.innerHTML = vowelArray[countClick];
     }, false)
 
   </script>
