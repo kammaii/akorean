@@ -5,6 +5,7 @@
     <title>Awesome Korean</title>
     <link rel="stylesheet" href="css/style_main.css">
     <link rel="stylesheet" href="css/style_study.css">
+    <script src="js/sketch.js"></script>
   </head>
   <body>
     <div id="header">
@@ -18,11 +19,10 @@
         <div id="study_conVow">ㄱ</div>
         <a href="" id="button_right" ontouchstart="rightHangul()"><img src="img/right.svg" alt="right" class="icon button_right"></a>
       </div>
-      <div id="content_message">Teaching message</div>
+      <div id="content_message">기역</div>
       <div id="content_button_function">
         <button type="button" class="button" ontouchstart="audioPlay()">Listening</button>
-        <button type="button" class="button">Speaking</button>
-        <button type="button" class="button">Writing</button>
+        <button type="button" id="button_writing"class="button" ontouchstart="writingPlay()">Writing</button>
         <button type="button" id="button_hint" class="button">Hint</button>
       </div>
     </div>
@@ -34,28 +34,46 @@
     let consonantArray = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ", "ㄲ", "ㄸ", "ㅃ", "ㅆ", "ㅉ"];
     let countClick = 0;
     let hangul = document.getElementById("study_conVow");
+    let hint = document.getElementById('button_hint');
+    let currentSound = null;
+    let currentMsg = document.getElementById('content_message')
+    let teachingMsg = ["기역", "니은", "디귿", "리을", "미음", "비읍", "시옷", "이응, No sound", "지읒", "치읓", "키읔", "티읕", "피읖", "히읗", "쌍기역", "쌍디귿", "쌍비읍", "쌍시옷", "쌍지읒"]
 
     function leftHangul() {
       fadeOut();
       setTimeout(function() {
-        countClick = countClick - 1;
-        audioPlay();
-        if(countClick < 0 ) {
+        if(countClick - 1 < 0 ) {
           countClick = consonantArray.length-1;
+        } else {
+          countClick = countClick - 1;
         }
+        if(consonantArray[countClick] == "ㄲ" || consonantArray[countClick] == "ㄸ" || consonantArray[countClick] == "ㅃ" || consonantArray[countClick] == "ㅆ" || consonantArray[countClick] == "ㅉ") {
+          hint.disabled = true;
+        } else {
+          hint.disabled = false;
+        }
+        audioPlay();
         hangul.innerHTML = consonantArray[countClick];
+        currentMsg.innerHTML = teachingMsg[countClick];
       },300);
       setTimeout(fadeIn, 300);
     }
     function rightHangul() {
       fadeOut();
       setTimeout(function() {
-        countClick = countClick + 1;
-        audioPlay();
-        if(countClick == consonantArray.length) {
+        if(countClick + 1 == consonantArray.length) {
           countClick = 0;
+        } else {
+          countClick = countClick + 1;
         }
+        if(consonantArray[countClick] == "ㄲ" || consonantArray[countClick] == "ㄸ" || consonantArray[countClick] == "ㅃ" || consonantArray[countClick] == "ㅆ" || consonantArray[countClick] == "ㅉ") {
+          hint.disabled = true;
+        } else {
+          hint.disabled = false;
+        }
+        audioPlay();
         hangul.innerHTML = consonantArray[countClick];
+        currentMsg.innerHTML = teachingMsg[countClick];
       }, 300);
       setTimeout(fadeIn, 300);
     }
@@ -116,22 +134,28 @@
       hangul.classList.remove('show');
     }
 
-    // Audio play
+    // Audio play function
     function audioPlay() {
-      let audio = new Audio('audio/'+consonantArray[countClick]+'.mp3');
-      audio.play()
+      if(currentSound) {
+        currentSound.pause();
+        currentSound.currentTime = 0;
+      }
+      currentSound = new Audio('audio/'+consonantArray[countClick]+'.mp3');
+      currentSound.play()
+    }
+
+    // Writing play function
+    function writingPlay() {
+      hangul.innerHTML = "<img src=img/"+consonantArray[countClick]+".svg width=600 height=580 align=middle>";
     }
 
     // Hint touch event
-    let hint = document.getElementById('button_hint');
     hint.addEventListener('touchstart', function(e) {
       e.preventDefault();
-      hint.disable = false;
-      //쌍자음 힌트버튼 잠그기
-      if(consonantArray[countClick] == "ㅉ") {
-        hint.disable = true;
+      if(hint.disabled == false) {
+        hangul.innerHTML = "<img src=img/"+consonantArray[countClick]+"_hint.svg width=600 height=580 align=middle>";
       } else {
-        hangul.innerHTML = "<img src=img/"+consonantArray[countClick]+".svg width=600 height=580 align=middle>";
+        hint.disabled = true;
       }
     }, false);
 
@@ -139,11 +163,10 @@
       e.preventDefault();
       hangul.innerHTML = consonantArray[countClick];
     }, false)
-    // 힌트에 fadein 기능 추가
+
+    // 힌트에 fadein 기능 추가 (x)
     // 각 힌트 이미지 만들기 (o)
     // 한글별 힌트 여는 기능 만들기 (o)
-
-
 
   </script>
 </html>
