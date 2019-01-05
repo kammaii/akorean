@@ -1,5 +1,5 @@
 const http = require('http');
-const hostname = '127.0.0.1';
+const hostname = '0.0.0.0';
 const fs = require('fs');
 const port = 3000;
 
@@ -20,7 +20,7 @@ let handleRequest = (req, res) => {
     let filetypeResult = req.url.split('.');
 
     if(urlRegexResult == null) {
-      serveFile('std_con.html', 'text/html', res)
+      serveFile('std_ass_1.html', 'text/html', res)
     } else {
 
       let filename = urlRegexResult[1];
