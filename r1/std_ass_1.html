@@ -17,7 +17,7 @@
         <div id="assembly_consonant_1" ondrop="drop(event)" ondragover="allowDrop(event)">C</div>
         <div id="assembly_vowel_1" ondrop="drop(event)" ondragover="allowDrop(event)">V</div>
       </div>
-      <div id="content_message"></div>
+      <div id="content_ass_message"></div>
       <div id="content_button_conVow">
         <button type="button" class="button" onclick="btn_function('consonant')">Consonant</button>
         <button type="button" class="button" onclick="btn_function('vowel')">Vowel</button>
@@ -27,9 +27,9 @@
         <div id="container_vowel"></div>
       </div>
       <div id="content_button_function">
-        <button type="button" class="button">Listening</button>
-        <button type="button" class="button">Speaking</button>
-        <button type="button" class="button">Writing</button>
+        <button type="button" class="button" ontouchstart="audioPlay()">Listening</button>
+        <button type="button" disabled="true" class="button">Writing</button>
+        <button type="button" disabled="true" class="button">Hint</button>
       </div>
     </div>
     <div id="footer">
@@ -41,14 +41,15 @@
 
   let consonant_array = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ", "ㄲ", "ㄸ", "ㅃ", "ㅆ", "ㅉ"];
   let vowel_array = ["ㅏ", "ㅑ", "ㅓ", "ㅕ", "ㅣ", "ㅐ", "ㅒ", "ㅔ", "ㅖ"];
+  let currentSound = null;
+  let consonant = null;
+  let vowel = null;
 
   //Function to make boxes of consonant and vowels
   function createCharacters(character, num, conVow) {
     let newElement = document.createElement("div");
     newElement.setAttribute("class", conVow);
     newElement.setAttribute("id", conVow+num);
-    // newElement.setAttribute("draggable", "true");
-    // newElement.setAttribute("ondragstart", "drag(event)");
     newElement.addEventListener("touchstart", touchDrag, false);
     newElement.addEventListener("touchend", touchDrop, false);
 
@@ -72,7 +73,7 @@
     var lastTouchId = null;
     function touchDrag(ev) {
       ev.preventDefault();
-      document.getElementById("content_message").innerHTML = "";
+      document.getElementById("content_ass_message").innerHTML = "";
       lastTouchId = ev.target.id;
     }
 
@@ -86,38 +87,15 @@
       if(elem.id == "assembly_consonant_1" && consonant_array.includes(content)) {
         document.getElementById("assembly_consonant_1").innerHTML = content;
         document.getElementById("assembly_consonant_1").style.color = 'black';
+        audioPlay(content);
       } else if(elem.id == "assembly_vowel_1" && vowel_array.includes(content)) {
         document.getElementById("assembly_vowel_1").innerHTML = content;
         document.getElementById("assembly_vowel_1").style.color = 'black';
+        audioPlay(content)
       } else {
-        document.getElementById("content_message").innerHTML = "Consonant and vowel should be placed in each place.";
+        document.getElementById("content_ass_message").innerHTML = "Consonant and vowel should be placed correctly.";
       }
     }
-
-  //Drag and drop : javascript
-  // function drag(ev) {
-  //   document.getElementById("content_message").innerHTML = "";
-  //   ev.dataTransfer.setData("text", ev.target.id);
-  // }
-  // function drop(ev) {
-  //   ev.preventDefault();
-  //   let data = ev.dataTransfer.getData("text");
-  //   let content = document.getElementById(data).textContent;
-  //   // Check matching if consonant and vowel are placed exactly.
-  //   if(ev.target.id == "assembly_consonant_1" && consonant_array.includes(content)) {
-  //     document.getElementById("assembly_consonant_1").innerHTML = content;
-  //     document.getElementById("assembly_consonant_1").style.color = 'black';
-  //   } else if(ev.target.id == "assembly_vowel_1" && vowel_array.includes(content)) {
-  //     document.getElementById("assembly_vowel_1").innerHTML = content;
-  //     document.getElementById("assembly_vowel_1").style.color = 'black';
-  //   } else {
-  //     document.getElementById("content_message").innerHTML = "Consonant and vowel should be placed in each place.";
-  //   }
-  // }
-  // function allowDrop(ev) {
-  //   //ev.target.style.color = 'blue';
-  //   ev.preventDefault();
-  // }
 
   //Button Function
   let btn_function = function(conVow) {
@@ -137,5 +115,28 @@
       }
     }
   }
+
+  // Audio play function
+  function audioPlay(content) {
+    if(currentSound) {
+      currentSound.pause();
+      currentSound.currentTime = 0;
+    }
+    if(vowel_array.indexOf(content) == -1) {
+      currentSound = new Audio('audio/consonant/'+content+'.mp3');
+      consonant = content;
+    } else if(consonant_array.indexOf(content) == -1) {
+      currentSound = new Audio('audio/vowel/'+content+'.mp3');
+      vowel = content;
+    }
+    currentSound.play()
+
+    let ass = consonant.concat(vowel);
+    if(ass.indexOf("null") == -1) {
+      currentSound = new Audio('audio/ass1/'+ass+'.mp3');
+      currentSound.play()
+    }
+  }
+
   </script>
 </html>
