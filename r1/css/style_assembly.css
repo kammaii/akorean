@@ -2,10 +2,19 @@
   font-family: godoMaum;
   src: url(font/godoMaum.ttf);
 }
+
 #content {
   display: grid;
   grid-template-rows: 45% 5% 10% 30% 10%;
 }
+
+#content_ass_message {
+  text-align: center;
+  font-size: 2.5em;
+  color: #8FB299;
+  overflow: scroll;
+}
+
 #content_assembly {
   margin: 80px auto 0px auto;
 }
