@@ -8,11 +8,32 @@
     }
   </style>
   <body>
-    <div>Hello Jquery!</div>
-    <div id="info">
-        <p id="info-msg">Please enter username and password to sign in</p>
+    <div>
+      Example of Basic HTML Form.
+      The browser handles submitting the form.
     </div>
+    <br/>
     <form method="GET" action="login">
+      <div>
+        <label for="username1">Username</label>
+        <input id="username1" name="username" type="text" value="upgradingdave"></input>
+        <label for="username1" id="info-username1"></label>
+      </div>
+      <div>
+        <label for="password1">Password</label>
+        <input id="password1" name="password" type="text" value="secret"></input>
+        <label for="password1" id="info-password1"></label>
+      </div>
+      <input type="submit"></input>
+    </form>
+    <hr/>
+    <div>
+      Example of HTML GET Form with Javascript validation.
+      We use Javascript to validate the form, and then use javascript to
+      submit the form.
+    </div>
+    <br/>
+    <form id="form2" method="GET" action="login">
       <div>
         <label for="username">Username</label>
         <input id="username" name="username" type="text" value="upgradingdave"></input>
@@ -24,6 +45,25 @@
         <label for="password" id="info-password"></label>
       </div>
       <button id="submitBtn" type="button">Submit</button>
+    </form>
+    <div>
+      Example of HTML POST Form with Javascript validation.
+      We use Javascript to validate the form, and then use javascript to
+      submit the form.
+    </div>
+    <br/>
+    <form id="form3" method="POST" action="login">
+      <div>
+        <label for="username3">Username</label>
+        <input id="username3" name="username" type="text" value="upgradingdave"></input>
+        <label for="username3" id="info-username3"></label>
+      </div>
+      <div>
+        <label for="password3">Password</label>
+        <input id="password3" name="password" type="text" value="secret"></input>
+        <label for="password3" id="info-password3"></label>
+      </div>
+      <input type="submit"/>
     </form>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script src="http://127.0.0.1:3000/login.js"></script>

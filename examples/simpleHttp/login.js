@@ -12,10 +12,14 @@ $( document ).ready(function() {
 
     console.log(`The current value of the input is '${valueUsername}'`)
 
+    //TODO: re organize so submit happens after username and password check.
     if(valueUsername != undefined && valueUsername != null && valueUsername.length > 0) {
       console.log("Good Username")
       infoUsername.html("<label></label>");
       // submit the form
+      console.log("Ready to submit!!");
+      //console.log('#form1');
+      $('#form2').submit();
 
     } else {
       console.log("Bad Username")
