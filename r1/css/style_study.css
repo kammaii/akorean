@@ -4,13 +4,12 @@
 }
 #content {
   display: grid;
-  grid-template-rows: 75% 15% 10%;
+  grid-template-rows: 60% 30% 10%;
 }
 #content_study {
   display: grid;
   grid-template-columns: 10% 80% 10%;
-  margin: 100px auto auto;
-  border: 1px solid black;
+  margin: 100px auto;
   width: 80%;
   height: 60%;
 }
@@ -47,4 +46,17 @@
 
 button:disabled {
   color: grey;
+}
+
+#intro {
+  font-size: 0.9em;
+  padding: 50px;
+}
+
+a:link, a:visited {
+  color: black;
+}
+
+a:active {
+  color: red;
 }

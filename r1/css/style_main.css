@@ -29,11 +29,13 @@ body {
   float: right;
 }
 #content_message {
-  font-family: godoMaum;
-  font-size: 6em;
+  border-top: 1px solid;
   text-align: center;
+  font-size: 2.5em;
+  padding: 50px;
   margin-bottom: 10px;
   color: #8FB299;
+  overflow: scroll;
 }
 #footer {
   background-color: #e6e9ef;
