@@ -2,7 +2,7 @@
 // html = hyper text markup language
 const http = require('http');
 const fs = require('fs');
-//const { parse } = require('querystring');
+const { parse } = require('querystring');
 
 const hostname = '127.0.0.1';
 // common http port : 80
@@ -81,27 +81,34 @@ let handleRequest = function(httpRequest, httpResponse) {
           serveFile('home.html', 'text/html', httpResponse);
         } else {
           // Wrong password!!
+          // TODO: needs to be implemented
         }
       } else {
         // user doesn't exist!!
+        // TODO: needs to be implemented
       }
     }
 
     // example of basic http POST request
     else if(httpRequest.url.match(/^\/login$/)) {
       console.log("This is a POST LOGIN request");
-      console.log(httpRequest);
 
       // Need to read the body of the request
       let body = '';
+
       httpRequest.on('data', chunk => {
         body += chunk.toString();
       });
+
       httpRequest.on('end', () => {
-        parse(body);
+        // we know that we have all the pieces (or chunks) of data from
+        // the buffer.
+        let formData = parse(body);
+        console.log(formData);
+        // TODO: compare username and password against the username
+        // and password submitted.
       });
     }
-
     // Otherwise, serve the file based on it's filetype
     else if(filetype == 'css') {
       serveFile(filename, 'text/css', httpResponse)
