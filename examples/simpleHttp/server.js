@@ -122,7 +122,8 @@ let handleRequest = function(httpRequest, httpResponse) {
     }
 
     // example of basic http POST request
-    else if(httpRequest.url.match(/^\/login$/) && httpRequest.method === 'POST') {
+    else if(httpRequest.url.match(/^\/login$/)
+            && httpRequest.method === 'POST') {
 
       console.log("This is a POST LOGIN request");
       handleLoginPOST(httpRequest, httpResponse)
@@ -140,6 +141,10 @@ let handleRequest = function(httpRequest, httpResponse) {
       let response = {message: 'Hello!'}
       httpResponse.write(JSON.stringify(response));
       httpResponse.end();
+
+      // JSON
+      // stringify - converts javascript into a String
+      // parse - string to Javascript.
 
     }
 

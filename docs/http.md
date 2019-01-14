@@ -37,7 +37,7 @@ Port 443 is used for https.
 The header of an HTTP Request is a known, fixed size. It contains meta data
 about the request such as content-type and request method.
 
-## HTTP Request Body Body
+## HTTP Request Body
 
 There is no way to know the size of the body of a HTTP Request. Also, the data
 in the body of a HTTP Request doesn't arrive all at the same time.
@@ -48,3 +48,22 @@ So an http server listening must continue to read the buffer of input from the
 request until all the chunks arrive.
 
 ## Ajax
+
+Asynchronous Javascript And XML.
+
+XML - Extensible Markup Language
+
+<Person>
+  <Name>Dave</Name>
+  <Age>39</Age>
+</Person>
+
+HTML - Hypertext Markup Language
+
+JSON - very to similar to XML.
+
+API - Application Programming Interface.
+
+XMLHttpRequest - low level api for creating http requests.
+
+You might see something called "XHR". That stands for "XML Http Request". 
