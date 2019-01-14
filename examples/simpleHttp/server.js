@@ -85,9 +85,6 @@ let handleRequest = function(httpRequest, httpResponse) {
 
     // here's where we define the routes
     // Browsers will send GET or POST requests
-    // If they are GET requests, all the info is in the url like this:
-    //  /login?username=upgradingdave&password=secret
-
     let decodedUrl = decodeURI(httpRequest.url);
 
     let urlRegex = /\/(([^.]+)\.(.*))/;
@@ -125,13 +122,27 @@ let handleRequest = function(httpRequest, httpResponse) {
     }
 
     // example of basic http POST request
-    else if(httpRequest.url.match(/^\/login$/) &&
-            httpRequest.method === 'POST') {
+    else if(httpRequest.url.match(/^\/login$/) && httpRequest.method === 'POST') {
 
       console.log("This is a POST LOGIN request");
       handleLoginPOST(httpRequest, httpResponse)
 
     }
+
+    // example of ajax GET request
+    else if(httpRequest.url.match(/^\/ajax\/login\?.*$/)
+            && httpRequest.method === 'GET') {
+
+      console.log("This is a AJAX GET request");
+
+      httpResponse.statusCode = 200;
+      httpResponse.setHeader('Content-Type', "application/json");
+      let response = {message: 'Hello!'}
+      httpResponse.write(JSON.stringify(response));
+      httpResponse.end();
+
+    }
+
     // Otherwise, serve the file based on it's filetype
     else if(filetype == 'css') {
       serveFile(filename, 'text/css', httpResponse)

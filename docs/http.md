@@ -30,10 +30,21 @@ POST
 By default, Port 80 is used for http.
 Port 443 is used for https.
 
-# Network communication
+# HTTP Network communication
 
-The data in a Network Request doesn't arrive all at the same time.
+## HTTP Request Header
+
+The header of an HTTP Request is a known, fixed size. It contains meta data
+about the request such as content-type and request method.
+
+## HTTP Request Body Body
+
+There is no way to know the size of the body of a HTTP Request. Also, the data
+in the body of a HTTP Request doesn't arrive all at the same time.
 
 It will arrive in pieces or chunks.
 
-So the server listening should continue to read the buffer of input from the request until all the chunks arrive.
+So an http server listening must continue to read the buffer of input from the
+request until all the chunks arrive.
+
+## Ajax
