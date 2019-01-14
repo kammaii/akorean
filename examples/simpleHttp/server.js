@@ -28,6 +28,57 @@ let userAccounts = {
   }
 };
 
+let doAuthentication = function(username, password, httpResponse) {
+  if(userAccounts[username]) {
+    let passwordCheck = userAccounts[username].password;
+    if(passwordCheck === password) {
+      // Authenticated!!
+      serveFile('home.html', 'text/html', httpResponse);
+    } else {
+      // Wrong password!!
+      serveFile('unauthorized.html', 'text/html', httpResponse);
+    }
+  } else {
+    // user doesn't exist!!
+    serveFile('unauthorized.html', 'text/html', httpResponse);
+  }
+}
+
+let handleLoginGET = function(httpRequest, httpResponse) {
+
+  // get paramaters out of GET login url
+  let loginRE = /login\?username=([^&]*)&password=(.*)/
+  let paramResult = httpRequest.url.match(loginRE);
+  let username = paramResult[1];
+  let password = paramResult[2];
+
+  doAuthentication(username, password, httpResponse);
+}
+
+let handleLoginPOST = function(httpRequest, httpResponse) {
+  // As we get the body out of the request, we'll save it here:
+  let body = '';
+
+  // we don't know how big the http request body is. Nodejs talks to the
+  // CPU and network card to get the buffer of data from the request body.
+  // So, we listen for an event for whenever more data arrives, and when
+  // data arrives, we save it to our body variable
+  httpRequest.on('data', chunk => {
+    body += chunk.toString();
+  });
+
+  httpRequest.on('end', () => {
+    // we know that we have all the pieces (or chunks) of data from
+    // the buffer. So, now we can use the contents of the http POST request
+    // body to determine whether to authenticate a user
+    let formData = parse(body);
+    console.log(formData);
+    let username = formData.username;
+    let password = formData.password;
+    doAuthentication(username, password, httpResponse);
+  });
+}
+
 let handleRequest = function(httpRequest, httpResponse) {
   try {
     //console.log(httpResponse);
@@ -63,51 +114,23 @@ let handleRequest = function(httpRequest, httpResponse) {
 
     }
 
-    // Username and Password example
+    // Example of GET http request
     // expects a url similar to /login?username=foo&password=blah
-    else if(httpRequest.url.match(/^\/login\?.*$/)) {
+    else if(httpRequest.url.match(/^\/login\?.*$/) &&
+            httpRequest.method === 'GET') {
 
-      console.log('This is a LOGIN request!');
-      // get paramaters out of GET login url
-      let loginRE = /login\?username=([^&]*)&password=(.*)/
-      let paramResult = httpRequest.url.match(loginRE);
-      let username = paramResult[1];
-      let password = paramResult[2];
+      console.log('This is a GET LOGIN request!');
+      handleLoginGET(httpRequest, httpResponse);
 
-      if(userAccounts[username]) {
-        let passwordCheck = userAccounts[username].password;
-        if(passwordCheck === password) {
-          // Authenticated!!
-          serveFile('home.html', 'text/html', httpResponse);
-        } else {
-          // Wrong password!!
-          // TODO: needs to be implemented
-        }
-      } else {
-        // user doesn't exist!!
-        // TODO: needs to be implemented
-      }
     }
 
     // example of basic http POST request
-    else if(httpRequest.url.match(/^\/login$/)) {
+    else if(httpRequest.url.match(/^\/login$/) &&
+            httpRequest.method === 'POST') {
+
       console.log("This is a POST LOGIN request");
+      handleLoginPOST(httpRequest, httpResponse)
 
-      // Need to read the body of the request
-      let body = '';
-
-      httpRequest.on('data', chunk => {
-        body += chunk.toString();
-      });
-
-      httpRequest.on('end', () => {
-        // we know that we have all the pieces (or chunks) of data from
-        // the buffer.
-        let formData = parse(body);
-        console.log(formData);
-        // TODO: compare username and password against the username
-        // and password submitted.
-      });
     }
     // Otherwise, serve the file based on it's filetype
     else if(filetype == 'css') {
