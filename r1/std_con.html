@@ -20,7 +20,7 @@
       </div>
       <div id="content_message">기역</div>
       <div id="content_button_function">
-        <button type="button" class="button" ontouchstart="audioPlay()">Listening</button>
+        <button type="button" class="button" ontouchstart="audioPlay();" onclick="audioPlay();">Listening</button>
         <button type="button" id="button_writing"class="button" ontouchstart="writingPlay()">Writing</button>
         <button type="button" id="button_hint" class="button">Hint</button>
       </div>
@@ -34,7 +34,7 @@
     let countClick = 0;
     let hangul = document.getElementById("study_conVow");
     let hint = document.getElementById('button_hint');
-    let currentSound = null;
+    let currentSound = undefined;
     let currentMsg = document.getElementById('content_message')
     let teachingMsg = ["기역", "니은", "디귿", "리을", "미음", "비읍", "시옷", "이응, No sound", "지읒", "치읓", "키읔", "티읕", "피읖", "히읗", "쌍기역", "쌍디귿", "쌍비읍", "쌍시옷", "쌍지읒"]
 
@@ -140,7 +140,7 @@
         currentSound.currentTime = 0;
       }
       currentSound = new Audio('audio/consonant/'+consonantArray[countClick]+'.mp3');
-      currentSound.play()
+      currentSound.play();
     }
 
     // Writing play function
