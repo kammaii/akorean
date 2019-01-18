@@ -8,6 +8,52 @@
     }
   </style>
   <body>
+    <h2>AJAX GET Request with XMLHttpRequest</h2>
+    <div>
+      Example of sending an GET Request with Javascript using an
+      XMLHttpRequest.
+    </div>
+    <br/>
+    <!-- Since we're using ajax, we don't really need a form here,
+         but it's nice to have for consistency -->
+    <form id="form4">
+      <div>
+        <label for="username4">Username</label>
+        <input id="username4" name="username" type="text" value="upgradingdave"></input>
+        <label for="username4" id="info-username4"></label>
+      </div>
+      <div>
+        <label for="password4">Password</label>
+        <input id="password4" name="password" type="text" value="secret"></input>
+        <label for="password4" id="info-password4"></label>
+      </div>
+      <button id="button4" type="button">Send Ajax GET</button>
+    </form>
+    <hr/>
+
+    <h2>AJAX POST Request with XMLHttpRequest</h2>
+    <div>
+      Example of sending an GET Request with Javascript using an
+      XMLHttpRequest.
+    </div>
+    <br/>
+    <!-- Since we're using ajax, we don't really need a form here,
+         but it's nice to have for consistency -->
+    <form id="form5">
+      <div>
+        <label for="username5">Username</label>
+        <input id="username5" name="username" type="text" value="upgradingdave"></input>
+        <label for="username5" id="info-username4"></label>
+      </div>
+      <div>
+        <label for="password5">Password</label>
+        <input id="password5" name="password" type="text" value="secret"></input>
+        <label for="password5" id="info-password4"></label>
+      </div>
+      <button id="button5" type="button">Send Ajax POST</button>
+    </form>
+    <hr/>
+
     <h2> Basic HTML </h2>
     <div>
       Example of Basic HTML Form.
@@ -70,30 +116,10 @@
       <input type="submit"/>
     </form>
     <hr/>
-    <h2>AJAX GET Request with XMLHttpRequest</h2>
-    <div>
-      Example of sending an GET Request with Javascript using an
-      XMLHttpRequest.
-    </div>
-    <br/>
-    <!-- Since we're using ajax, we don't really need a form here,
-         but it's nice to have for consistency -->
-    <form id="form4">
-      <div>
-        <label for="username4">Username</label>
-        <input id="username4" name="username" type="text" value="upgradingdave"></input>
-        <label for="username4" id="info-username4"></label>
-      </div>
-      <div>
-        <label for="password4">Password</label>
-        <input id="password4" name="password" type="text" value="secret"></input>
-        <label for="password4" id="info-password4"></label>
-      </div>
-      <button id="button4" type="button">Send Ajax Post</button>
-    </form>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script src="/login.js"></script>
-    <script src="/login2.js"></script>
+    <script src="/loginAjaxGET.js"></script>
+    <script src="/loginAjaxPOST.js"></script>
   </body>
 </html>

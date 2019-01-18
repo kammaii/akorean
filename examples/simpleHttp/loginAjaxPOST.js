@@ -4,7 +4,7 @@
   var httpRequest;
 
   // attach an event handler to the button with id "button4"
-  document.getElementById("button4").addEventListener('click', makeRequest);
+  document.getElementById("button5").addEventListener('click', makeRequest);
 
   // send an http request to the server
   function makeRequest() {
@@ -16,7 +16,7 @@
     }
 
     httpRequest.onreadystatechange = handleResponse;
-    httpRequest.open('GET', '/ajax/login?username=<TODO>&password=<TODO>');
+    httpRequest.open('POST', '/ajax/login');
     httpRequest.send();
   }
 

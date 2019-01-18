@@ -2,6 +2,7 @@
 // html = hyper text markup language
 const http = require('http');
 const fs = require('fs');
+const url = require('url');
 const { parse } = require('querystring');
 
 const hostname = '127.0.0.1';
@@ -94,6 +95,10 @@ let handleRequest = function(httpRequest, httpResponse) {
     console.log(`RAW url: ${httpRequest.url}`);
     console.log(`Decoded url: ${decodedUrl}`);
     console.log(`HTTP Method: ${httpRequest.method}`);
+    //console.log(`HTTP Headers: ${JSON.stringify(httpRequest.headers)}`);
+
+    let requestUrl = url.parse(httpRequest.url);
+    console.log(requestUrl);
 
     let filetypeResult = decodedUrl.split('.');
 
@@ -135,6 +140,24 @@ let handleRequest = function(httpRequest, httpResponse) {
             && httpRequest.method === 'GET') {
 
       console.log("This is a AJAX GET request");
+
+      httpResponse.statusCode = 200;
+      httpResponse.setHeader('Content-Type', "application/json");
+      let response = {message: 'Hello!'}
+      httpResponse.write(JSON.stringify(response));
+      httpResponse.end();
+
+      // JSON
+      // stringify - converts javascript into a String
+      // parse - string to Javascript.
+
+    }
+
+    // example of ajax POST request
+    else if(httpRequest.url.match(/^\/ajax\/login$/)
+            && httpRequest.method === 'POST') {
+
+      console.log("This is a AJAX POST request");
 
       httpResponse.statusCode = 200;
       httpResponse.setHeader('Content-Type', "application/json");
