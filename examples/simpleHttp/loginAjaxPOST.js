@@ -17,7 +17,13 @@
 
     httpRequest.onreadystatechange = handleResponse;
     httpRequest.open('POST', '/ajax/login');
-    httpRequest.send();
+    httpRequest.setRequestHeader('Content-Type', 'application/json');
+
+    let username = document.getElementById("username5").value;
+    let password = document.getElementById("password5").value;
+
+    let payload = {username: username, password: password};
+    httpRequest.send(JSON.stringify(payload));
   }
 
   function handleResponse() {

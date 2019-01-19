@@ -143,7 +143,12 @@ let handleRequest = function(httpRequest, httpResponse) {
 
       httpResponse.statusCode = 200;
       httpResponse.setHeader('Content-Type', "application/json");
-      let response = {message: 'Hello!'}
+
+      // let's get "username=dave&password=secret"
+      let queryString = requestUrl.query;
+      let queryObj = parse(queryString);
+
+      let response = {message: `Hello, ${queryObj.username}!`}
       httpResponse.write(JSON.stringify(response));
       httpResponse.end();
 
