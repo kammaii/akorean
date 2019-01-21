@@ -2,20 +2,14 @@
   <head>
     <title>Jquery</title>
   </head>
-  <style>
-    #info-username, #info-password {
-      color: red;
-    }
-  </style>
   <body>
     <h2>Basic Browser POST Request</h2>
     <div>
-      Example of HTML POST Form with Javascript validation.
-      We use Javascript to validate the form, and then use javascript to
-      submit the form.
+      Example of Form Submit Http POST. The browser sends the username and
+      password in the body of the request (instead of inside the header)
     </div>
     <br/>
-    <form id="form3" method="POST" action="login">
+    <form id="form3" method="POST" action="login3">
       <div>
         <label for="username3">Username</label>
         <input id="username3" name="username" type="text" value="upgradingdave"></input>
@@ -28,6 +22,5 @@
       </div>
       <input type="submit"/>
     </form>
-    <hr/>
   </body>
 </html>

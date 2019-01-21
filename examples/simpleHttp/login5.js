@@ -4,10 +4,25 @@
   var httpRequest;
 
   // attach an event handler to the button with id "button4"
-  document.getElementById("button5").addEventListener('click', makeRequest);
+  document.getElementById("button5").addEventListener('click', handleSubmit);
+
+  function handleSubmit() {
+    // get user name and password to send
+    let username = document.getElementById("username5").value;
+    let password = document.getElementById("password5").value;
+    let info = $('#info');
+
+    console.log(`The current value of the input is '${username}'`);
+    console.log(`The current value of the input is '${password}'`);
+
+    if(validateCredentials(username, password, info)) {
+        makeRequest(username, password);
+    }
+
+  }
 
   // send an http request to the server
-  function makeRequest() {
+  function makeRequest(username, password) {
     httpRequest = new XMLHttpRequest();
 
     if (!httpRequest) {
@@ -16,11 +31,8 @@
     }
 
     httpRequest.onreadystatechange = handleResponse;
-    httpRequest.open('POST', '/ajax/login');
+    httpRequest.open('POST', '/login5');
     httpRequest.setRequestHeader('Content-Type', 'application/json');
-
-    let username = document.getElementById("username5").value;
-    let password = document.getElementById("password5").value;
 
     let payload = {username: username, password: password};
     httpRequest.send(JSON.stringify(payload));

@@ -18,14 +18,21 @@ let serveFile = (pathToFile, contentType, httpResponse) => {
   });
 }
 
+let serveJson = function(httpResponse, responseJsonObject) {
+  httpResponse.statusCode = 200;
+  httpResponse.setHeader('Content-Type', "application/json");
+  httpResponse.write(JSON.stringify(responseJsonObject));
+  httpResponse.end();
+}
+
 let userAccounts = {
   'upgradingdave': {
     username: 'upgradingdave',
-    password: 'secret'
+    password: 'SecreT10!'
   },
   'danny': {
     username: 'danny',
-    password: 'secret2'
+    password: 'SecreT10!'
   }
 };
 
@@ -34,26 +41,36 @@ let doAuthentication = function(username, password, httpResponse) {
     let passwordCheck = userAccounts[username].password;
     if(passwordCheck === password) {
       // Authenticated!!
-      serveFile('home.html', 'text/html', httpResponse);
+      serveFile('authenticated.html', 'text/html', httpResponse);
     } else {
       // Wrong password!!
-      serveFile('unauthorized.html', 'text/html', httpResponse);
+      serveFile('unauthenticated.html', 'text/html', httpResponse);
     }
   } else {
     // user doesn't exist!!
-    serveFile('unauthorized.html', 'text/html', httpResponse);
+    serveFile('unauthenticated.html', 'text/html', httpResponse);
   }
 }
 
-let handleLoginGET = function(httpRequest, httpResponse) {
+let doAjaxAuthentication = function(username, password, httpResponse) {
 
-  // get paramaters out of GET login url
-  let loginRE = /login\?username=([^&]*)&password=(.*)/
-  let paramResult = httpRequest.url.match(loginRE);
-  let username = paramResult[1];
-  let password = paramResult[2];
+  console.log("Authenticate and send JSON response ...");
+  console.log(`username: ${username}`);
+  console.log(`password: ${password}`);
 
-  doAuthentication(username, password, httpResponse);
+  if(userAccounts[username]) {
+    let passwordCheck = userAccounts[username].password;
+    if(passwordCheck === password) {
+      // Authenticated!!
+      serveJson(httpResponse, {message: `Welcome, ${username}, you're authenticated!`});
+    } else {
+      // Wrong password!!
+      serveJson(httpResponse, {message: `You're not authenticated`});
+    }
+  } else {
+    // user doesn't exist!!
+    serveJson(httpResponse, {message: `You're not authenticated`});
+  }
 }
 
 let handleLoginPOST = function(httpRequest, httpResponse) {
@@ -118,61 +135,81 @@ let handleRequest = function(httpRequest, httpResponse) {
 
     // Example of GET http request
     // expects a url similar to /login?username=foo&password=blah
-    else if(httpRequest.url.match(/^\/login\?.*$/) &&
+    else if(httpRequest.url.match(/^\/login1\?.*$/) &&
             httpRequest.method === 'GET') {
 
-      console.log('This is a GET LOGIN request!');
-      handleLoginGET(httpRequest, httpResponse);
+      console.log('This is a Form Submit GET request');
+      // get paramaters out of GET login url
+      // originally, we used simple regular expression like this:
+      /*let loginRE = /login\?username=([^&]*)&password=(.*)/
+      let paramResult = httpRequest.url.match(loginRE);
+      let username = paramResult[1];
+      let password = paramResult[2];*/
 
+      // a better way is to use Node JS libraries:
+      let credentials = parse(requestUrl.query);
+      doAuthentication(credentials.username, credentials.password, httpResponse);
     }
 
     // example of basic http POST request
-    else if(httpRequest.url.match(/^\/login$/)
+    else if(httpRequest.url.match(/^\/login3$/)
             && httpRequest.method === 'POST') {
 
-      console.log("This is a POST LOGIN request");
+      console.log("This is a Form Submit POST login request");
       handleLoginPOST(httpRequest, httpResponse)
 
     }
 
     // example of ajax GET request
-    else if(httpRequest.url.match(/^\/ajax\/login\?.*$/)
+    else if(httpRequest.url.match(/^\/login4\?.*$/)
             && httpRequest.method === 'GET') {
 
       console.log("This is a AJAX GET request");
 
-      httpResponse.statusCode = 200;
-      httpResponse.setHeader('Content-Type', "application/json");
-
-      // let's get "username=dave&password=secret"
       let queryString = requestUrl.query;
       let queryObj = parse(queryString);
 
-      let response = {message: `Hello, ${queryObj.username}!`}
-      httpResponse.write(JSON.stringify(response));
-      httpResponse.end();
-
-      // JSON
-      // stringify - converts javascript into a String
-      // parse - string to Javascript.
+      doAjaxAuthentication(queryObj.username, queryObj.password, httpResponse)
 
     }
 
     // example of ajax POST request
-    else if(httpRequest.url.match(/^\/ajax\/login$/)
+    else if(httpRequest.url.match(/^\/login5$/)
             && httpRequest.method === 'POST') {
 
       console.log("This is a AJAX POST request");
 
-      httpResponse.statusCode = 200;
-      httpResponse.setHeader('Content-Type', "application/json");
-      let response = {message: 'Hello!'}
-      httpResponse.write(JSON.stringify(response));
-      httpResponse.end();
+      let body = '';
 
-      // JSON
-      // stringify - converts javascript into a String
-      // parse - string to Javascript.
+      httpRequest.on('data', chunk => {
+        body += chunk.toString();
+      });
+
+      httpRequest.on('end', () => {
+        let formData = JSON.parse(body);
+        let username = formData.username;
+        let password = formData.password;
+        doAjaxAuthentication(username, password, httpResponse);
+      });
+
+    }
+
+    else if(httpRequest.url.match(/^\/login6$/)) {
+
+      console.log("This is a AJAX POST request from jQuery");
+
+      let body = '';
+
+      httpRequest.on('data', chunk => {
+        body += chunk.toString();
+      });
+
+      httpRequest.on('end', () => {
+        let formData = JSON.parse(body);
+        let username = formData.username;
+        let password = formData.password;
+        doAjaxAuthentication(username, password, httpResponse);
+      });
 
     }
 
@@ -189,11 +226,14 @@ let handleRequest = function(httpRequest, httpResponse) {
       serveFile(filename, 'font/ttf', httpResponse)
     } else if(filetype == 'mp3') {
       serveFile(filename, 'audio/mpeg', httpResponse)
+    } else if(filetype == 'ico') {
+      serveFile(filename, 'image/x-icon', httpResponse)
     }
 
-    // if we don't match any other routes, serve login.html
+
+    // if we don't match any other routes, serve home.html
     else {
-      serveFile('login.html', 'text/html', httpResponse);
+      serveFile('home.html', 'text/html', httpResponse);
       //httpResponse.statusCode = 200;
 
       // Very simple string httpResponseponse
