@@ -18,7 +18,7 @@ The Goal of all of this is to code and host a simple username and password Login
 - [x] (2018-12) What is a Port?
 - [x] (2018-12) What is a IP Address?
 - [x] (2018-12) What is a HTTP?
-- [ ] What is JSON? (AJAX)
+- [x] What is JSON? (AJAX)
 - [ ] Express.js
 - [ ] Setup a server (Digital Ocean or Linode or Amazon Web Services, etc)
 - [ ] Domain Name (dns)
@@ -55,7 +55,7 @@ The Goal of all of this is to code and host a simple username and password Login
 
 # Javascript in the Browser (Jquery Mobile)
 
-- [ ] Send data to server (AJAX)
+- [x] Send data to server (AJAX)
 - [x] Handle Responses (callbacks)
 
 # Database
@@ -64,7 +64,9 @@ The Goal of all of this is to code and host a simple username and password Login
 
 # Mobile Android App
 
-- [ ] How to turn this into an Android App
+- [ ] Install and Configure studio
+- [ ] How to run App from Studio
+- [ ] Adding and configuring WebView
 
 # Mobile iOS App
 
