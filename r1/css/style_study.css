@@ -17,12 +17,14 @@
   margin-top: auto;
   margin-bottom: auto;
 }
+
 #study_conVow {
   font-family: godoMaum;
   font-size: 40em;
   text-align: center;
   margin: auto;
 }
+
 #content_button_function {
   display: grid;
   grid-template-columns: 33% 33% 33%;
