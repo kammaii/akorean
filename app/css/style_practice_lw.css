@@ -1,0 +1,33 @@
+#content {
+  display: grid;
+  grid-template-rows: 60% 30% 10%;
+}
+
+#button {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+}
+
+#answer {
+  border: 1px solid;
+  width: 60%;
+  height: 80%;
+  margin: auto;
+  margin-top: 50px;
+  display: block;
+  text-align: center;
+  font-family: misaeng;
+  font-size: 40em;
+}
+
+#quiz_message {
+  font-family: godoMaum;
+  font-size: 5em;
+  text-align: center;
+  color: #8FB299;
+}
+
+#again {
+  width: 100px;
+  height: 100px;
+}

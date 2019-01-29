@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Awesome Korean</title>
+    <link rel="stylesheet" href="css/style_main.css">
+    <link rel="stylesheet" href="css/style_assembly.css">
+  </head>
+  <body>
+    <div id="header">
+      <a href="home.html"><img src="img/home.svg" alt="home" class="icon"></a>
+      <h1>Awesome Korean</h1>
+      <a href="learning_assy_main.html"><img src="img/back.svg" alt="back" class="icon"></a>
+    </div>
+    <div id="content">
+      <div id="container1">
+        <div id="container2">
+          <div id="assembly_consonant_2">C</div>
+          <div id="assembly_vowel_2">V</div>
+        </div>
+        <div id="assembly_box"></div>
+      </div>
+      <div id="content_ass_message"></div>
+      <div id="content_button_conVow">
+        <button type="button" class="button" onclick="btn_function('consonant')">Consonant</button>
+        <button type="button" class="button" onclick="btn_function('vowel')">Vowel</button>
+      </div>
+      <div id="container_hangul"></div>
+      <div id="content_button_function">
+        <button type="button" class="button" ontouchstart="currentSound.play()">Listening</button>
+        <button type="button" disabled="true" class="button">Writing</button>
+        <button type="button" disabled="true" class="button">Hint</button>
+      </div>
+    </div>
+    <div id="footer">
+      <p>footer</p>
+    </div>
+
+  </body>
+  <script>
+
+  let consonant_array = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ", "ㄲ", "ㄸ", "ㅃ", "ㅆ", "ㅉ"];
+  let vowel_array = ["ㅗ", "ㅛ", "ㅜ", "ㅠ", "ㅡ", "ㅘ", "ㅙ", "ㅚ", "ㅝ", "ㅞ", "ㅟ", "ㅢ"];
+  let currentSound = null;
+  let consonant = null;
+  let vowel = null;
+  let box = null;
+
+  //Function to make boxes of consonant and vowels
+  function createCharacters(character, num, conVow) {
+    let newElement = document.createElement("div");
+    newElement.setAttribute("class", conVow);
+    newElement.setAttribute("id", conVow+num);
+    newElement.addEventListener("touchstart", touchDrag, false);
+    newElement.addEventListener("touchend", touchDrop, false);
+    newElement.addEventListener("touchmove", touchMove, false);
+
+    let newCharacterNode = document.createTextNode(character);
+    newElement.appendChild(newCharacterNode);
+    return newElement;
+  }
+
+  let currentDiv = document.getElementById("container_hangul")
+
+  for(let i=0; i<consonant_array.length; i++) {
+    let consonant = createCharacters(consonant_array[i], i, "consonant");
+    currentDiv.appendChild(consonant);
+  }
+  for(let i=0; i<vowel_array.length; i++) {
+    let vowel = createCharacters(vowel_array[i], i, "vowel");
+    currentDiv.appendChild(vowel);
+  }
+
+  // Mobile Touch drag and drop
+    var lastTouchId = null;
+
+    function touchDrag(ev) {
+      ev.preventDefault();
+      document.getElementById("content_ass_message").innerHTML = "";
+      lastTouchId = ev.target.id;
+    }
+
+    function touchDrop(ev) {
+      ev.preventDefault();
+      box.style.position = "";
+      content = document.getElementById(lastTouchId).textContent;
+      var changedTouch = ev.changedTouches[0];
+      var elem = document.elementFromPoint(changedTouch.clientX, changedTouch.clientY);
+
+      // Check matching if consonant and vowel are placed exactly.
+      if(elem.id == "assembly_consonant_2" && consonant_array.includes(content)) {
+        document.getElementById("assembly_consonant_2").innerHTML = content;
+        document.getElementById("assembly_consonant_2").style.color = 'black';
+        audioPlay(content);
+      } else if(elem.id == "assembly_vowel_2" && vowel_array.includes(content)) {
+        document.getElementById("assembly_vowel_2").innerHTML = content;
+        document.getElementById("assembly_vowel_2").style.color = 'black';
+        audioPlay(content)
+      } else {
+        document.getElementById("content_ass_message").innerHTML = "Consonant and vowel should be placed correctly.";
+      }
+    }
+
+    function touchMove(ev) {
+      ev.preventDefault();
+      box = document.getElementById(lastTouchId);
+      box.style.position = "absolute";
+      let touch = ev.targetTouches[0];
+      box.style.top = (touch.pageY-250) + 'px';
+      box.style.left = (touch.pageX-70) + 'px';
+    }
+
+
+  //Button Function
+  let btn_function = function(conVow) {
+    if(conVow == "consonant") {
+      for(i=0; i<consonant_array.length; i++) {
+        document.getElementById("consonant"+i).style.display = "initial";
+      }
+      for(i=0; i<vowel_array.length; i++) {
+        document.getElementById("vowel"+i).style.display = "none";
+      }
+    } else if(conVow == "vowel") {
+      for(i=0; i<consonant_array.length; i++) {
+        document.getElementById("consonant"+i).style.display = "none";
+      }
+      for(i=0; i<vowel_array.length; i++) {
+        document.getElementById("vowel"+i).style.display = "initial";
+      }
+    }
+  }
+
+  // Audio play function
+  function audioPlay(content) {
+    if(currentSound) {
+      currentSound.pause();
+      currentSound.currentTime = 0;
+    }
+    if(vowel_array.indexOf(content) == -1) {
+      currentSound = new Audio('audio/consonant/'+content+'.mp3');
+      consonant = content;
+    } else if(consonant_array.indexOf(content) == -1) {
+      currentSound = new Audio('audio/vowel/'+content+'.mp3');
+      vowel = content;
+    }
+    currentSound.play();
+
+    let ass = consonant.concat(vowel);
+    if(ass.indexOf("null") == -1) {
+      findUnicode(consonant, vowel)
+      currentSound.addEventListener("ended", function() {
+        currentSound = new Audio('audio/ass/'+uniResult+'.mp3');
+        currentSound.play();
+      })
+      document.getElementById("assembly_box").innerHTML = uniResult;
+    }
+  }
+
+  // Hangul union Function
+  let conUni_Array = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ" ,"ㅆ", "ㅇ" ,"ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ" ,"ㅍ", "ㅎ"];
+  let vowUni_Array = ["ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "ㅔ", "ㅕ", "ㅖ", "ㅗ", "ㅘ", "ㅙ", "ㅚ", "ㅛ", "ㅜ", "ㅝ", "ㅞ", "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ"];
+
+  let uniResult = null;
+
+  function findUnicode(consonant, vowel) {
+    let conUni_num = conUni_Array.indexOf(consonant);
+    let vowUni_num = vowUni_Array.indexOf(vowel);
+
+    uniResult = String.fromCharCode(44032 + (conUni_num * 588) + (vowUni_num * 28) );
+  }
+
+  </script>
+</html>
