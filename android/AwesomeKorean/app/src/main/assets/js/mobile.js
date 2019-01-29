@@ -13,17 +13,29 @@ var consonantsView = {};
 
   o.consonantArray = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ", "ㄲ", "ㄸ", "ㅃ", "ㅆ", "ㅉ"];
   o.consonantIdx = 0;
+  o.currentAudio = null;
   o.render = function() {
     console.log(`Array length: ${o.consonantArray.length}` );
     console.log(`Rendering index: ${o.consonantIdx}`);
     let letter = o.consonantArray[o.consonantIdx];
     $('.consonants').html(`<div class="consonants__letter">${letter}</div>`);
-    let audioE = createAudioElement(letter);
-    $('.consonants').add(audioE);
-    try {
-      audioE.play();
-    } catch(error) {
-      console.log("This device doesn't allow autoplaying audio");
+    if(o.currentAudio) {
+      o.currentAudio.pause();
+      o.currentAudio.currentTime = 0;
+    }
+    o.currentAudio = createAudioElement(letter);
+    $('.consonants').append(o.currentAudio);
+
+    //https://developers.google.com/web/updates/2017/09/autoplay-policy-changes
+    var promise = o.currentAudio.play();
+    if (promise !== undefined) {
+      promise.then(_ => {
+        // Autoplay started!
+      }).catch(error => {
+        // Autoplay was prevented.
+        // Show a "Play" button so that user can start playback.
+        console.log("This device doesn't allow autoplaying audio");
+      });
     }
   }
 
