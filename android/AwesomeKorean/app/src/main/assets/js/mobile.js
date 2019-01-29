@@ -1,3 +1,12 @@
+function createAudioElement(letter) {
+  let sound = document.createElement('audio');
+  sound.id  = 'audio-player';
+  sound.controls = 'controls';
+  sound.src = `audio/consonant/${letter}.mp3`;
+  sound.type = 'audio/mp3';
+  return sound;
+}
+
 var consonantsView = {};
 
 (function(o) {
@@ -7,8 +16,15 @@ var consonantsView = {};
   o.render = function() {
     console.log(`Array length: ${o.consonantArray.length}` );
     console.log(`Rendering index: ${o.consonantIdx}`);
-    $('.consonants').html(
-      `<div class="consonants__letter">${o.consonantArray[o.consonantIdx]}</div>`);
+    let letter = o.consonantArray[o.consonantIdx];
+    $('.consonants').html(`<div class="consonants__letter">${letter}</div>`);
+    let audioE = createAudioElement(letter);
+    $('.consonants').add(audioE);
+    try {
+      audioE.play();
+    } catch(error) {
+      console.log("This device doesn't allow autoplaying audio");
+    }
   }
 
   o.swipeLeft = function() {
