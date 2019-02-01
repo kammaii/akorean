@@ -1,0 +1,41 @@
+#content {
+  display: grid;
+  grid-template-rows: 50% 40% 10%;
+}
+
+#button {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+}
+
+#answer {
+  border: 1px solid;
+  width: 60%;
+  height: 80%;
+  margin: auto;
+  margin-top: 50px;
+  display: block;
+  text-align: center;
+  font-family: misaeng;
+  font-size: 40em;
+}
+
+#quiz_message {
+  font-size: 36px;
+  text-align: center;
+  color: #8FB299;
+}
+
+#again {
+  width: 100px;
+  height: 100px;
+}
+
+#start {
+  padding: 10px;
+  border: 2px solid #95989D;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 10px;
+  color: black;
+}

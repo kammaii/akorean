@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Awesome Korean</title>
+    <link rel="stylesheet" href="css/style_main.css">
+    <link rel="stylesheet" href="css/style_practice_lw.css">
+  </head>
+  <body>
+    <div id="header">
+      <a href="home.html"><img src="img/home.svg" alt="home" class="icon"></a>
+      <h1>Awesome Korean</h1>
+      <a href="practice_lw_menu.html"><img src="img/back.svg" alt="back" class="icon"></a>
+    </div>
+    <div id="content">
+      <div id="content_input">
+        <input type="text" id="answer" maxlength="1">
+      </div>
+      <div id="quiz_message">
+        【vowel】 </br>
+        'ㅐ', 'ㅔ' --> 'ㅐ'</br>
+        'ㅒ', 'ㅖ' --> 'ㅒ'</br>
+        'ㅙ', 'ㅞ', 'ㅚ' --> 'ㅙ' </br></br>
+
+        【Batchim】</br>
+        'ㄱ', 'ㅋ', 'ㄲ' --> 'ㄱ'</br>
+        'ㅂ', 'ㅍ' --> 'ㅂ'</br>
+        'ㄷ', 'ㅌ', 'ㅅ', 'ㅆ', 'ㅈ', 'ㅊ', 'ㅎ' --> 'ㄷ'</br></br>
+
+        <a id="start" href="#" onclick="return start()">Start!</a>
+      </div>
+      <div id="button">
+        <button type="button" class="button" onclick="btn_repeat()">Repeat</button>
+        <button type="button" class="button" id="answerBtn" onclick="btn_answer()">Answer</button>
+        <button type="button" class="button" onclick="btn_next()">Next</button>
+      </div>
+    </div>
+    <div id="footer">
+      <p>footer</p>
+    </div>
+
+  </body>
+  <script>
+  let conUni_Array = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ" ,"ㅆ", "ㅇ" ,"ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ" ,"ㅍ", "ㅎ"];
+  let vowUni_Array = ["ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "", "ㅕ", "", "ㅗ", "ㅘ", "ㅙ", "", "ㅛ", "ㅜ", "ㅝ", "", "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ"];
+  let batUni_Array = ["", "ㄱ", "", "", "", "ㄴ", "", "", "ㄷ", "ㄹ", "", "", "", "", "", "", "", "ㅁ", "ㅂ", "", "", "", "ㅇ", "", "", "", "", "", ""]
+
+  let uniResult = [];
+  let currentSound = null;
+  let currentProblemNo = null;
+  let quiz_message = document.getElementById('quiz_message');
+  let correct_answer_no = 0;
+  let user_answer = document.getElementById('answer');
+
+  // let autoAudio = document.getElementById('playAudio')
+  // autoAudio.setAttribute("src",'audio/ass/'+uniResult[currentProblemNo]+'.mp3');
+
+  function start() {
+    quiz_message.innerHTML = "";
+    currentProblemNo = 0;
+    quiz();
+    audioPlay();
+  }
+
+  function audioPlay() {
+    console.log("정답:"+uniResult[currentProblemNo]);
+    currentSound = new Audio('audio/ass/'+uniResult[currentProblemNo]+'.mp3');
+    currentSound.play();
+  }
+
+  function btn_repeat() {
+    currentSound.play();
+  }
+
+  function btn_answer() {
+    let correct_answer = uniResult[currentProblemNo];
+    document.getElementById("answerBtn").disabled = true;
+
+    if(user_answer.value == correct_answer) {
+      quiz_message.innerHTML = "정답입니다! Correct answer!"
+      correct_answer_no += 1;
+    } else {
+      quiz_message.innerHTML = "틀렸습니다! Wrong answer!" + "<br/>" + "정답 : " + correct_answer;
+
+    }
+  }
+
+  function btn_next() {
+    document.getElementById("answerBtn").disabled = false;
+    user_answer.value = "";
+    quiz_message.innerHTML = "";
+    currentProblemNo += 1;
+    audioPlay();
+
+    if(currentProblemNo > 9) {
+      if(correct_answer_no >= 9) {
+        quiz_message.innerHTML = "정답(correct answer) :" + correct_answer_no +"/10" + "<br/>" + "Awesome!"+ "<br/>" + "<br/>";
+        playAgain();
+      } else if(correct_answer_no >= 7) {
+        quiz_message.innerHTML = "정답(correct answer) :" + correct_answer_no +"/10" + "<br/>" + "Good job!"+ "<br/>" + "<br/>";
+        playAgain();
+      } else {
+        quiz_message.innerHTML = "정답(correct answer) :" + correct_answer_no +"/10" + "<br/>" + "Let's play again!"+ "<br/>" + "<br/>";
+        playAgain();
+      }
+    }
+  }
+
+  // Anchor tag to play again.
+  function playAgain() {
+    let again = document.createElement('a') ;
+    again.setAttribute('href', 'practice_LW_L2.html');
+    let img = document.createElement('img');
+    img.setAttribute('src', 'img/again.svg');
+    img.setAttribute('id', 'again');
+    again.appendChild(img);
+    quiz_message.appendChild(again);
+  }
+
+
+  function quiz() {
+
+    for (let i = 0; i < 10; i++) {
+      let random_con = Math.floor(Math.random()*conUni_Array.length);
+      let random_vow = Math.floor(Math.random()*vowUni_Array.length);
+      let random_bat = Math.floor(Math.random()*batUni_Array.length);
+
+      // LV2에서 받침은 ㄱ,ㄴ,ㄷ,ㄹ,ㅁ,ㅂ,ㅇ만 사용
+      // LV1, LV2에서 모음은 ㅔ, ㅖ, ㅞ, ㅚ 제거할 것 (각각 ㅐ, ㅒ, ㅙ로 함)
+      if(random_vow == 5 || random_vow == 7 || random_vow == 11 || random_vow == 15) {
+        random_vow = 1;
+      }
+      if(random_bat == 1 || random_bat == 4 || random_bat == 7 || random_bat == 8 || random_bat == 16 || random_bat == 17 || random_bat == 21) {
+        random_bat;
+      } else {
+        random_bat = 0;
+      }
+
+      uniResult[i] = String.fromCharCode(44032 + (random_con * 588) + (random_vow * 28) + random_bat);
+    }
+  }
+
+  </script>
+</html>

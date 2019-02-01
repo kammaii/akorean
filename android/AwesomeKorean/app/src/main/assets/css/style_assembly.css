@@ -1,0 +1,126 @@
+
+#content {
+  position: relative;
+  display: grid;
+  grid-template-rows: 45% 5% 10% 30% 10%;
+}
+
+#assembly_consonant_1, #assembly_vowel_1 {
+  font-family: godoMaum;
+  border: 1px solid black;
+  width: 300px;
+  height: 90%;
+  float: left;
+  font-size: 25em;
+  text-align: center;
+  color: #e5e7ea;
+}
+
+#assembly_consonant_2, #assembly_vowel_2 {
+  font-family: godoMaum;
+  border: 1px solid black;
+  width: 400px;
+  height: 300px;
+  display: block;
+  font-size: 20em;
+  text-align: center;
+  color: #e5e7ea;
+}
+
+#assembly_consonant_3, #assembly_vowel_3, #assembly_batchim_3 {
+  font-family: godoMaum;
+  border: 1px solid black;
+  width: 400px;
+  height: 180px;
+  display: block;
+  font-size: 10em;
+  text-align: center;
+  color: #e5e7ea;
+}
+
+#assembly_consonant_4, #assembly_vowel_4 {
+  font-family: godoMaum;
+  border: 1px solid black;
+  width: 250px;
+  height: 300px;
+  float: left;
+  font-size: 15em;
+  text-align: center;
+  color: #e5e7ea;
+}
+
+#assembly_batchim_4 {
+  font-family: godoMaum;
+  border: 1px solid black;
+  width: 500px;
+  height: 200px;
+  clear: both;
+  font-size: 15em;
+  text-align: center;
+  color: #e5e7ea;
+}
+
+
+
+#content_ass_message {
+  text-align: center;
+  font-size: 2.5em;
+  color: #8FB299;
+  overflow: scroll;
+}
+
+#content_assembly {
+  margin: 80px auto 0px auto;
+}
+
+#container1 {
+  margin: auto;
+}
+
+#container2 {
+  float: left;
+  margin: 20px;
+}
+
+#assembly_box {
+  border: 1px solid black;
+  float: left;
+  width: 400px;
+  height: 400px;
+  margin-top: 100px;
+  margin-left: 20px;
+  font-family: misaeng;
+  font-size: 25em;
+  text-align: center;
+}
+
+#content_button_conVow {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+#content_button_conVow3 {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+}
+
+#content_button_function {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+}
+.consonant, .vowel, .batchim {
+  font-family: godoMaum;
+  font-size: 6em;
+  text-align: center;
+  background-color: white;
+  margin: 5px;
+  border: 1px solid;
+  width: 120px;
+  height: 120px;
+  float: left;
+  margin-left: auto;
+  margin-right: auto;
+}
+.vowel, .batchim {
+  display: none;
+}

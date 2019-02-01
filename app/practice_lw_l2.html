@@ -10,19 +10,28 @@
     <div id="header">
       <a href="home.html"><img src="img/home.svg" alt="home" class="icon"></a>
       <h1>Awesome Korean</h1>
-      <a href="practice_menu.html"><img src="img/back.svg" alt="back" class="icon"></a>
+      <a href="practice_lw_menu.html"><img src="img/back.svg" alt="back" class="icon"></a>
     </div>
     <div id="content">
       <div id="content_input">
-        <input type="text" id="answer" maxlength="0">
+        <input type="text" id="answer" maxlength="1">
       </div>
-      <div id="quiz_message"></div>
-      <audio autoplay id="playAudio">
-      <source src="">
-      </audio>
+      <div id="quiz_message">
+        【vowel】 </br>
+        'ㅐ', 'ㅔ' --> 'ㅐ'</br>
+        'ㅒ', 'ㅖ' --> 'ㅒ'</br>
+        'ㅙ', 'ㅞ', 'ㅚ' --> 'ㅙ' </br></br>
+
+        【Batchim】</br>
+        'ㄱ', 'ㅋ', 'ㄲ' --> 'ㄱ'</br>
+        'ㅂ', 'ㅍ' --> 'ㅂ'</br>
+        'ㄷ', 'ㅌ', 'ㅅ', 'ㅆ', 'ㅈ', 'ㅊ', 'ㅎ' --> 'ㄷ'</br></br>
+
+        <a id="start" href="#" onclick="return start()">Start!</a>
+      </div>
       <div id="button">
         <button type="button" class="button" onclick="btn_repeat()">Repeat</button>
-        <button type="button" class="button" onclick="btn_answer()">Answer</button>
+        <button type="button" class="button" id="answerBtn" onclick="btn_answer()">Answer</button>
         <button type="button" class="button" onclick="btn_next()">Next</button>
       </div>
     </div>
@@ -40,14 +49,21 @@
   let currentSound = null;
   let currentProblemNo = null;
   let quiz_message = document.getElementById('quiz_message');
-  let correct_answer_no = null;
+  let correct_answer_no = 0;
   let user_answer = document.getElementById('answer');
 
-  let autoAudio = document.getElementById('playAudio')
-  autoAudio.setAttribute("src",'audio/ass/'+uniResult[currentProblemNo]+'.mp3');
+  // let autoAudio = document.getElementById('playAudio')
+  // autoAudio.setAttribute("src",'audio/ass/'+uniResult[currentProblemNo]+'.mp3');
+
+  function start() {
+    quiz_message.innerHTML = "";
+    currentProblemNo = 0;
+    quiz();
+    audioPlay();
+  }
 
   function audioPlay() {
-    console.log(uniResult[currentProblemNo]);
+    console.log("정답:"+uniResult[currentProblemNo]);
     currentSound = new Audio('audio/ass/'+uniResult[currentProblemNo]+'.mp3');
     currentSound.play();
   }
@@ -58,7 +74,7 @@
 
   function btn_answer() {
     let correct_answer = uniResult[currentProblemNo];
-    console.log("CA"+correct_answer);
+    document.getElementById("answerBtn").disabled = true;
 
     if(user_answer.value == correct_answer) {
       quiz_message.innerHTML = "정답입니다! Correct answer!"
@@ -70,21 +86,21 @@
   }
 
   function btn_next() {
+    document.getElementById("answerBtn").disabled = false;
     user_answer.value = "";
     quiz_message.innerHTML = "";
     currentProblemNo += 1;
-    console.log("currentNo:"+currentProblemNo);
     audioPlay();
 
     if(currentProblemNo > 9) {
       if(correct_answer_no >= 9) {
-        quiz_message.innerHTML = "정답(correct answer) :" + correct_answer_no +"/10" + "<br/>" + "Awesome!"+ "<br/>";
+        quiz_message.innerHTML = "정답(correct answer) :" + correct_answer_no +"/10" + "<br/>" + "Awesome!"+ "<br/>" + "<br/>";
         playAgain();
       } else if(correct_answer_no >= 7) {
-        quiz_message.innerHTML = "정답(correct answer) :" + correct_answer_no +"/10" + "<br/>" + "Good job!"+ "<br/>";
+        quiz_message.innerHTML = "정답(correct answer) :" + correct_answer_no +"/10" + "<br/>" + "Good job!"+ "<br/>" + "<br/>";
         playAgain();
       } else {
-        quiz_message.innerHTML = "정답(correct answer) :" + correct_answer_no +"/10" + "<br/>" + "Let's play again!"+ "<br/>";
+        quiz_message.innerHTML = "정답(correct answer) :" + correct_answer_no +"/10" + "<br/>" + "Let's play again!"+ "<br/>" + "<br/>";
         playAgain();
       }
     }
@@ -124,26 +140,5 @@
     }
   }
 
-
-
-
-
-    // 모든 한글 assembly audio를 랜덤으로 재생
-      //
-    // 랜덤 재생한 audio code와 인풋 비교
-    // 맞으면 정답 메시지 후 다음 audio 재생
-    // 틀리면 틀림 메시지 후 다시
-    // 정답 보기 버튼 만들기
-
-    /*<p> 【vowel】 </p>
-    <p>'ㅐ', 'ㅔ' --> 'ㅐ'
-    'ㅒ', 'ㅖ' --> 'ㅒ'</br>
-    'ㅙ', 'ㅞ', 'ㅚ' --> 'ㅙ'
-    </p>
-    <p>【Batchim】</p>
-    <p>'ㄱ', 'ㅋ', 'ㄲ' --> 'ㄱ'</br>
-    'ㅂ', 'ㅍ' --> 'ㅂ'</br>
-    'ㄷ', 'ㅌ', 'ㅅ', 'ㅆ', 'ㅈ', 'ㅊ', 'ㅎ' --> 'ㄷ'
-    </p>*/
   </script>
 </html>

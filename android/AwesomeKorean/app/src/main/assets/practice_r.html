@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Awesome Korean</title>
+    <link rel="stylesheet" href="css/style_main.css">
+    <link rel="stylesheet" href="css/style_practice_r.css">
+  </head>
+  <body>
+    <div id="header">
+      <a href="home.html"><img src="img/home.svg" alt="home" class="icon"></a>
+      <h1>Awesome Korean</h1>
+      <a href="#"><img src="img/back.svg" alt="back" class="icon"></a>
+    </div>
+    <div id="content">
+      <div id="content_reading">
+      </div>
+      <div id="button">
+        <button type="button" class="button" onclick="btn_slow()">Slow</button>
+        <button type="button" class="button" onclick="btn_play()">Play</button>
+        <button type="button" class="button" onclick="btn_stop()">Stop</button>
+        <button type="button" class="button" onclick="btn_fast()">Fast</button>
+      </div>
+    </div>
+    <div id="footer">
+      <p>footer</p>
+    </div>
+
+  </body>
+  <script>
+  let sentences = [
+    "안녕하세요?",
+    "안녕히 계세요.",
+    "반갑습니다.",
+    "밥 먹었어요?",
+    "어디 가요?",
+    "어서 오세요.",
+    "다음에 또 만나요.",
+    "오늘 바빠요.",
+    "내일 뭐해요?",
+    "너무 피곤해요.",
+    "배고파요."
+  ];
+
+  let container_sentence = document.getElementById("content_reading");
+  let temp = null;
+  let rnum = null;
+  let currentSound = null;
+  let hangulRegex = /[\u3140-\u317F\uAC00-\uD79F\u1100-\u11FF\s]+/g;
+  let audioTarget = null;
+  let audioTitle = null;
+  let audioArray = [];
+  let j=-1;
+  let btnStopClicked = null;
+  let btnSlowClicked = null;
+
+
+  // Mix the array 'sentences' randomly
+  for(let i=0; i < sentences.length; i++) {
+    rnum = Math.floor(Math.random()*sentences.length);
+    temp = sentences[i];
+    sentences[i] = sentences[rnum];
+    sentences[rnum] = temp;
+  }
+
+  // put the random sentences to container with <p> tag and id.
+  for (let i = 0; i < 10; i++) {
+    let random_sentence = document.createTextNode(sentences[i]);
+    let newElement = document.createElement("p");
+    newElement.setAttribute("id", "sentence"+i);
+    newElement.addEventListener("touchstart", touchSentence, false);
+    newElement.appendChild(random_sentence);
+    container_sentence.appendChild(newElement);
+  }
+
+  // get audio filename without '.' and '?'. And make play list.
+  for(let i=0; i<10; i++) {
+    audioTarget = document.getElementById("sentence"+i).innerHTML;
+    audioTitle = audioTarget.match(hangulRegex);
+    audioArray[i] = new Audio('audio/reading/' + audioTitle + '.mp3');
+  }
+
+  function btn_play() {
+    if(btnStopClicked) {
+      currentSound.play();
+      btnStopClicked = null;
+    } else if(currentSound) {
+      currentSound.pause();
+      currentSound.currentTime = 0;
+      document.getElementById("sentence"+j).style.backgroundColor = "";
+      j = -1;
+      audioPlay();
+    } else {
+      j = -1;
+      audioPlay();
+    }
+  }
+
+  function audioPlay() {
+    j++;
+    console.log(j);
+
+    if(j == audioArray.length) return;
+    currentSound = audioArray[j];
+    if(btnSlowClicked) {
+      btn_slow();
+    }
+    background();
+    currentSound.addEventListener('ended', audioPlay);
+    currentSound.play();
+  }
+
+  // background color function
+  function background(num) {
+    for(let i=0; i<10; i++) {
+      document.getElementById("sentence"+i).style.backgroundColor = "";
+    }
+    if(!num) {
+      document.getElementById("sentence"+j).style.backgroundColor = "#e6e9ef";
+    } else if(num) {
+      document.getElementById("sentence"+num).style.backgroundColor = "#e6e9ef";
+    }
+  }
+
+  // touch function
+  function touchSentence(ev) {
+    ev.preventDefault();
+    let lastTouchId = ev.target.id;
+    let lastTouchNo = lastTouchId.match(/\d/);
+    if(currentSound) {
+      currentSound.pause();
+      currentSound.currentTime = 0;
+    }
+    currentSound = audioArray[lastTouchNo[0]];
+    currentSound.play();
+    currentSound.removeEventListener('ended', audioPlay);
+    background(lastTouchNo[0]);
+
+    currentSound = null;
+    console.log(j);
+    j = -1;
+  }
+
+
+  function btn_stop() {
+    btnStopClicked = true;
+    currentSound.pause();
+  }
+
+  function btn_slow() {
+    currentSound.playbackRate = 0.7;
+    btnSlowClicked = true;
+  }
+
+  function btn_fast() {
+    currentSound.playbackRate = 1;
+    btnSlowClicked = null;
+  }
+
+  </script>
+</html>

@@ -11,7 +11,7 @@ import android.webkit.WebView;
 
 public class MainActivity extends AppCompatActivity {
 
-    final String url = "file:///android_asset/std_con.html";
+    final String url = "file:///android_asset/home.html";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
