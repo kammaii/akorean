@@ -30,9 +30,9 @@
         <a id="start" href="#" onclick="return start()">Start!</a>
       </div>
       <div id="button">
-        <button type="button" class="button" onclick="btn_repeat()">Repeat</button>
-        <button type="button" class="button" id="answerBtn" onclick="btn_answer()">Answer</button>
-        <button type="button" class="button" onclick="btn_next()">Next</button>
+        <button type="button" class="button" id="repeatBtn" onclick="btn_repeat()" disabled>Repeat</button>
+        <button type="button" class="button" id="answerBtn" onclick="btn_answer()" disabled>Answer</button>
+        <button type="button" class="button" id="nextBtn" onclick="btn_next()" disabled>Next</button>
       </div>
     </div>
     <div id="footer">
@@ -56,6 +56,9 @@
   // autoAudio.setAttribute("src",'audio/ass/'+uniResult[currentProblemNo]+'.mp3');
 
   function start() {
+    document.getElementById("repeatBtn").disabled = false;
+    document.getElementById("answerBtn").disabled = false;
+    document.getElementById("nextBtn").disabled = false;
     quiz_message.innerHTML = "";
     currentProblemNo = 0;
     quiz();
@@ -115,6 +118,9 @@
     img.setAttribute('id', 'again');
     again.appendChild(img);
     quiz_message.appendChild(again);
+    document.getElementById("repeatBtn").disabled = true;
+    document.getElementById("answerBtn").disabled = true;
+    document.getElementById("nextBtn").disabled = true;
   }
 
 
