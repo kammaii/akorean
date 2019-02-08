@@ -7,32 +7,38 @@
     <link rel="stylesheet" href="css/style_learning.css">
   </head>
   <body>
-    <div id="header">
-      <a href="home.html"><img src="img/home.svg" alt="home" class="icon"></a>
-      <h1>Awesome Korean</h1>
-      <a href="learning_menu.html"><img src="img/back.svg" alt="back" class="icon"></a>
-    </div>
-    <div id="content">
-      <div id="content_study">
-        <a href="" id="button_left" ontouchstart="leftHangul()"><img src="img/left.svg" alt="left" class="icon button_left"></a>
-        <div id="study_conVow">ㄱ</div>
-        <a href="" id="button_right" ontouchstart="rightHangul()"><img src="img/right.svg" alt="right" class="icon button_right"></a>
+    <div class="page">
+
+      <div class="page__header">
+        <a href="home.html"><img src="img/home.svg" alt="home" class="page__header__icon"></a>
+        <h1>Awesome Korean</h1>
+        <a href="learning_menu.html"><img src="img/back.svg" alt="back" class="page__header__icon"></a>
       </div>
-      <div id="content_message">기역</div>
-      <div id="content_button_function">
-        <button type="button" class="button" ontouchstart="audioPlay()">Listening</button>
-        <button type="button" id="button_writing"class="button" ontouchstart="writingPlay()">Writing</button>
-        <button type="button" id="button_hint" class="button">Hint</button>
+
+      <div class="page__content" id="content">
+        <div class="page__content__learning">
+          <a href="" id="button_left" ontouchstart="leftHangul()"><img src="img/left.svg" alt="left" class="page__content__learning__button"></a>
+          <div class="page__content__learning__convow" id="learning_conVow">ㄱ</div>
+          <a href="" id="button_right" ontouchstart="rightHangul()"><img src="img/right.svg" alt="right" class="page__content__learning__button"></a>
+        </div>
+        <div class="page__content__message" id="content_message">기역</div>
+        <div class="page__content__3buttons">
+          <button type="button" class="button" ontouchstart="audioPlay()">Listening</button>
+          <button type="button" id="button_writing"class="button" ontouchstart="writingPlay()">Writing</button>
+          <button type="button" id="button_hint" class="button">Hint</button>
+        </div>
       </div>
-    </div>
-    <div id="footer">
-      <p>footer</p>
+
+      <div class="page__footer">
+        <p>footer</p>
+      </div>
+
     </div>
   </body>
   <script>
     let consonantArray = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ", "ㄲ", "ㄸ", "ㅃ", "ㅆ", "ㅉ"];
     let countClick = 0;
-    let hangul = document.getElementById("study_conVow");
+    let hangul = document.getElementById("learning_conVow");
     let hint = document.getElementById('button_hint');
     let currentSound = undefined;
     let currentMsg = document.getElementById('content_message')

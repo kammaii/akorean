@@ -1,15 +1,10 @@
-#menu_contants > a {
+.menu__button {
+  display: grid;
+  grid-template-rows: 15% 15% 15%;
   font-size: 4em;
   padding: 50px;
   margin: 10px;
   border: 2px solid #95989D;
   text-align: center;
-  text-decoration: none;
   border-radius: 20px;
-  color: black;
-}
-
-#menu_contants {
-  display: grid;
-  grid-template-rows: 15% 15% 15% 15%;
 }

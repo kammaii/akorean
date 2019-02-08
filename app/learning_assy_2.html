@@ -4,38 +4,43 @@
     <meta charset="utf-8">
     <title>Awesome Korean</title>
     <link rel="stylesheet" href="css/style_main.css">
-    <link rel="stylesheet" href="css/style_assembly.css">
+    <link rel="stylesheet" href="css/style_learning_assy.css">
   </head>
   <body>
-    <div id="header">
-      <a href="home.html"><img src="img/home.svg" alt="home" class="icon"></a>
-      <h1>Awesome Korean</h1>
-      <a href="learning_assy_main.html"><img src="img/back.svg" alt="back" class="icon"></a>
-    </div>
-    <div id="content">
-      <div id="container1">
-        <div id="container2">
-          <div id="assembly_consonant_2">C</div>
-          <div id="assembly_vowel_2">V</div>
-        </div>
-        <div id="assembly_box"></div>
-      </div>
-      <div id="content_ass_message"></div>
-      <div id="content_button_conVow">
-        <button type="button" class="button" onclick="btn_function('consonant')">Consonant</button>
-        <button type="button" class="button" onclick="btn_function('vowel')">Vowel</button>
-      </div>
-      <div id="container_hangul"></div>
-      <div id="content_button_function">
-        <button type="button" class="button" ontouchstart="currentSound.play()">Listening</button>
-        <button type="button" disabled="true" class="button">Writing</button>
-        <button type="button" disabled="true" class="button">Hint</button>
-      </div>
-    </div>
-    <div id="footer">
-      <p>footer</p>
-    </div>
+    <div class="page">
 
+      <div class="page__header">
+        <a href="home.html"><img src="img/home.svg" alt="home" class="page__header__icon"></a>
+        <h1>Awesome Korean</h1>
+        <a href="learning_menu.html"><img src="img/back.svg" alt="back" class="page__header__icon"></a>
+      </div>
+
+      <div class="page__content">
+        <div class="page__content__container1">
+          <div class="page__content__container2">
+            <div class="page__content__assembly__consonant__2" id="assembly_consonant_2">C</div>
+            <div class="page__content__assembly__vowel__2" id="assembly_vowel_2">V</div>
+          </div>
+          <div class="page__content__assybox" id="assybox"></div>
+        </div>
+        <div class="page__content__message" id="content_message"></div>
+        <div class="page__content__2buttons">
+          <button type="button" class="button" onclick="btn_function('consonant')">Consonant</button>
+          <button type="button" class="button" onclick="btn_function('vowel')">Vowel</button>
+        </div>
+        <div id="container_hangul"></div>
+        <div class="page__content__3buttons">
+          <button type="button" class="button" ontouchstart="currentSound.play()">Listening</button>
+          <button type="button" disabled="true" class="button">Writing</button>
+          <button type="button" disabled="true" class="button">Hint</button>
+        </div>
+      </div>
+
+      <div class="page__footer">
+        <p>footer</p>
+      </div>
+
+    </div>
   </body>
   <script>
 
@@ -76,7 +81,7 @@
 
     function touchDrag(ev) {
       ev.preventDefault();
-      document.getElementById("content_ass_message").innerHTML = "";
+      document.getElementById("content_message").innerHTML = "";
       lastTouchId = ev.target.id;
     }
 
@@ -97,7 +102,7 @@
         document.getElementById("assembly_vowel_2").style.color = 'black';
         audioPlay(content)
       } else {
-        document.getElementById("content_ass_message").innerHTML = "Consonant and vowel should be placed correctly.";
+        document.getElementById("content_message").innerHTML = "Consonant and vowel should be placed correctly.";
       }
     }
 
@@ -152,7 +157,7 @@
         currentSound = new Audio('audio/ass/'+uniResult+'.mp3');
         currentSound.play();
       })
-      document.getElementById("assembly_box").innerHTML = uniResult;
+      document.getElementById("assybox").innerHTML = uniResult;
     }
   }
 
