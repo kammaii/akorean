@@ -1,22 +1,24 @@
 package akorean.hangul.awesomekorean;
 
+import android.app.Activity;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     final String url = "file:///android_asset/home.html";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.setContentView(R.layout.activity_main);
 
         final WebView webView = findViewById(R.id.webView1);
 
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         webView.setWebChromeClient(new WebChromeClient());
+        webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(url);
 
         // I don't think we need any of this anymore:
@@ -48,9 +51,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );*/
-
-        // Make it so clicks load inside the app (instead of opening an external browser)
-        //webView.setWebViewClient(new WebViewClient());
 
     }
 }
