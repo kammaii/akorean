@@ -7,25 +7,30 @@
     <link rel="stylesheet" href="css/style_practice_r.css">
   </head>
   <body>
-    <div id="header">
-      <a href="home.html"><img src="img/home.svg" alt="home" class="icon"></a>
-      <h1>Awesome Korean</h1>
-      <a href="#"><img src="img/back.svg" alt="back" class="icon"></a>
-    </div>
-    <div id="content">
-      <div id="content_reading">
-      </div>
-      <div id="button">
-        <button type="button" class="button" onclick="btn_slow()">Slow</button>
-        <button type="button" class="button" onclick="btn_play()">Play</button>
-        <button type="button" class="button" onclick="btn_stop()">Stop</button>
-        <button type="button" class="button" onclick="btn_fast()">Fast</button>
-      </div>
-    </div>
-    <div id="footer">
-      <p>footer</p>
-    </div>
+    <div class="page">
 
+      <div class="page__header">
+        <a href="home.html"><img src="img/home.svg" alt="home" class="page__header__icon"></a>
+        <h1>Awesome Korean</h1>
+        <a href="learning_menu.html"><img src="img/back.svg" alt="back" class="page__header__icon"></a>
+      </div>
+
+      <div class="page__content">
+        <div class="page__content__reading" id="reading">
+        </div>
+        <div class="page__content__4buttons">
+          <button type="button" class="button" onclick="btn_slow()">Slow</button>
+          <button type="button" class="button" onclick="btn_play()">Play</button>
+          <button type="button" class="button" onclick="btn_stop()">Stop</button>
+          <button type="button" class="button" onclick="btn_fast()">Fast</button>
+        </div>
+      </div>
+
+      <div class="page__footer">
+        <p>footer</p>
+      </div>
+
+    </div>
   </body>
   <script>
   let sentences = [
@@ -42,7 +47,7 @@
     "배고파요."
   ];
 
-  let container_sentence = document.getElementById("content_reading");
+  let container_sentence = document.getElementById("reading");
   let temp = null;
   let rnum = null;
   let currentSound = null;

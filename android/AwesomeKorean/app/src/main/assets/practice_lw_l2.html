@@ -7,39 +7,45 @@
     <link rel="stylesheet" href="css/style_practice_lw.css">
   </head>
   <body>
-    <div id="header">
-      <a href="home.html"><img src="img/home.svg" alt="home" class="icon"></a>
-      <h1>Awesome Korean</h1>
-      <a href="practice_lw_menu.html"><img src="img/back.svg" alt="back" class="icon"></a>
-    </div>
-    <div id="content">
-      <div id="content_input">
-        <input type="text" id="answer" maxlength="1">
-      </div>
-      <div id="quiz_message">
-        【vowel】 </br>
-        'ㅐ', 'ㅔ' --> 'ㅐ'</br>
-        'ㅒ', 'ㅖ' --> 'ㅒ'</br>
-        'ㅙ', 'ㅞ', 'ㅚ' --> 'ㅙ' </br></br>
+    <div class="page">
 
-        【Batchim】</br>
-        'ㄱ', 'ㅋ', 'ㄲ' --> 'ㄱ'</br>
-        'ㅂ', 'ㅍ' --> 'ㅂ'</br>
-        'ㄷ', 'ㅌ', 'ㅅ', 'ㅆ', 'ㅈ', 'ㅊ', 'ㅎ' --> 'ㄷ'</br></br>
-
-        <a id="start" href="#" onclick="return start()">Start!</a>
+      <div class="page__header">
+        <a href="home.html"><img src="img/home.svg" alt="home" class="page__header__icon"></a>
+        <h1>Awesome Korean</h1>
+        <a href="learning_menu.html"><img src="img/back.svg" alt="back" class="page__header__icon"></a>
       </div>
-      <div id="button">
-        <button type="button" class="button" onclick="btn_repeat()">Repeat</button>
-        <button type="button" class="button" id="answerBtn" onclick="btn_answer()">Answer</button>
-        <button type="button" class="button" onclick="btn_next()">Next</button>
-      </div>
-    </div>
-    <div id="footer">
-      <p>footer</p>
-    </div>
 
+      <div class="page__content">
+        <div>
+          <input class="page__content__answer" type="text" id="answer" maxlength="1">
+        </div>
+        <div class="page__content__quizmsg" id="quizmsg">
+          【vowel】 </br>
+          'ㅐ', 'ㅔ' --> 'ㅐ'</br>
+          'ㅒ', 'ㅖ' --> 'ㅒ'</br>
+          'ㅙ', 'ㅞ', 'ㅚ' --> 'ㅙ' </br></br>
+
+          【Batchim】</br>
+          'ㄱ', 'ㅋ', 'ㄲ' --> 'ㄱ'</br>
+          'ㅂ', 'ㅍ' --> 'ㅂ'</br>
+          'ㄷ', 'ㅌ', 'ㅅ', 'ㅆ', 'ㅈ', 'ㅊ', 'ㅎ' --> 'ㄷ'</br></br>
+
+          <a href="#" class="page__content__start" id="start" onclick="return start()">Start!</a>
+        </div>
+        <div class="page__content__3buttons">
+          <button type="button" class="button" id="repeatBtn" onclick="btn_repeat()" disabled>Repeat</button>
+          <button type="button" class="button" id="answerBtn" onclick="btn_answer()" disabled>Answer</button>
+          <button type="button" class="button" id="nextBtn" onclick="btn_next()" disabled>Next</button>
+        </div>
+      </div>
+
+      <div class="page__footer">
+        <p>footer</p>
+      </div>
+
+    </div>
   </body>
+
   <script>
   let conUni_Array = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ" ,"ㅆ", "ㅇ" ,"ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ" ,"ㅍ", "ㅎ"];
   let vowUni_Array = ["ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "", "ㅕ", "", "ㅗ", "ㅘ", "ㅙ", "", "ㅛ", "ㅜ", "ㅝ", "", "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ"];
@@ -48,7 +54,7 @@
   let uniResult = [];
   let currentSound = null;
   let currentProblemNo = null;
-  let quiz_message = document.getElementById('quiz_message');
+  let quiz_message = document.getElementById('quizmsg');
   let correct_answer_no = 0;
   let user_answer = document.getElementById('answer');
 
@@ -56,6 +62,9 @@
   // autoAudio.setAttribute("src",'audio/ass/'+uniResult[currentProblemNo]+'.mp3');
 
   function start() {
+    document.getElementById("repeatBtn").disabled = false;
+    document.getElementById("answerBtn").disabled = false;
+    document.getElementById("nextBtn").disabled = false;
     quiz_message.innerHTML = "";
     currentProblemNo = 0;
     quiz();
@@ -112,9 +121,12 @@
     again.setAttribute('href', 'practice_LW_L2.html');
     let img = document.createElement('img');
     img.setAttribute('src', 'img/again.svg');
-    img.setAttribute('id', 'again');
+    img.setAttribute('class', 'page__content__againbtn');
     again.appendChild(img);
     quiz_message.appendChild(again);
+    document.getElementById("repeatBtn").disabled = true;
+    document.getElementById("answerBtn").disabled = true;
+    document.getElementById("nextBtn").disabled = true;
   }
 
 

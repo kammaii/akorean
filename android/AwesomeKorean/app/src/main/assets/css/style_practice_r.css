@@ -1,14 +1,9 @@
-#content {
+.page__content {
   display: grid;
   grid-template-rows: 90% 10%;
 }
 
-#button {
-  display: grid;
-  grid-template-columns: 25% 25% 25% 25%;
-}
-
-#content_reading {
+.page__content__reading {
   border: 1px solid;
   width: 80%;
   height: 85%;
@@ -18,4 +13,9 @@
   text-align: center;
   font-family: godoMaum;
   font-size: 3em;
+}
+
+.page__content__4buttons {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
 }
