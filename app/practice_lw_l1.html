@@ -24,12 +24,6 @@
           'ㅐ', 'ㅔ' --> 'ㅐ'</br>
           'ㅒ', 'ㅖ' --> 'ㅒ'</br>
           'ㅙ', 'ㅞ', 'ㅚ' --> 'ㅙ' </br></br>
-
-          【Batchim】</br>
-          'ㄱ', 'ㅋ', 'ㄲ' --> 'ㄱ'</br>
-          'ㅂ', 'ㅍ' --> 'ㅂ'</br>
-          'ㄷ', 'ㅌ', 'ㅅ', 'ㅆ', 'ㅈ', 'ㅊ', 'ㅎ' --> 'ㄷ'</br></br>
-
           <a href="#" class="page__content__start" id="start" onclick="return start()">Start!</a>
         </div>
         <div class="page__content__3buttons">
@@ -49,7 +43,6 @@
   <script>
   let conUni_Array = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ" ,"ㅆ", "ㅇ" ,"ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ" ,"ㅍ", "ㅎ"];
   let vowUni_Array = ["ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "", "ㅕ", "", "ㅗ", "ㅘ", "ㅙ", "", "ㅛ", "ㅜ", "ㅝ", "", "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ"];
-  let batUni_Array = ["", "ㄱ", "", "", "", "ㄴ", "", "", "ㄷ", "ㄹ", "", "", "", "", "", "", "", "ㅁ", "ㅂ", "", "", "", "ㅇ", "", "", "", "", "", ""]
 
   let uniResult = [];
   let currentSound = null;
@@ -90,7 +83,6 @@
       correct_answer_no += 1;
     } else {
       quiz_message.innerHTML = "틀렸습니다! Wrong answer!" + "<br/>" + "정답 : " + correct_answer;
-
     }
   }
 
@@ -118,7 +110,7 @@
   // Anchor tag to play again.
   function playAgain() {
     let again = document.createElement('a') ;
-    again.setAttribute('href', 'practice_LW_L2.html');
+    again.setAttribute('href', 'practice_LW_L1.html');
     let img = document.createElement('img');
     img.setAttribute('src', 'img/again.svg');
     img.setAttribute('class', 'page__content__againbtn');
@@ -135,20 +127,12 @@
     for (let i = 0; i < 10; i++) {
       let random_con = Math.floor(Math.random()*conUni_Array.length);
       let random_vow = Math.floor(Math.random()*vowUni_Array.length);
-      let random_bat = Math.floor(Math.random()*batUni_Array.length);
 
-      // LV2에서 받침은 ㄱ,ㄴ,ㄷ,ㄹ,ㅁ,ㅂ,ㅇ만 사용
-      // LV1, LV2에서 모음은 ㅔ, ㅖ, ㅞ, ㅚ 제거할 것 (각각 ㅐ, ㅒ, ㅙ로 함)
       if(random_vow == 5 || random_vow == 7 || random_vow == 11 || random_vow == 15) {
         random_vow = 1;
       }
-      if(random_bat == 1 || random_bat == 4 || random_bat == 7 || random_bat == 8 || random_bat == 16 || random_bat == 17 || random_bat == 21) {
-        random_bat;
-      } else {
-        random_bat = 0;
-      }
 
-      uniResult[i] = String.fromCharCode(44032 + (random_con * 588) + (random_vow * 28) + random_bat);
+      uniResult[i] = String.fromCharCode(44032 + (random_con * 588) + (random_vow * 28));
     }
   }
 

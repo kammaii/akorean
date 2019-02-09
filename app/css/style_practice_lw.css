@@ -15,6 +15,18 @@
   font-size: 40em;
 }
 
+.page__content__answer_l3 {
+  border: 1px solid;
+  width: 60%;
+  height: 80%;
+  margin: auto;
+  margin-top: 50px;
+  display: block;
+  text-align: center;
+  font-family: misaeng;
+  font-size: 18em;
+}
+
 .page__content__quizmsg {
   font-size: 36px;
   text-align: center;
