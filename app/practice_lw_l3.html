@@ -115,7 +115,7 @@
     document.getElementById("nextBtn").disabled = true;
   }
 
-
+  // Mix the array of words.
   function quiz() {
 
     for (let i = 0; i < words.length; i++) {
@@ -124,7 +124,6 @@
       words[i] = words[rnum];
       words[rnum] = temp;
     }
-    console.log(words);
   }
 
   </script>
