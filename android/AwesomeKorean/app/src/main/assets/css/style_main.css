@@ -8,39 +8,74 @@
 }
 
 html {
-  text-size-adjust: none;
+  /* text-size-adjust: none; */
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  height: 100%;
 }
 
 .page {
-  display: grid;
-  grid-template-rows: 10% 80% 10%;
-  position: absolute;
   width: 100%;
   height: 100%;
+
+  display: grid;
+  grid-template-rows: 15% 80% 10%;
 
   border: 1px solid green;
 }
 
-.page__header > h1 {
-  border: 1px solid blue;
-}
-
 .page__header {
+  width: 100%;
+  height: 100%;
+
   display: grid;
   grid-template-columns: 20% 60% 20%;
   align-items: center;
   justify-items: center;
-  margin: 0;
+
   background-color: #e6e9ef;
-  font-size: 25px;
 
   border: 1px solid red;
 }
 
-.page__header__icon {
-  width: 60px;
-  height: 60px;
+.page__header__title {
+  width: 100%;
+  height: 100%;
+
+  font-size: 7vw;
+  text-align: center;
+
   border: 1px solid blue;
+}
+
+.page__header__icon {
+  width: 100%;
+  height: 100%;
+
+  border: 1px solid blue;
+}
+
+.page__header__icon a {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid black;
+}
+
+.page__header__icon img {
+  height: 70%;
+  width: auto;
+}
+
+.page__content {
+  border: 1px solid red;
 }
 
 .page__content__message {
