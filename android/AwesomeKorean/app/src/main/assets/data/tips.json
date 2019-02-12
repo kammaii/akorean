@@ -1,0 +1,18 @@
+{"tips":
+  {
+    "tip1": {
+      "timestamp": "20190212",
+      "message": "Message 1"
+    },
+
+    "tip2": {
+      "timestamp": "20190212",
+      "message": "Message 2"
+    },
+
+    "tip3": {
+      "timestamp": "20190212",
+      "message": "Message 3"
+    }
+  }
+}
