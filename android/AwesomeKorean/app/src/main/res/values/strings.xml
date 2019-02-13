@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Awesome Korean</string>
+    <string name="channel_name">Awesome Korean</string>
+    <string name="channel_description">Notifications from Awesome Korean</string>
 </resources>

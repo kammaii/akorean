@@ -1,6 +1,8 @@
 package akorean.hangul.awesomekorean;
 
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.webkit.WebChromeClient;
@@ -10,7 +12,8 @@ import android.webkit.WebViewClient;
 
 public class MainActivity extends Activity {
 
-    final String url = "file:///android_asset/opening.html";
+    final String url = "file:///android_asset/home.html";
+    public final static String CHANNEL_ID="akorean";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,20 +40,25 @@ public class MainActivity extends Activity {
 
         webView.setWebChromeClient(new WebChromeClient());
         webView.setWebViewClient(new WebViewClient());
+
+        // Here is where we setup the connection between javascript and android
+        webView.addJavascriptInterface(new WebAppInterface(this), "Android");
+
         webView.loadUrl(url);
 
-        // I don't think we need any of this anymore:
-
-        //final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
-        /*swipeRefreshLayout.setOnRefreshListener(
-                new SwipeRefreshLayout.OnRefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        webView.loadUrl(url);
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
-                }
-        );*/
+        // Create a Notification Channel.
+        String channelName = "Awesome Korean";
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
 
     }
 }
