@@ -12,7 +12,7 @@
       <div class="page__header">
         <a href="home.html"><img src="img/home.svg" alt="home" class="page__header__icon"></a>
         <h1>Awesome Korean</h1>
-        <a href="learning_menu.html"><img src="img/back.svg" alt="back" class="page__header__icon"></a>
+        <a href="learning_assy_main.html"><img src="img/back.svg" alt="back" class="page__header__icon"></a>
       </div>
 
       <div class="page__content">
@@ -24,7 +24,7 @@
           </div>
           <div class="page__content__assybox" id="assybox"></div>
         </div>
-        <div class="page__content__message" id="content_message"></div>
+        <div class="page__content__assymessage" id="content_message"></div>
         <div class="page__content__3buttons">
           <button type="button" class="button" onclick="btn_function('consonant')">Consonant</button>
           <button type="button" class="button" onclick="btn_function('vowel')">Vowel</button>
@@ -54,6 +54,7 @@
   let vowel = null;
   let batchim = null;
   let box = null;
+  let conVowBatBtnCount = 1;
 
   //Function to make boxes of consonant and vowels
   function createCharacters(character, num, conVow) {
@@ -100,20 +101,20 @@
       var changedTouch = ev.changedTouches[0];
       var elem = document.elementFromPoint(changedTouch.clientX, changedTouch.clientY);
       // Check matching if consonant and vowel are placed exactly.
-      if(elem.id == "assembly_consonant_3" && consonant_array.includes(content)) {
+      if(elem.id == "assembly_consonant_3" && conVowBatBtnCount == 1) {
         document.getElementById("assembly_consonant_3").innerHTML = content;
         document.getElementById("assembly_consonant_3").style.color = 'black';
         audioPlay(content, lastTouchId);
-      } else if(elem.id == "assembly_vowel_3" && vowel_array.includes(content)) {
+      } else if(elem.id == "assembly_vowel_3" && conVowBatBtnCount == 2) {
         document.getElementById("assembly_vowel_3").innerHTML = content;
         document.getElementById("assembly_vowel_3").style.color = 'black';
         audioPlay(content, lastTouchId);
-      } else if(elem.id == "assembly_batchim_3" && batchim_array.includes(content)) {
+      } else if(elem.id == "assembly_batchim_3" && conVowBatBtnCount == 3) {
         document.getElementById("assembly_batchim_3").innerHTML = content;
         document.getElementById("assembly_batchim_3").style.color = 'black';
         audioPlay(content, lastTouchId);
       } else {
-        document.getElementById("content_message").innerHTML = "Consonant and vowel should be placed correctly.";
+        document.getElementById("content_message").innerHTML = "It's not the correct position.";
       }
     }
 
@@ -129,6 +130,7 @@
   //Button Function
   let btn_function = function(conVow) {
     if(conVow == "consonant") {
+      conVowBatBtnCount = 1;
       for(i=0; i<consonant_array.length; i++) {
         document.getElementById("consonant"+i).style.display = "initial";
       }
@@ -139,6 +141,7 @@
         document.getElementById("batchim"+i).style.display = "none";
       }
     } else if(conVow == "vowel") {
+      conVowBatBtnCount = 2;
       for(i=0; i<consonant_array.length; i++) {
         document.getElementById("consonant"+i).style.display = "none";
       }
@@ -149,15 +152,16 @@
         document.getElementById("batchim"+i).style.display = "none";
       }
     } else if(conVow == "batchim") {
-        for(i=0; i<consonant_array.length; i++) {
-          document.getElementById("consonant"+i).style.display = "none";
-        }
-        for(i=0; i<vowel_array.length; i++) {
-          document.getElementById("vowel"+i).style.display = "none";
-        }
-        for(i=0; i<batchim_array.length; i++) {
-          document.getElementById("batchim"+i).style.display = "initial";
-        }
+      conVowBatBtnCount = 3;
+      for(i=0; i<consonant_array.length; i++) {
+        document.getElementById("consonant"+i).style.display = "none";
+      }
+      for(i=0; i<vowel_array.length; i++) {
+        document.getElementById("vowel"+i).style.display = "none";
+      }
+      for(i=0; i<batchim_array.length; i++) {
+        document.getElementById("batchim"+i).style.display = "initial";
+      }
     }
   }
 

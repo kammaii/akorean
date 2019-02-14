@@ -8,83 +8,30 @@
 }
 
 html {
-  /* text-size-adjust: none; */
-  width: 100%;
-  height: 100%;
-}
-
-body {
-  width: 100%;
-  height: 100%;
+  text-size-adjust: none;
 }
 
 .page {
+  display: grid;
+  grid-template-rows: 10% 80% 10%;
+  position: absolute;
   width: 100%;
   height: 100%;
-
-  display: grid;
-  grid-template-rows: 15% 80% 10%;
-
-  /* border: 1px solid green; */
 }
 
 .page__header {
-  width: 100%;
-  height: 100%;
-
   display: grid;
   grid-template-columns: 20% 60% 20%;
   align-items: center;
   justify-items: center;
-
+  margin: 0;
   background-color: #e6e9ef;
-
-  /* border: 1px solid red; */
-}
-
-.page__header__title {
-  width: 100%;
-  height: 100%;
-
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
-
-  font-size: 7vw;
-  /* border: 1px solid blue; */
+  font-size: 25px;
 }
 
 .page__header__icon {
-  width: 100%;
-  height: 100%;
-
-  /* border: 1px solid blue; */
-}
-
-.page__header__icon a {
-  width: 100%;
-  height: 100%;
-
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
-
-  /* border: 1px solid black; */
-}
-
-.page__header__icon img {
-  height: 50%;
-  width: auto;
-
-  display: flex;
-
-  /* border: 1px solid red; */
-}
-
-.page__content {
-  /* border: 1px solid red; */
+  width: 60px;
+  height: 60px;
 }
 
 .page__content__message {
@@ -95,8 +42,6 @@ body {
   margin-bottom: 10px;
   color: #8FB299;
   overflow-y: auto;
-
-  /* border: 1px solid purple; */
 }
 
 .button {
@@ -108,8 +53,6 @@ body {
 
 .page__footer {
   background-color: #e6e9ef;
-
-  border: 1px solid red;
 }
 
 a:link, a:visited {

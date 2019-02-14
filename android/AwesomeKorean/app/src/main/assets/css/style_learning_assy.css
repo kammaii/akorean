@@ -2,7 +2,7 @@
 .page__content {
   position: relative;
   display: grid;
-  grid-template-rows: 45% 5% 10% 30% 10%;
+  grid-template-rows: 40% 10% 10% 30% 10%;
 }
 
 .page__content__assembly {
@@ -33,9 +33,9 @@
   font-family: godoMaum;
   border: 1px solid black;
   width: 400px;
-  height: 300px;
+  height: 250px;
   display: block;
-  font-size: 20em;
+  font-size: 15em;
   text-align: center;
   color: #e5e7ea;
 }
@@ -45,7 +45,7 @@
   font-family: godoMaum;
   border: 1px solid black;
   width: 400px;
-  height: 180px;
+  height: 170px;
   display: block;
   font-size: 10em;
   text-align: center;
@@ -86,11 +86,11 @@
   text-align: center;
 }
 
-.page__content__message {
+.page__content__assymessage {
   text-align: center;
   font-size: 2.5em;
   color: #8FB299;
-  overflow: scroll;
+  overflow-y: auto;
 }
 
 .page__content__2buttons {
