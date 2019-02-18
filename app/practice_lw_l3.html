@@ -17,16 +17,14 @@
 
       <div class="page__content">
         <div>
-          <input class="page__content__answer_l3" type="text" id="answer" maxlength="3">
+          <input class="page__content__answer__l3" id="answer" type="text" name="answer">
         </div>
-        <div class="page__content__quizmsg" id="quizmsg">
-          Listen to the words and write it. <br><br>
-          <a href="#" class="page__content__start" id="start" onclick="return start()">Start!</a>
-        </div>
+        <div class="page__content__messagelw" id="message"></div>
+        <div class="page__content__messagelw__l3">Listen and write correct word into the box!</div>
         <div class="page__content__3buttons">
-          <button type="button" class="button" id="repeatBtn" onclick="btn_repeat()" disabled>Repeat</button>
-          <button type="button" class="button" id="answerBtn" onclick="btn_answer()" disabled>Answer</button>
-          <button type="button" class="button" id="nextBtn" onclick="btn_next()" disabled>Next</button>
+          <button type="button" class="button" id="repeatBtn" onclick="btn_repeat()">Repeat</button>
+          <button type="button" class="button" id="answerBtn" onclick="btn_answer()">Answer</button>
+          <button type="button" class="button" id="nextBtn" onclick="btn_next()">Next</button>
         </div>
       </div>
 
@@ -40,23 +38,13 @@
   <script>
   let words = ["사과", "바나나", "수박", "딸기"];
   let currentSound = null;
-  let currentProblemNo = null;
-  let quiz_message = document.getElementById('quizmsg');
+  let currentProblemNo = 1;
+  let message = document.getElementById('message');
   let correct_answer_no = 0;
   let user_answer = document.getElementById('answer');
 
   // let autoAudio = document.getElementById('playAudio')
   // autoAudio.setAttribute("src",'audio/ass/'+uniResult[currentProblemNo]+'.mp3');
-
-  function start() {
-    document.getElementById("repeatBtn").disabled = false;
-    document.getElementById("answerBtn").disabled = false;
-    document.getElementById("nextBtn").disabled = false;
-    quiz_message.innerHTML = "";
-    currentProblemNo = 0;
-    quiz();
-    audioPlay();
-  }
 
   function audioPlay() {
     console.log("정답:"+words[currentProblemNo]);
@@ -73,29 +61,29 @@
     document.getElementById("answerBtn").disabled = true;
 
     if(user_answer.value == correct_answer) {
-      quiz_message.innerHTML = "정답입니다! Correct answer!"
+      message.innerHTML = "Correct answer!"
       correct_answer_no += 1;
     } else {
-      quiz_message.innerHTML = "틀렸습니다! Wrong answer!" + "<br/>" + "정답 : " + correct_answer;
+      message.innerHTML = "Wrong answer! The answer is... : " + correct_answer;
     }
   }
 
   function btn_next() {
     document.getElementById("answerBtn").disabled = false;
     user_answer.value = "";
-    quiz_message.innerHTML = "";
+    message.innerHTML = "";
     currentProblemNo += 1;
     audioPlay();
 
-    if(currentProblemNo > 9) {
+    if(currentProblemNo > 10) {
       if(correct_answer_no >= 9) {
-        quiz_message.innerHTML = "정답(correct answer) :" + correct_answer_no +"/10" + "<br/>" + "Awesome!"+ "<br/>" + "<br/>";
+        message.innerHTML = "correct answer : " + correct_answer_no +"/10, Awesome! ";
         playAgain();
       } else if(correct_answer_no >= 7) {
-        quiz_message.innerHTML = "정답(correct answer) :" + correct_answer_no +"/10" + "<br/>" + "Good job!"+ "<br/>" + "<br/>";
+        message.innerHTML = "correct answer : " + correct_answer_no +"/10, Good job! ";
         playAgain();
       } else {
-        quiz_message.innerHTML = "정답(correct answer) :" + correct_answer_no +"/10" + "<br/>" + "Let's play again!"+ "<br/>" + "<br/>";
+        message.innerHTML = "correct answer : " + correct_answer_no +"/10, Let's play again! ";
         playAgain();
       }
     }
@@ -104,7 +92,7 @@
   // Anchor tag to play again.
   function playAgain() {
     let again = document.createElement('a') ;
-    again.setAttribute('href', 'practice_LW_L3.html');
+    again.setAttribute('href', 'practice_lw_l3.html');
     let img = document.createElement('img');
     img.setAttribute('src', 'img/again.svg');
     img.setAttribute('class', 'page__content__againbtn');
@@ -116,6 +104,8 @@
   }
 
   // Mix the array of words.
+  quiz();
+
   function quiz() {
 
     for (let i = 0; i < words.length; i++) {
@@ -124,7 +114,7 @@
       words[i] = words[rnum];
       words[rnum] = temp;
     }
+    audioPlay();
   }
-
   </script>
 </html>

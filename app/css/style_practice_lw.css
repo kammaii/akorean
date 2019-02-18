@@ -1,6 +1,6 @@
 .page__content {
   display: grid;
-  grid-template-rows: 50% 40% 10%;
+  grid-template-rows: 45% 5% 40% 10%;
 }
 
 .page__content__answer {
@@ -9,13 +9,42 @@
   height: 80%;
   margin: auto;
   margin-top: 50px;
+  margin-bottom: 0px;
   display: block;
   text-align: center;
   font-family: misaeng;
-  font-size: 40em;
+  font-size: 35em;
 }
 
-.page__content__answer_l3 {
+.page__content__messagelw {
+  border-bottom: 1px solid;
+  text-align: center;
+  font-size: 2.5em;
+  color: #8FB299;
+}
+
+.page__content__messagelw__l3 {
+  text-align: center;
+  font-size: 2.5em;
+  padding-top: 50px;
+  color: #8FB299;
+}
+
+.page__content__answerSelect__l1 {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.page__content__answerSelect__l2 {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+}
+
+.page__content__answerSelect__l3 {
+  border-top: 1px solid;
+}
+
+.page__content__answer__l3 {
   border: 1px solid;
   width: 60%;
   height: 80%;
@@ -27,10 +56,41 @@
   font-size: 18em;
 }
 
-.page__content__quizmsg {
-  font-size: 36px;
+.selectBox {
+  font-family: misaeng;
+  font-size: 2em;
+  border: 1px solid;
+  width: 100px;
+  height: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}
+
+.page__content__answerSelect__con,
+.page__content__answerSelect__vow,
+.page__content__answerSelect__bat {
   text-align: center;
-  color: #8FB299;
+  font-size: 3em;
+}
+
+.page__content__answerSelect__vow {
+  border-left: 1px solid;
+  border-right: 1px solid;
+}
+
+.page__content__answerSelect > .selectBox {
+  font-family: godoMaum;
+  font-size: 6em;
+  text-align: center;
+  background-color: white;
+  margin: 5px;
+  border: 1px solid;
+  width: 120px;
+  height: 120px;
+  float: left;
+  margin-top: 5px;
+  margin-left: 5px;
 }
 
 .page__content__start {
@@ -48,6 +108,6 @@
 }
 
 .page__content__againbtn {
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
 }

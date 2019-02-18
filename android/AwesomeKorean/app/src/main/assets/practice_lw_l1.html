@@ -5,6 +5,7 @@
     <title>Awesome Korean</title>
     <link rel="stylesheet" href="css/style_main.css">
     <link rel="stylesheet" href="css/style_practice_lw.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
   </head>
   <body>
     <div class="page">
@@ -16,20 +17,16 @@
       </div>
 
       <div class="page__content">
-        <div>
-          <input class="page__content__answer" type="text" id="answer" maxlength="1">
-        </div>
-        <div class="page__content__quizmsg" id="quizmsg">
-          【vowel】 </br>
-          'ㅐ', 'ㅔ' --> 'ㅐ'</br>
-          'ㅒ', 'ㅖ' --> 'ㅒ'</br>
-          'ㅙ', 'ㅞ', 'ㅚ' --> 'ㅙ' </br></br>
-          <a href="#" class="page__content__start" id="start" onclick="return start()">Start!</a>
+        <div class="page__content__answer" id="answer"></div>
+        <div class="page__content__messagelw" id="message"></div>
+        <div class="page__content__answerSelect__l1" id="answerSelect">
+          <div class="page__content__answerSelect__con" id="selectCon"><strong>Consonant</strong></div>
+          <div class="page__content__answerSelect__vow" id="selectVow"><strong>Vowel</strong></div>
         </div>
         <div class="page__content__3buttons">
-          <button type="button" class="button" id="repeatBtn" onclick="btn_repeat()" disabled>Repeat</button>
-          <button type="button" class="button" id="answerBtn" onclick="btn_answer()" disabled>Answer</button>
-          <button type="button" class="button" id="nextBtn" onclick="btn_next()" disabled>Next</button>
+          <button type="button" class="button" id="repeatBtn" onclick="btn_repeat()">Repeat</button>
+          <button type="button" class="button" id="answerBtn" onclick="btn_answer()">Answer</button>
+          <button type="button" class="button" id="nextBtn" onclick="btn_next()">Next</button>
         </div>
       </div>
 
@@ -44,29 +41,21 @@
   let conUni_Array = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ" ,"ㅆ", "ㅇ" ,"ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ" ,"ㅍ", "ㅎ"];
   let vowUni_Array = ["ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "", "ㅕ", "", "ㅗ", "ㅘ", "ㅙ", "", "ㅛ", "ㅜ", "ㅝ", "", "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ"];
 
-  let uniResult = [];
+  let random_con = [];
+  let random_vow = [];
+  let conSelector = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
+  let vowSelector = [0,1,2,3,4,6,8,9,10,12,13,14,16,17,18,19,20];
   let currentSound = null;
-  let currentProblemNo = null;
-  let quiz_message = document.getElementById('quizmsg');
+  let currentProblemNo = 1;
+  let message = document.getElementById('message');
   let correct_answer_no = 0;
-  let user_answer = document.getElementById('answer');
 
   // let autoAudio = document.getElementById('playAudio')
   // autoAudio.setAttribute("src",'audio/ass/'+uniResult[currentProblemNo]+'.mp3');
 
-  function start() {
-    document.getElementById("repeatBtn").disabled = false;
-    document.getElementById("answerBtn").disabled = false;
-    document.getElementById("nextBtn").disabled = false;
-    quiz_message.innerHTML = "";
-    currentProblemNo = 0;
-    quiz();
-    audioPlay();
-  }
-
   function audioPlay() {
-    console.log("정답:"+uniResult[currentProblemNo]);
-    currentSound = new Audio('audio/ass/'+uniResult[currentProblemNo]+'.mp3');
+    console.log("정답:"+uniResult);
+    currentSound = new Audio('audio/ass/'+uniResult+'.mp3');
     currentSound.play();
   }
 
@@ -75,33 +64,35 @@
   }
 
   function btn_answer() {
-    let correct_answer = uniResult[currentProblemNo];
+    let correct_answer = uniResult;
     document.getElementById("answerBtn").disabled = true;
 
-    if(user_answer.value == correct_answer) {
-      quiz_message.innerHTML = "정답입니다! Correct answer!"
+    if(user_answer.innerHTML == correct_answer) {
+      message.innerHTML = "Correct answer!"
       correct_answer_no += 1;
     } else {
-      quiz_message.innerHTML = "틀렸습니다! Wrong answer!" + "<br/>" + "정답 : " + correct_answer;
+      message.innerHTML = "Wrong answer! The answer is... : " + correct_answer;
     }
   }
 
   function btn_next() {
     document.getElementById("answerBtn").disabled = false;
-    user_answer.value = "";
-    quiz_message.innerHTML = "";
+    user_answer.innerHTML = "";
+    message.innerHTML = "";
     currentProblemNo += 1;
+    $(".selectBox").remove();
+    quiz();
     audioPlay();
 
-    if(currentProblemNo > 9) {
+    if(currentProblemNo > 10) {
       if(correct_answer_no >= 9) {
-        quiz_message.innerHTML = "정답(correct answer) :" + correct_answer_no +"/10" + "<br/>" + "Awesome!"+ "<br/>" + "<br/>";
+        message.innerHTML = "correct answer : " + correct_answer_no +"/10, Awesome! ";
         playAgain();
       } else if(correct_answer_no >= 7) {
-        quiz_message.innerHTML = "정답(correct answer) :" + correct_answer_no +"/10" + "<br/>" + "Good job!"+ "<br/>" + "<br/>";
+        message.innerHTML = "correct answer : " + correct_answer_no +"/10, Good job! ";
         playAgain();
       } else {
-        quiz_message.innerHTML = "정답(correct answer) :" + correct_answer_no +"/10" + "<br/>" + "Let's play again!"+ "<br/>" + "<br/>";
+        message.innerHTML = "correct answer : " + correct_answer_no +"/10, Let's play again! ";
         playAgain();
       }
     }
@@ -110,31 +101,107 @@
   // Anchor tag to play again.
   function playAgain() {
     let again = document.createElement('a') ;
-    again.setAttribute('href', 'practice_LW_L1.html');
+    again.setAttribute('href', 'practice_lw_l1.html');
     let img = document.createElement('img');
     img.setAttribute('src', 'img/again.svg');
     img.setAttribute('class', 'page__content__againbtn');
     again.appendChild(img);
-    quiz_message.appendChild(again);
+    message.appendChild(again);
     document.getElementById("repeatBtn").disabled = true;
     document.getElementById("answerBtn").disabled = true;
     document.getElementById("nextBtn").disabled = true;
   }
 
+  function mix(conVowArray) {
+    for(let i=0; i < conVowArray.length; i++) {
+      let rnum = Math.floor(Math.random()*conVowArray.length);
+      let temp = conVowArray[i];
+      conVowArray[i] = conVowArray[rnum];
+      conVowArray[rnum] = temp;
+    }
+    let result = conVowArray;
+    return result;
+  }
+
+  function uniCode(con, vow) {
+    let result = String.fromCharCode(44032 + (con * 588) + (vow * 28));
+    return result;
+  }
+
+  let uniResult = null;
+
+  function createCharacters(character, num, conVow) {
+    let newElement = document.createElement("div");
+    newElement.setAttribute("id", conVow+num);
+    newElement.setAttribute("class", "selectBox");
+    newElement.addEventListener("touchstart", touch, false);
+
+    let newCharacterNode = document.createTextNode(character);
+    newElement.appendChild(newCharacterNode);
+    return newElement;
+  }
+
+  let divCon = document.getElementById("selectCon");
+  let divVow = document.getElementById("selectVow");
+
+  quiz();
 
   function quiz() {
 
-    for (let i = 0; i < 10; i++) {
-      let random_con = Math.floor(Math.random()*conUni_Array.length);
-      let random_vow = Math.floor(Math.random()*vowUni_Array.length);
+    let randomConArrayNo = mix(conSelector);
+    let randomVowArrayNo = mix(vowSelector);
 
-      if(random_vow == 5 || random_vow == 7 || random_vow == 11 || random_vow == 15) {
-        random_vow = 1;
-      }
+    uniResult = uniCode(randomConArrayNo[0], randomVowArrayNo[0]);
 
-      uniResult[i] = String.fromCharCode(44032 + (random_con * 588) + (random_vow * 28));
+    console.log(uniResult);
+
+    //Function to make boxes of consonant and vowels
+    randomConArrayNo = randomConArrayNo.slice(0,4);
+    randomVowArrayNo = randomVowArrayNo.slice(0,4);
+
+    randomConArrayNo = mix(randomConArrayNo);
+    randomVowArrayNo = mix(randomVowArrayNo);
+
+    for(let i=0; i<4; i++) {
+      let boxes = createCharacters(conUni_Array[randomConArrayNo[i]], randomConArrayNo[i], "con");
+      divCon.appendChild(boxes);
+    }
+
+    for(let i=0; i<4; i++) {
+      let boxes = createCharacters(vowUni_Array[randomVowArrayNo[i]], randomVowArrayNo[i], "vow");
+      divVow.appendChild(boxes);
     }
   }
 
+  // Mobile Touch drag and drop
+  let touchCon = 0;
+  let touchConNo = null;
+  let touchVowNo = null;
+
+  let user_answer = document.getElementById('answer');
+
+  function touch(ev) {
+    ev.preventDefault();
+    let lastTouchId = ev.target.id;
+    let content = document.getElementById(lastTouchId).textContent;
+    let conVowString = lastTouchId.substring(0,3);
+    let conVowNo = lastTouchId.substring(3);
+
+
+    if(conVowString == "con") {
+      touchCon = 1 ;
+      touchConNo = conVowNo;
+      user_answer.innerHTML = content;
+      message.innerHTML = ""
+    } else if(conVowString == "vow" && touchCon == 1) {
+      touchVow = 1;
+      touchVowNo = conVowNo;
+      let answer = uniCode(touchConNo, touchVowNo);
+      user_answer.innerHTML = answer;
+      message.innerHTML = ""
+    } else {
+      message.innerHTML = "Touch in order.";
+    }
+  }
   </script>
 </html>
