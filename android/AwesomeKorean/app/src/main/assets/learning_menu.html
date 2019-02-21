@@ -18,16 +18,16 @@
       <div class="page__content">
         <div class="menu">
           <div class="menu__button">
-            <a href="intro_con.html">Consonants</a>
+            <a href="intro_con.html" id="tutorialToggle1">Consonants</a>
           </div>
           <div class="menu__button">
-            <a href="intro_vow.html">Vowels</a>
+            <a href="intro_vow.html" id="tutorialToggle2">Vowels</a>
           </div>
           <div class="menu__button">
-            <a href="intro_bat.html">Last consonants</a>
+            <a href="intro_bat.html" id="tutorialToggle3">Last consonants</a>
           </div>
           <div class="menu__button">
-            <a href="intro_assy.html">Assembly</a>
+            <a href="intro_assy.html" id="tutorialToggle4">Assembly</a>
           </div>
         </div>
       </div>
@@ -35,7 +35,16 @@
       <div class="page__footer">
         <p>footer</p>
       </div>
-
     </div>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/storage.js"></script>
   </body>
+  <script>
+    if(getTutorialToggle() == false) {
+      document.getElementById("tutorialToggle1").href = "learning_con.html";
+      document.getElementById("tutorialToggle2").href = "learning_vow.html";
+      document.getElementById("tutorialToggle3").href = "learning_bat.html";
+      document.getElementById("tutorialToggle4").href = "learning_assy_main.html";
+    }
+  </script>
 </html>
