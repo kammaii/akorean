@@ -18,7 +18,7 @@
       <div class="page__content" id="content">
         <div class="page__content__learning">
           <a href="" id="button_left" ontouchstart="leftHangul()"><img src="img/left.svg" alt="left" class="page__content__learning__button"></a>
-          <div class="page__content__learning__convow" id="learning_conVow">ㄱ</div>
+          <div class="page__content__learning__bat" id="learning_conVow">ㄱ</div>
           <a href="" id="button_right" ontouchstart="rightHangul()"><img src="img/right.svg" alt="right" class="page__content__learning__button"></a>
         </div>
         <div class="page__content__message" id="content_message">We can find how our articulator moves when we read each name of consonants slowly.</div>
@@ -36,14 +36,14 @@
     </div>
   </body>
   <script>
-    let lastArray = ["ㄱ", "역", "박", "ㄲ", "밖", "ㅋ", "읔", "엌", "ㄴ", "은", "안", "ㄷ", "귿", "낟", "ㅌ", "읕", "낱", "ㅅ", "옷", "낫", "ㅆ", "났", "ㅈ", "읒", "낮", "ㅊ", "읓", "낯", "ㅎ", "읗", "낳", "ㄹ", "을", "알", "ㅁ", "음", "암", "ㅂ", "읍", "압", "ㅍ", "읖", "앞", "ㅇ", "응", "앙" ];
+    let lastArray = ["ㄱ", "역", "박", "ㄲ", "밖", "ㅋ", "읔", "밬", "ㄴ", "은", "안", "ㄷ", "귿", "낟", "ㅌ", "읕", "낱", "ㅅ", "옷", "낫", "ㅆ", "났", "ㅈ", "읒", "낮", "ㅊ", "읓", "낯", "ㅎ", "읗", "낳", "ㄹ", "을", "달", "ㅁ", "음", "잠", "ㅂ", "읍", "밥", "ㅍ", "읖", "앞", "ㅇ", "응", "강"];
     let countClick = 0;
     let hangul = document.getElementById("learning_conVow");
     let currentSound = null;
     let currentMsg = document.getElementById('content_message')
     let teachingMsg = [
       "We can find how our articulator moves when we read each name of consonants slowly.",
-      "Can you feel your throat closed when you pronounce batchim 'ㄱ'? (I'll leave 'batchim' out from now.)",
+      "Can you feel your throat closed when you pronounce Batchim 'ㄱ'? (I'll leave 'Batchim' out from now.)",
       "Let's practice another character with 'ㄱ'.",
       "'ㄲ' is same with 'ㄱ'.",
       "Let's see an example with 'ㄲ'. We can see it's totally same with 'ㄱ'.",
@@ -71,7 +71,7 @@
       "Awesome!",
       "Great!",
       "Same one more.",
-      "Now we can have a question. Why we should use different character even there are lots of same movement? It seems more simple if we use only one batchim.",
+      "Now we can have a question. Why we should use different character even there are lots of same movement? It seems more simple if we use only one Batchim.",
       "However, every languages have some words that have same pronunciation but different meaning. It will help us to reduce the number of sound that we should make. Even though it has same sound, we can know enough its different meanings with spelling and the situation.",
       "After a long time, it's different movement.",
       "It has also similar tongue position with 'ㄴ'. But the air is getting out through mouth.",
@@ -87,7 +87,7 @@
       "That's right.",
       "Finally, this is the last one.",
       "Your mouth opened and the air getting out through your nose.",
-      "Perfect! Now you can read all of hangul. Repeat the lesson several times and practice in the next stage."]
+      "Perfect! Now you can read all of Hangul. Repeat the lesson several times and practice in the next stage."]
 
     function leftHangul() {
       fadeOut();

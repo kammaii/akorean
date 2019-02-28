@@ -23,8 +23,8 @@
         <div class="page__content__messagelw__l3">Listen and write correct word into the box!</div>
         <div class="page__content__3buttons">
           <button type="button" class="button" id="repeatBtn" onclick="btn_repeat()">Repeat</button>
-          <button type="button" class="button" id="answerBtn" onclick="btn_answer()">Answer</button>
-          <button type="button" class="button" id="nextBtn" onclick="btn_next()">Next</button>
+          <button type="button" class="button" id="answerBtn" onclick="btn_submit()">Submit</button>
+          <button type="button" class="button" id="nextBtn" onclick="btn_next()" disabled>Next</button>
         </div>
       </div>
 
@@ -56,9 +56,10 @@
     currentSound.play();
   }
 
-  function btn_answer() {
+  function btn_submit() {
     let correct_answer = words[currentProblemNo];
     document.getElementById("answerBtn").disabled = true;
+    document.getElementById("nextBtn").disabled = false;
 
     if(user_answer.value == correct_answer) {
       message.innerHTML = "Correct answer!"
@@ -70,6 +71,7 @@
 
   function btn_next() {
     document.getElementById("answerBtn").disabled = false;
+    document.getElementById("nextBtn").disabled = true;
     user_answer.value = "";
     message.innerHTML = "";
     currentProblemNo += 1;
