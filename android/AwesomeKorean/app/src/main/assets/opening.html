@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Awesome Korean</title>
+  </head>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+    }
+    #background {
+      height: 100%;
+      background-repeat: no-repeat;
+      background-size: cover;
+      filter: grayscale(50%);
+      animation-name: background;
+      animation-duration: 4s;
+      animation-fill-mode: forwards;
+    }
+    @keyframes background {
+      from {background-position: 40%;}
+      to {background-position: 60%;}
+    }
+  </style>
+  <body>
+    <div id="background"></div>
+  </body>
+  <script>
+    let bg = document.getElementById("background");
+    let rnum = Math.floor(Math.random()*11);
+
+    bg.style.backgroundImage = "url(img/bg/" + rnum + ".jpg)";
+
+    bg.addEventListener("animationend", animationEnd);
+
+    function animationEnd() {
+      window.open("home.html","_self")
+    }
+  </script>
+</html>
