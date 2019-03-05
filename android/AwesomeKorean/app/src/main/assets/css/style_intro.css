@@ -1,5 +1,15 @@
-.page__content__intro {
-  font-size: 2.1em;
-  padding: 50px;
+h1, h2 {
+  text-align: center;
+  margin: 0;
+}
+
+.page__content {
   overflow-y: auto;
+}
+
+.page__content__intro {
+  font-size: 2.5em;
+  padding: 50px;
+  text-indent: 3%;
+  line-height: 2;
 }

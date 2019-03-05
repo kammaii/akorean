@@ -10,6 +10,7 @@
       margin: 0;
     }
     #background {
+      position: relative;
       height: 100%;
       background-repeat: no-repeat;
       background-size: cover;
@@ -22,9 +23,21 @@
       from {background-position: 40%;}
       to {background-position: 60%;}
     }
+
+    #logo {
+      position: absolute;
+      top: 50px;
+      right: 50px;
+      width: 50%;
+      height: 50%;
+    }
   </style>
   <body>
-    <div id="background"></div>
+    <div id="background">
+      <div id="logo">
+        <img src="img/logo.svg">
+      </div>
+    </div>
   </body>
   <script>
     let bg = document.getElementById("background");

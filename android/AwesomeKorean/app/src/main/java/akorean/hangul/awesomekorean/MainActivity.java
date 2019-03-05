@@ -10,7 +10,7 @@ import android.webkit.WebViewClient;
 
 public class MainActivity extends Activity {
 
-    final String url = "file:///android_asset/home.html";
+    final String url = "file:///android_asset/opening.html";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
