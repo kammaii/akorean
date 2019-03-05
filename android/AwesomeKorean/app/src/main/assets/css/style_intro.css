@@ -1,14 +1,5 @@
 .page__content__intro {
   font-size: 2.1em;
   padding: 50px;
-}
-
-.page__content__intro > a {
-  font-size: 1em;
-  padding: 20px;
-  border: 2px solid #95989D;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 20px;
-  color: black;
+  overflow-y: auto;
 }
