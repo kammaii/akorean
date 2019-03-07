@@ -39,12 +39,12 @@
 
   <script>
   let conUni_Array = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ" ,"ㅆ", "ㅇ" ,"ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ" ,"ㅍ", "ㅎ"];
-  let vowUni_Array = ["ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "", "ㅕ", "", "ㅗ", "ㅘ", "ㅙ", "", "ㅛ", "ㅜ", "ㅝ", "", "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ"];
+  let vowUni_Array = ["ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "", "ㅕ", "", "ㅗ", "ㅘ", "", "ㅚ", "ㅛ", "ㅜ", "ㅝ", "", "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ"];
 
   let random_con = [];
   let random_vow = [];
   let conSelector = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
-  let vowSelector = [0,1,2,3,4,6,8,9,10,12,13,14,16,17,18,19,20];
+  let vowSelector = [0,1,2,3,4,6,8,9,11,12,13,14,16,17,18,19,20];
   let currentSound = null;
   let currentProblemNo = 1;
   let message = document.getElementById('message');
@@ -54,7 +54,6 @@
   // autoAudio.setAttribute("src",'audio/ass/'+uniResult[currentProblemNo]+'.mp3');
 
   function audioPlay() {
-    console.log("정답:"+uniResult);
     currentSound = new Audio('audio/assy/'+uniResult+'.mp3');
     currentSound.play();
   }
@@ -67,6 +66,7 @@
     let correct_answer = uniResult;
     document.getElementById("answerBtn").disabled = true;
     document.getElementById("nextBtn").disabled = false;
+    currentProblemNo += 1;
 
     if(user_answer.innerHTML == correct_answer) {
       message.innerHTML = "Correct answer!"
@@ -82,10 +82,7 @@
     document.getElementById("nextBtn").disabled = true;
     user_answer.innerHTML = "";
     message.innerHTML = "";
-    currentProblemNo += 1;
     $(".selectBox").remove();
-    quiz();
-    audioPlay();
 
     if(currentProblemNo > 10) {
       if(correct_answer_no >= 9) {
@@ -98,6 +95,9 @@
         message.innerHTML = "correct answer : " + correct_answer_no +"/10, Let's play again! ";
         playAgain();
       }
+    } else {
+      quiz();
+      audioPlay();
     }
   }
 
@@ -155,6 +155,7 @@
     let randomVowArrayNo = mix(vowSelector);
 
     uniResult = uniCode(randomConArrayNo[0], randomVowArrayNo[0]);
+    audioPlay();
 
     console.log(uniResult);
 
