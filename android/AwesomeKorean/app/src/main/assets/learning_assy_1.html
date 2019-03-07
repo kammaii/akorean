@@ -168,6 +168,13 @@
     let conUni_num = conUni_Array.indexOf(consonant);
     let vowUni_num = vowUni_Array.indexOf(vowel);
 
+    // To minimize audio files ㅔ -> ㅐ, ㅖ -> ㅒ
+    if (vowUni_num == 5) {
+      vowUni_num = 1;
+    } else if(vowUni_num == 7) {
+      vowUni_num = 3;
+    }
+
     uniResult = String.fromCharCode(44032 + (conUni_num * 588) + (vowUni_num * 28) );
   }
 
