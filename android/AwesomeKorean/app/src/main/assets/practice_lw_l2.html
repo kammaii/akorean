@@ -58,7 +58,7 @@
   // autoAudio.setAttribute("src",'audio/ass/'+uniResult[currentProblemNo]+'.mp3');
 
   function audioPlay() {
-    currentSound = new Audio('audio/ass/'+uniResult+'.mp3');
+    currentSound = new Audio('audio/assy/'+uniResult+'.mp3');
     currentSound.play();
   }
 
@@ -219,14 +219,9 @@
       user_answer.innerHTML = answer;
       message.innerHTML = ""
     } else if(conVowString == "bat" && touchCon == 1 && touchVow == 1) {
-      console.log("here!");
       touchBatNo = conVowNo;
-      console.log(touchConNo);
-      console.log(touchVowNo);
-      console.log(touchBatNo);
 
       let answer = uniCode(touchConNo, touchVowNo, touchBatNo);
-      console.log(answer);
       user_answer.innerHTML = answer;
     } else {
       message.innerHTML = "Touch in order.";
