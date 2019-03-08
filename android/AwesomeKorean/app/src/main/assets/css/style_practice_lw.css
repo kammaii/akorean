@@ -59,7 +59,9 @@
 
 .page__content__result {
   position: absolute;
+  grid-template-rows: 20% 40% 20% 20%;
   border: 1px solid;
+  border-radius: 20px;
   width: 80%;
   height: 70%;
   top: 0;
@@ -68,6 +70,39 @@
   right: 0;
   margin: auto;
   background-color: white;
+  font-size: 7em;
+  text-align: center;
+  display: none;
+  animation: fadeIn 1s ease-out;
+}
+
+.page__content__result__score {
+  font-size: 2em;
+}
+
+.page__content__result__playAgain {
+  display: grid;
+  font-size: 80px;
+  padding: 10px;
+  margin: 20px;
+  border: 2px solid #95989D;
+  text-align: center;
+  border-radius: 20px;
+}
+
+@keyframes fadeIn {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+    1% {
+        display: block;
+        opacity: 0;
+    }
+    100% {
+        display: block;
+        opacity: 1;
+    }
 }
 
 .selectBox {

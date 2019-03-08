@@ -28,8 +28,13 @@
           <button type="button" class="button" id="answerBtn" onclick="btn_submit()">Submit</button>
           <button type="button" class="button" id="nextBtn" onclick="btn_next()" disabled>Next</button>
         </div>
-        <div class="page__content__result">
-
+        <div class="page__content__result" id="result">
+          <div class="page__content__result__head">Score</div>
+          <div class="page__content__result__score" id="score"></div>
+          <div class="page__content__result__comment" id="comment"></div>
+          <div class="page__content__result__playAgain">
+            <a href="practice_lw_l1.html">play again</a>
+          </div>
         </div>
       </div>
 
@@ -51,6 +56,8 @@
   let currentSound = null;
   let currentProblemNo = 1;
   let message = document.getElementById('message');
+  let result = document.getElementById('result');
+  let comment = document.getElementById('comment');
   let correct_answer_no = 0;
 
   // let autoAudio = document.getElementById('playAudio')
@@ -87,35 +94,26 @@
     message.innerHTML = "";
     $(".selectBox").remove();
 
+    // when user solved all problems...
     if(currentProblemNo > 10) {
-      if(correct_answer_no >= 9) {
-        message.innerHTML = "correct answer : " + correct_answer_no +"/10, Awesome! ";
-        playAgain();
-      } else if(correct_answer_no >= 7) {
-        message.innerHTML = "correct answer : " + correct_answer_no +"/10, Good job! ";
-        playAgain();
+      result.style.display = "grid";
+      document.getElementById("repeatBtn").disabled = true;
+      document.getElementById("answerBtn").disabled = true;
+      document.getElementById("nextBtn").disabled = true;
+      if(correct_answer_no >= 8) {
+        score.innerHTML = correct_answer_no +"/10";
+        comment.innerHTML = "Awesome!"
+      } else if(correct_answer_no >= 5) {
+        score.innerHTML = correct_answer_no +"/10";
+        comment.innerHTML = "Good!"
       } else {
-        message.innerHTML = "correct answer : " + correct_answer_no +"/10, Let's play again! ";
-        playAgain();
+        score.innerHTML = correct_answer_no +"/10";
+        comment.innerHTML = "You can do it!"
       }
     } else {
       quiz();
       audioPlay();
     }
-  }
-
-  // Anchor tag to play again.
-  function playAgain() {
-    let again = document.createElement('a') ;
-    again.setAttribute('href', 'practice_lw_l1.html');
-    let img = document.createElement('img');
-    img.setAttribute('src', 'img/again.svg');
-    img.setAttribute('class', 'page__content__againbtn');
-    again.appendChild(img);
-    message.appendChild(again);
-    document.getElementById("repeatBtn").disabled = true;
-    document.getElementById("answerBtn").disabled = true;
-    document.getElementById("nextBtn").disabled = true;
   }
 
   function mix(conVowArray) {
