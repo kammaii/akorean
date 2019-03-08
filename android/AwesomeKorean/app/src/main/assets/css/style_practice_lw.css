@@ -80,14 +80,9 @@
   font-size: 2em;
 }
 
-.page__content__result__playAgain {
-  display: grid;
-  font-size: 80px;
-  padding: 10px;
-  margin: 20px;
-  border: 2px solid #95989D;
-  text-align: center;
-  border-radius: 20px;
+.page__content__result__again {
+  width: 200px;
+  height: 150px;
 }
 
 @keyframes fadeIn {
