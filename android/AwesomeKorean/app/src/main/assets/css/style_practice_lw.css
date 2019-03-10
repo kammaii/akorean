@@ -58,6 +58,7 @@
 }
 
 .page__content__result {
+  font-family: godoMaum;
   position: absolute;
   grid-template-rows: 20% 40% 20% 20%;
   border: 1px solid;
@@ -70,7 +71,7 @@
   right: 0;
   margin: auto;
   background-color: white;
-  font-size: 7em;
+  font-size: 10em;
   text-align: center;
   display: none;
   animation: fadeIn 1s ease-out;

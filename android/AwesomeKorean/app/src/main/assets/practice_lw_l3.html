@@ -20,7 +20,9 @@
           <input class="page__content__answer__l3" id="answer" type="text" name="answer">
         </div>
         <div class="page__content__messagelw" id="message"></div>
-        <div class="page__content__messagelw__l3">Listen and write correct word into the box!</div>
+        <div class="page__content__messagelw__l3">
+          Listen and write correct word into the box!
+        </div>
         <div class="page__content__3buttons">
           <button type="button" class="button" id="repeatBtn" onclick="btn_repeat()">Repeat</button>
           <button type="button" class="button" id="answerBtn" onclick="btn_submit()">Submit</button>
@@ -46,7 +48,35 @@
   </body>
 
   <script>
-  let words = ["사과", "바나나", "수박", "딸기"];
+  let words = [
+    "가게", "가방", "가을", "강아지", "거울", "겨울", "계란", "고기", "공항", "과자",
+    "나무", "날씨", "남동생", "남자", "낮잠", "냄새", "냉장고", "노란색", "노래", "농구", "눈", "뉴스",
+    "다리", "단어", "도서관", "독서", "동물원", "동전", "돼지", "드라마", "딸기", "떡볶이",
+    "라면",
+    "막걸리", "만화", "맥주", "모자", "목", "무릎", "문제", "물", "물고기", "미국",
+    "바나나", "바다", "바지", "반지", "발", "밥", "방", "백화점", "봄", "불고기", "비행기", "빵",
+    "사과", "사전", "사진", "삼겹살", "삼계탕", "새해", "생각", "서울", "설탕", "소금", "수박", "수영", "숟가락", "식당",
+    "아빠", "아파트", "안경", "약국", "엄마", "에어컨", "여자", "여행", "영어", "영화", "오른쪽", "외국어", "왼쪽", "일본",
+    "점심", "중국",
+    "치킨",
+    "태권도", "택시",
+    "편의점",
+    "하늘", "학교", "학생", "한국", "한글", "한복", "한식", "호텔", "화장실", "화장품", "회사"
+  ];
+  let meaning = [
+    "shop", "bag", "fall", "puppy", "mirror", "winter", "egg", "meat", "airport", "snack",
+    "tree", "weather", "younger brother", "man", "nap", "smell", "refrigerator", "yellow", "song", "basketball", "eye/snow", "news",
+    "leg/bridge", "vocabulary", "library", "reading a book", "zoo", "coin", "pig", "drama", "strawberry", "tteokbokki",
+    "ramyeon", "makgeolli", "cartoon", "beer", "cap/hat", "neck", "knee", "problem", "water", "fish", "America",
+    "banana", "sea", "pants", "ring", "foot", "rice", "room", "department store", "spring", "bulgogi", "airplane", "bread",
+    "apple", "dictionary", "photo", "samgyeopsal", "samgyetang", "new year", "thinking", "Seoul", "sugar", "salt", "watermelon", "swimming", "spoon", "restaurant",
+    "dad", "apartment", "glasses", "pharmacy", "mom", "air conditioner", "woman", "travel", "English", "movie", "right", "foreign language", "left", "Japan",
+    "lunch", "China",
+    "chicken",
+    "taegwondo", "taxi",
+    "convenience store",
+    "sky", "school", "student", "Korea", "Hangul", "Hanbok", "Korean food", "hotel", "restroom", "cosmetics", "company"
+  ]
   let currentSound = null;
   let currentProblemNo = 1;
   let message = document.getElementById('message');
@@ -58,6 +88,7 @@
 
   function audioPlay() {
     console.log("정답:"+words[currentProblemNo]);
+    message.innerHTML = meaning[currentProblemNo];
     currentSound = new Audio('audio/words/'+words[currentProblemNo]+'.mp3');
     currentSound.play();
   }
@@ -85,7 +116,6 @@
     user_answer.value = "";
     message.innerHTML = "";
     currentProblemNo += 1;
-    audioPlay();
 
     // when user solved all problems...
     if(currentProblemNo > 10) {
@@ -103,8 +133,8 @@
         score.innerHTML = correct_answer_no +"/10";
         comment.innerHTML = "You can do it!"
       }
-    } else {
-      quiz();
+    }
+    if (currentProblemNo <= 10) {
       audioPlay();
     }
   }
@@ -116,9 +146,12 @@
 
     for (let i = 0; i < words.length; i++) {
       let rnum = Math.floor(Math.random()*words.length);
-      let temp = words[i];
+      let tempWord = words[i];
+      let tempMeaning = meaning[i];
       words[i] = words[rnum];
-      words[rnum] = temp;
+      meaning[i] = meaning[rnum];
+      words[rnum] = tempWord;
+      meaning[rnum] = tempMeaning
     }
     audioPlay();
   }
