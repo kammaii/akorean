@@ -1,4 +1,5 @@
 .page__content {
+  position: relative;
   display: grid;
   grid-template-rows: 45% 5% 40% 10%;
 }
@@ -54,6 +55,50 @@
   text-align: center;
   font-family: misaeng;
   font-size: 18em;
+}
+
+.page__content__result {
+  font-family: godoMaum;
+  position: absolute;
+  grid-template-rows: 20% 40% 20% 20%;
+  border: 1px solid;
+  border-radius: 20px;
+  width: 80%;
+  height: 70%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-color: white;
+  font-size: 10em;
+  text-align: center;
+  display: none;
+  animation: fadeIn 1s ease-out;
+}
+
+.page__content__result__score {
+  font-size: 2em;
+}
+
+.page__content__result__again {
+  width: 200px;
+  height: 150px;
+}
+
+@keyframes fadeIn {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+    1% {
+        display: block;
+        opacity: 0;
+    }
+    100% {
+        display: block;
+        opacity: 1;
+    }
 }
 
 .selectBox {

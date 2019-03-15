@@ -18,10 +18,10 @@
       <div class="page__content" id="content">
         <div class="page__content__learning">
           <a href="" id="button_left" ontouchstart="leftHangul()"><img src="img/left.svg" alt="left" class="page__content__learning__button"></a>
-          <div class="page__content__learning__convow" id="learning_conVow">ㄱ</div>
+          <div class="page__content__learning__bat" id="learning_conVow">ㄱ</div>
           <a href="" id="button_right" ontouchstart="rightHangul()"><img src="img/right.svg" alt="right" class="page__content__learning__button"></a>
         </div>
-        <div class="page__content__message" id="content_message">We can find how our articulator moves when we read each name of consonants slowly.</div>
+        <div class="page__content__message" id="content_message">We can find how our articulator moves when we read each name of the consonants slowly.</div>
         <div class="page__content__3buttons">
           <button type="button" class="button" ontouchstart="audioPlay()">Listening</button>
           <button type="button" id="button_writing"class="button" ontouchstart="writingPlay()" disabled>Writing</button>
@@ -36,33 +36,33 @@
     </div>
   </body>
   <script>
-    let lastArray = ["ㄱ", "역", "박", "ㄲ", "밖", "ㅋ", "읔", "엌", "ㄴ", "은", "안", "ㄷ", "귿", "낟", "ㅌ", "읕", "낱", "ㅅ", "옷", "낫", "ㅆ", "났", "ㅈ", "읒", "낮", "ㅊ", "읓", "낯", "ㅎ", "읗", "낳", "ㄹ", "을", "알", "ㅁ", "음", "암", "ㅂ", "읍", "압", "ㅍ", "읖", "앞", "ㅇ", "응", "앙" ];
+    let lastArray = ["ㄱ", "역", "박", "ㄲ", "밖", "ㅋ", "읔", "밬", "ㄴ", "은", "안", "ㄷ", "귿", "낟", "ㅌ", "읕", "낱", "ㅅ", "옷", "낫", "ㅆ", "났", "ㅈ", "읒", "낮", "ㅊ", "읓", "낯", "ㅎ", "읗", "낳", "ㄹ", "을", "달", "ㅁ", "음", "잠", "ㅂ", "읍", "밥", "ㅍ", "읖", "앞", "ㅇ", "응", "강"];
     let countClick = 0;
     let hangul = document.getElementById("learning_conVow");
     let currentSound = null;
     let currentMsg = document.getElementById('content_message')
     let teachingMsg = [
-      "We can find how our articulator moves when we read each name of consonants slowly.",
-      "Can you feel your throat closed when you pronounce batchim 'ㄱ'? (I'll leave 'batchim' out from now.)",
+      "We can find how our articulator moves when we read each name of the consonants slowly.",
+      "Can you feel your throat closing when you pronounce the Batchim 'ㄱ'? (I'll leave 'Batchim' out for now.)",
       "Let's practice another character with 'ㄱ'.",
-      "'ㄲ' is same with 'ㄱ'.",
-      "Let's see an example with 'ㄲ'. We can see it's totally same with 'ㄱ'.",
+      "'ㄲ' is same as 'ㄱ'.",
+      "Let's see an example with 'ㄲ'. We can feel it's totally the same with 'ㄱ'.",
       "How about 'ㅋ'?",
-      "We can still feel our throat closed like 'ㄱ' and 'ㄲ'.",
-      "It means 'ㄱ', 'ㄲ', and 'ㅋ' have totally same movement.",
+      "We can still feel our throats close like 'ㄱ' and 'ㄲ'.",
+      "It means 'ㄱ', 'ㄲ', and 'ㅋ' have exactly the same movement.",
       "Let's see 'ㄴ'. We can feel another movement.",
-      "The tip of our tongue is moving to the top of mouth and behind of upper teeth. And the air is getting out through our nose.",
+      "The tip of our tongue is moving to the top of our mouth and behind our upper teeth. And the air is getting out through our nose.",
       "Let's practice another character with 'ㄴ'.",
       "Let's see the 'ㄷ'.",
-      "The tongue movement seems like similar with 'ㄴ'.",
-      "But the air doesn't out through our nose.",
-      "From now, we will see a lot of other same movements with 'ㄷ'.",
-      "Isn't it same?",
+      "The tongue movement seems like similar to 'ㄴ'.",
+      "But the air doesn't come out through our nose.",
+      "From now, we will see a lot of the other same movements with 'ㄷ'.",
+      "Isn't it the same?",
       "Let's practice another character.",
-      "Here's other same movement.",
+      "Here's another with the same movement.",
       "Same.",
-      "Yes, it's same.",
-      "The movement of double consonant is same with its single consonant.",
+      "Yes, it's the same.",
+      "The movement of the double consonant is the same with the single consonant.",
       "Same.",
       "Same again.",
       "Isn't it?",
@@ -70,24 +70,24 @@
       "Same again and again.",
       "Awesome!",
       "Great!",
-      "Same one more.",
-      "Now we can have a question. Why we should use different character even there are lots of same movement? It seems more simple if we use only one batchim.",
-      "However, every languages have some words that have same pronunciation but different meaning. It will help us to reduce the number of sound that we should make. Even though it has same sound, we can know enough its different meanings with spelling and the situation.",
-      "After a long time, it's different movement.",
-      "It has also similar tongue position with 'ㄴ'. But the air is getting out through mouth.",
-      "Some Korean learners who are native English speaker, tends to roll up their tongue like [r] sound. But the correct position is behind of upper teeth.",
-      "Your lips closed.",
-      "And you can feel the sound trembled in your mouth.",
+      "One more! It's the same again.",
+      "Now we can look at a question. Why should we use different characters even though there are lots of the same movements? It seems simpler if we use only one Batchim.",
+      "However, it might be more difficult if they all have a different sound. And even though they are the same sound, we can easily figure out their different meaning in the situation.",
+      "After a long time, it's a different movement.",
+      "It also has a similar tongue position with 'ㄴ'. But the air is getting out through the mouth.",
+      "Some Korean learners, who are native English speakers, tend to roll up their tongue like the [r] sound. But the correct position of your tongue is behind your upper teeth.",
+      "Your lips are closed.",
+      "And you can feel the sound trembling in your mouth.",
       "And the air is getting out through your nose.",
-      "Your lips closed like 'ㅁ'.",
-      "But the sound not trembled.",
+      "Your lips are closed like 'ㅁ'.",
+      "But the sound is not trembling.",
       "It's easy.",
-      "This is same with 'ㅂ'.",
-      "Totally same.",
+      "This is the same as 'ㅂ'.",
+      "Totally the same.",
       "That's right.",
       "Finally, this is the last one.",
-      "Your mouth opened and the air getting out through your nose.",
-      "Perfect! Now you can read all of hangul. Repeat the lesson several times and practice in the next stage."]
+      "Your mouth is opened and the air is getting out through your nose.",
+      "Perfect! Now you can read the entire Hangul. Repeat this lesson several times and practice in the next stage."]
 
     function leftHangul() {
       fadeOut();
@@ -179,7 +179,7 @@
         currentSound.pause();
         currentSound.currentTime = 0;
       }
-      currentSound = new Audio('audio/vowel/'+lastArray[countClick]+'.mp3');
+      currentSound = new Audio('audio/batchim/'+lastArray[countClick]+'.mp3');
       currentSound.play()
     }
 

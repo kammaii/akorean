@@ -19,10 +19,10 @@
         <div class="page__content__reading" id="reading">
         </div>
         <div class="page__content__4buttons">
-          <button type="button" class="button" onclick="btn_slow()">Slow</button>
+          <button type="button" class="button" onclick="btn_speed()">Speed</button>
           <button type="button" class="button" onclick="btn_play()">Play</button>
           <button type="button" class="button" onclick="btn_stop()">Stop</button>
-          <button type="button" class="button" onclick="btn_fast()">Fast</button>
+          <button type="button" class="button" onclick="btn_reload()">Reload</button>
         </div>
       </div>
 
@@ -37,14 +37,87 @@
     "안녕하세요?",
     "안녕히 계세요.",
     "반갑습니다.",
+    "잘 부탁드립니다.",
+    "고마워요.",
+    "미안해요",
     "밥 먹었어요?",
-    "어디 가요?",
+    "배고파요.",
+    "뭐 먹을래요?",
+    "맛있어요.",
+    "저는 떡볶이 좋아해요.",
+    "저는 매운 음식 좋아해요.",
+    "어디에 가요?",
     "어서 오세요.",
     "다음에 또 만나요.",
     "오늘 바빠요.",
     "내일 뭐해요?",
+    "어제 뭐 했어요?",
     "너무 피곤해요.",
-    "배고파요."
+    "어제 일찍 잤어요.",
+    "오늘 늦게 일어났어요.",
+    "어제 커피 많이 마셨어요.",
+    "좀 쉬고 싶어요.",
+    "이거 뭐예요?",
+    "이름이 뭐예요?",
+    "얼마예요?",
+    "너무 비싸요.",
+    "이거 아주 싸요.",
+    "저는 한국어를 공부해요.",
+    "한국어 재미있어요.",
+    "한국어 가르쳐 주세요.",
+    "이거 한국어로 어떻게 말해요?",
+    "한국어 실력을 늘리고 싶어요.",
+    "책을 많이 읽어야 해요.",
+    "제 이름은 데니예요.",
+    "안녕히 가세요.",
+    "어느 나라 사람이에요?",
+    "저는 한국 사람이에요.",
+    "아메리카노 한 잔 주세요.",
+    "내일 영화 볼래요?",
+    "저는 남동생 있어요.",
+    "화장실 어디예요?",
+    "저기예요.",
+    "무슨 일 하세요?",
+    "오늘 며칠이에요?",
+    "오늘 무슨 요일이에요?",
+    "생일 축하해요.",
+    "모르겠어요.",
+    "지금 몇 시예요?",
+    "한 시 삼십 분이에요.",
+    "어디에서 공부해요?",
+    "수영 할 수 있어요.",
+    "스키 못 타요.",
+    "아침밥 안 먹었어요.",
+    "재미있어요",
+    "어떤 영화 좋아해요?",
+    "저도 갈래요.",
+    "어디에서 살아요?",
+    "서울에서 살아요.",
+    "강남에 어떻게 가요?",
+    "지하철 타고 가요.",
+    "한국에 가봤어요?",
+    "머리가 아파요.",
+    "병원에 가야돼요.",
+    "예약했어요.",
+    "쇼핑 하러 가요.",
+    "한 시간 걸려요.",
+    "한국에서 삼 년 동안 살았어요.",
+    "그랬으면 좋겠어요.",
+    "재미있을 것 같아요.",
+    "헬스장에서 운동해요.",
+    "회사 가기 싫어요.",
+    "토픽 시험이 있어요.",
+    "오늘 비가 와요.",
+    "내일은 눈이 올 거예요.",
+    "치킨 배달 시켰어요.",
+    "좋은 생각이에요.",
+    "차가 많이 막혀요.",
+    "운전 할 수 있어요?",
+    "강아지 두 마리 키워요.",
+    "한국 드라마 재미있어요?",
+    "오늘 학교 안 가요.",
+    "사과보다 오렌지를 더 좋아해요.",
+    "지금 일 하고 있어요.",
   ];
 
   let container_sentence = document.getElementById("reading");
@@ -58,7 +131,6 @@
   let j=-1;
   let btnStopClicked = null;
   let btnSlowClicked = null;
-
 
   // Mix the array 'sentences' randomly
   for(let i=0; i < sentences.length; i++) {
@@ -103,13 +175,18 @@
 
   function audioPlay() {
     j++;
-    console.log(j);
 
-    if(j == audioArray.length) return;
-    currentSound = audioArray[j];
-    if(btnSlowClicked) {
-      btn_slow();
+    if(j == audioArray.length) {
+      j = audioArray.length-1;
+      return;
     }
+
+    currentSound = audioArray[j];
+
+    if(btnSlowClicked) {
+      speedSlow();
+    }
+
     background();
     currentSound.addEventListener('ended', audioPlay);
     currentSound.play();
@@ -142,7 +219,6 @@
     background(lastTouchNo[0]);
 
     currentSound = null;
-    console.log(j);
     j = -1;
   }
 
@@ -152,14 +228,26 @@
     currentSound.pause();
   }
 
-  function btn_slow() {
-    currentSound.playbackRate = 0.7;
-    btnSlowClicked = true;
+  function btn_speed() {
+    if(btnSlowClicked == null) {
+      speedSlow();
+      btnSlowClicked = true;
+    } else if(btnSlowClicked == true) {
+      speedNormal();
+      btnSlowClicked = null;
+    }
   }
 
-  function btn_fast() {
+  function speedSlow() {
+    currentSound.playbackRate = 0.7;
+  }
+
+  function speedNormal() {
     currentSound.playbackRate = 1;
-    btnSlowClicked = null;
+  }
+
+  function btn_reload() {
+    location.reload();
   }
 
   </script>

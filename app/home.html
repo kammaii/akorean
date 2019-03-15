@@ -18,7 +18,7 @@
       <div class="page__content">
         <div class="menu">
           <div class="menu__button">
-            <a href="learning_tutorial.html">Learning</a>
+            <a href="learning_tutorial.html" id="tutorialToggle">Learning</a>
           </div>
           <div class="menu__button">
             <a href="practice_menu.html">Practice</a>
@@ -27,7 +27,7 @@
             <a href="option.html">Option</a>
           </div>
           <div class="menu__button">
-            <a href="">About A.Korean</a>
+            <a href="about.html">About A.Korean</a>
           </div>
         </div>
       </div>
@@ -39,5 +39,11 @@
     </div>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/tips.js"></script>
+    <script src="js/storage.js"></script>
   </body>
+  <script>
+    if(getTutorialToggle() == false) {
+      document.getElementById("tutorialToggle").href = "learning_menu.html";
+    }
+  </script>
 </html>

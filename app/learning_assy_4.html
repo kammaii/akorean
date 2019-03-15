@@ -24,7 +24,7 @@
           </div>
           <div class="page__content__assybox" id="assybox"></div>
         </div>
-        <div class="page__content__assymessage" id="content_message">You'll see some words that have double Batchim. It sounds one of them. Therefore you can learn it when you learn words later.</div>
+        <div class="page__content__assymessage" id="content_message"></div>
         <div class="page__content__3buttons">
           <button type="button" class="button" onclick="btn_function('consonant')">Consonant</button>
           <button type="button" class="button" onclick="btn_function('vowel')">Vowel</button>
@@ -189,10 +189,10 @@
     if(ass.indexOf("null") == -1) {
       findUnicode(consonant, vowel, batchim)
       currentSound.addEventListener("ended", function() {
-        currentSound = new Audio('audio/ass/'+uniResult+'.mp3');
+        currentSound = new Audio('audio/assy/'+uniResult+'.mp3');
         currentSound.play();
       })
-      document.getElementById("assybox").innerHTML = uniResult;
+      document.getElementById("assybox").innerHTML = uniResultForDisplay;
     }
   }
 
@@ -203,12 +203,30 @@
 
 
   let uniResult = null;
+  let uniResultForDisplay = null;
 
   function findUnicode(consonant, vowel, batchim) {
     let conUni_num = conUni_Array.indexOf(consonant);
     let vowUni_num = vowUni_Array.indexOf(vowel);
     let batUni_num = batUni_Array.indexOf(batchim);
 
+    uniResultForDisplay = String.fromCharCode(44032 + (conUni_num * 588) + (vowUni_num * 28) + batUni_num );
+
+    // To minimize audio files ㅔ -> ㅐ, ㅖ -> ㅒ
+    // Batchim ㅋㄲ -> ㄱ, ㅅㅈㅊㅌㅎㅆ -> ㄷ, ㅍ -> ㅂ
+    if (vowUni_num == 5) {
+      vowUni_num = 1;
+    } else if(vowUni_num == 7) {
+      vowUni_num = 3;
+    }
+
+    if (batUni_num == 24 || batUni_num == 2) {
+      batUni_num = 1;
+    } else if (batUni_num == 19 || batUni_num == 22 || batUni_num == 23 || batUni_num == 25 || batUni_num == 27 || batUni_num == 20) {
+      batUni_num = 7;
+    } else if (batUni_num == 26) {
+      batUni_num = 17;
+    }
 
     uniResult = String.fromCharCode(44032 + (conUni_num * 588) + (vowUni_num * 28) + batUni_num );
   }

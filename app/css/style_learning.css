@@ -1,8 +1,3 @@
-@font-face {
-  font-family: godoMaum;
-  src: url(font/godoMaum.ttf);
-}
-
 .page__content {
   display: grid;
   grid-template-rows: 60% 30% 10%;
@@ -17,12 +12,18 @@
 }
 
 .page__content__learning > a {
-  margin-top: auto;
-  margin-bottom: auto;
+  margin-top: 300px;
 }
 
 .page__content__learning__convow {
   font-family: godoMaum;
+  font-size: 40em;
+  text-align: center;
+  margin: auto;
+}
+
+.page__content__learning__bat {
+  font-family: misaeng;
   font-size: 40em;
   text-align: center;
   margin: auto;

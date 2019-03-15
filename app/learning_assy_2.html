@@ -154,10 +154,10 @@
     if(ass.indexOf("null") == -1) {
       findUnicode(consonant, vowel)
       currentSound.addEventListener("ended", function() {
-        currentSound = new Audio('audio/ass/'+uniResult+'.mp3');
+        currentSound = new Audio('audio/assy/'+uniResult+'.mp3');
         currentSound.play();
       })
-      document.getElementById("assybox").innerHTML = uniResult;
+      document.getElementById("assybox").innerHTML = uniResultForDisplay;
     }
   }
 
@@ -166,10 +166,18 @@
   let vowUni_Array = ["ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "ㅔ", "ㅕ", "ㅖ", "ㅗ", "ㅘ", "ㅙ", "ㅚ", "ㅛ", "ㅜ", "ㅝ", "ㅞ", "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ"];
 
   let uniResult = null;
+  let uniResultForDisplay = null;
 
   function findUnicode(consonant, vowel) {
     let conUni_num = conUni_Array.indexOf(consonant);
     let vowUni_num = vowUni_Array.indexOf(vowel);
+
+    uniResultForDisplay = String.fromCharCode(44032 + (conUni_num * 588) + (vowUni_num * 28) );
+
+    // To minimize audio files ㅙ, ㅞ -> ㅚ
+    if (vowUni_num == 10 || vowUni_num == 15) {
+      vowUni_num = 11;
+    }
 
     uniResult = String.fromCharCode(44032 + (conUni_num * 588) + (vowUni_num * 28) );
   }

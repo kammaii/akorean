@@ -20,7 +20,7 @@ let handleRequest = (req, res) => {
     let filetypeResult = req.url.split('.');
 
     if(urlRegexResult == null) {
-      serveFile('std_lastcon.html', 'text/html', res)
+      serveFile('home.html', 'text/html', res)
     } else {
 
       let filename = urlRegexResult[1];
@@ -42,7 +42,7 @@ let handleRequest = (req, res) => {
       } else if(filetype == 'mp3') {
         serveFile(filename, 'audio/mpeg', res)
       } else {
-        serveFile('std_con.html', 'text/html', res)
+        serveFile('home.html', 'text/html', res)
       }
     }
   } catch(err) {

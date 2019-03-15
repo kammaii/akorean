@@ -18,10 +18,10 @@
       <div class="page__container">
         <div class="menu">
           <div class="menu__button">
-            <a href="practice_lw_menu.html">Listening & Writing</a>
+            <a href="practice_lw_tutorial.html" id="tutorialToggle1">Listening & Writing</a>
           </div>
           <div class="menu__button">
-            <a href="practice_r.html">Reading</a>
+            <a href="practice_r_tutorial.html" id="tutorialToggle2">Reading</a>
           </div>
         </div>
       </div>
@@ -32,4 +32,12 @@
 
     </div>
   </body>
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/storage.js"></script>
+  <script>
+    if(getTutorialToggle() == false) {
+      document.getElementById("tutorialToggle1").href = "practice_lw_menu.html";
+      document.getElementById("tutorialToggle2").href = "practice_r.html";
+    }
+  </script>
 </html>

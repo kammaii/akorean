@@ -1,4 +1,4 @@
-var tips =
+var tips = 
   {
     "tip0": {
       "timestamp": "20190212",
