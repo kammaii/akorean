@@ -1,0 +1,22 @@
+{
+  "name": "akorean",
+  "version": "1.0.0",
+  "description": "software to run korean app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "\u001b[2~https://github.com/kammaii/akorean.git"
+  },
+  "keywords": [
+    "korean"
+  ],
+  "author": "danny",
+  "license": "ISC",
+  "dependencies": {
+    "mustache": "^3.0.1"
+  }
+}

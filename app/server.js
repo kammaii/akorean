@@ -2,6 +2,15 @@ const http = require('http');
 const hostname = '0.0.0.0';
 const fs = require('fs');
 const port = 3000;
+const mustache = require("mustache");
+
+let serveMustache = (template, data, res) => {
+  var html = mustache.render(template, data);
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/html');
+  res.write(html);
+  res.end();
+}
 
 let serveFile = (pathToFile, contentType, res) => {
   fs.readFile(pathToFile, (err, data) => {
@@ -19,15 +28,25 @@ let handleRequest = (req, res) => {
     let urlRegexResult = req.url.match(urlRegex);
     let filetypeResult = req.url.split('.');
 
-    if(urlRegexResult == null) {
-      serveFile('home.html', 'text/html', res)
-    } else {
+    if(req.url.match('/mustache')) {
+      fs.readFile("mustache.html", "utf8", (err, text) => {
+        var template = text;
+        var data = {
+          name: "Danny",
+          scripts: [
+            {source:"js/jquery-3.3.1.min.js"},
+            {source:"js/tips.js"}
+          ]
+        };
+        serveMustache(template, data, res);
+      });
 
+    } else if(urlRegexResult == null) {
+        serveFile('opening.html', 'text/html', res)
+    } else {
       let filename = urlRegexResult[1];
       filename = decodeURI(filename);
       let filetype = filetypeResult[filetypeResult.length-1];
-      console.log(filename);
-      console.log(filetype);
 
       if(filetype == 'css') {
         serveFile(filename, 'text/css', res)
@@ -41,8 +60,10 @@ let handleRequest = (req, res) => {
         serveFile(filename, 'font/ttf', res)
       } else if(filetype == 'mp3') {
         serveFile(filename, 'audio/mpeg', res)
+      } else if(filetype == 'jpg') {
+        serveFile(filename, 'image/jpg', res)
       } else {
-        serveFile('home.html', 'text/html', res)
+        serveFile('opening.html', 'text/html', res)
       }
     }
   } catch(err) {
