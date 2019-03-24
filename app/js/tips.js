@@ -36,10 +36,6 @@ function tipsFn() {
   if(randomTip["type"] == "anchor") {
     $('.page__footer__content').html("<a href='tips/tip" + randomNumber + ".html'><img src='img/touch.svg' style='width:50px'>" + randomTip.message + "</a>");
 
-    let currentPath = window.location.pathname;
-    let currentPage = currentPath.substring(currentPath.lastIndexOf('/')+1);
-    console.log(currentPage);
-
   } else if(randomTip["type"] == "text") {
     $('.page__footer__content').html("<p>" + randomTip.message + "</p>");
   }
@@ -48,4 +44,4 @@ function tipsFn() {
 
 $( document ).ready(tipsFn);
 
-window.setInterval(tipsFn, 180000); //3mins
+window.setInterval(tipsFn, 60000); //1mins
