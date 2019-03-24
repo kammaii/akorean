@@ -28,30 +28,26 @@ let handleRequest = (req, res) => {
     let urlRegexResult = req.url.match(urlRegex);
     let filetypeResult = req.url.split('.');
 
-    if(req.url.match('/mustache')) {
-      fs.readFile("mustache.html", "utf8", (err, text) => {
-        var template = text;
-        var data = {
-          name: "Danny",
-          scripts: [
-            {source:"js/jquery-3.3.1.min.js"},
-            {source:"js/tips.js"}
-          ]
-        };
-        serveMustache(template, data, res);
-      });
-
-    } else if(urlRegexResult == null) {
-        serveFile('opening.html', 'text/html', res)
+    if(urlRegexResult == null) {
+      serveFile('opening.html', 'text/html', res)
     } else {
       let filename = urlRegexResult[1];
       filename = decodeURI(filename);
       let filetype = filetypeResult[filetypeResult.length-1];
 
-      if(filetype == 'css') {
+      if(filetype == 'html') {
+        fs.readFile("template_footer.html", "utf8", (err, text_footer) => {
+          fs.readFile(urlRegexResult[1], "utf8", (err, text) => {
+          var template = text;
+          var data = {
+            footer: text_footer,
+          }
+          serveMustache(template, data, res);
+          })
+        })
+
+      } else if(filetype == 'css') {
         serveFile(filename, 'text/css', res)
-      } else if(filetype == 'html') {
-        serveFile(filename, 'text/html', res)
       } else if(filetype == 'svg') {
         serveFile(filename, 'image/svg+xml', res)
       } else if(filetype == 'js') {

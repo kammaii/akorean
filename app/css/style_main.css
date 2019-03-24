@@ -59,3 +59,35 @@ a:link, a:visited {
   color: black;
   text-decoration: none;
 }
+
+.page__footer {
+  display: grid;
+  grid-auto-rows: 20% 60% 20%;
+}
+
+.page__footer__header {
+  font-size: 2em;
+  padding-left: 20px;
+  padding-top: 10px;
+}
+
+.page__footer__content {
+  font-size: 3em;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  overflow: auto;
+}
+
+.page__footer__date {
+  text-align: right;
+  font-size: 1em;
+  padding-right: 20px;
+  padding-bottom: 10px;
+}
+
+.page__footer__supporter {
+  font-size: 3em;
+  text-align: center;
+  padding-top: 20px;
+}
