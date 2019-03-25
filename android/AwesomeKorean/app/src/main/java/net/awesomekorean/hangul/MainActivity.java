@@ -1,4 +1,4 @@
-package akorean.hangul.awesomekorean;
+package net.awesomekorean.hangul;
 
 import android.app.Activity;
 import android.app.NotificationChannel;
@@ -12,7 +12,7 @@ import android.webkit.WebViewClient;
 
 public class MainActivity extends Activity {
 
-    final String url = "file:///android_asset/home.html";
+    final String url = "http://app.awesomekorean.net";
     public final static String CHANNEL_ID="akorean";
 
     @Override

@@ -1,4 +1,4 @@
-package akorean.hangul.awesomekorean;
+package net.awesomekorean.hangul;
 
 import android.app.PendingIntent;
 import android.content.Context;

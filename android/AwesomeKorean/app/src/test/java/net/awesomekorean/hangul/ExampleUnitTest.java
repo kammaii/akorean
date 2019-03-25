@@ -1,4 +1,4 @@
-package akorean.hangul.awesomekorean;
+package net.awesomekorean.hangul;
 
 import org.junit.Test;
 
