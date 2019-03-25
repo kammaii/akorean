@@ -3,20 +3,33 @@ var tips =
     "tip0": {
       "timestamp": "20190319",
       "type" : "anchor",
-      "message": "ㅎ + ㄱ, ㄷ, ㅂ, ㅈ = ㅋ, ㅌ, ㅍ, ㅊ"
+      "message": "ㅎ + ㄱ, ㄷ, ㅂ, ㅈ = ?"
     },
 
     "tip1": {
       "timestamp": "20190319",
       "type" : "anchor",
-      "message": "If you feel hard to read 'ㅕ, ㅑ, ㅒ'"
+      "message": "If you feel hard to read 'ㅕ, ㅑ, ㅐ'"
     },
 
     "tip2": {
       "timestamp": "20190319",
       "type" : "anchor",
-      "message": "When you memorize verbs/adjective..."
+      "message": "When you try to memorize verb/adjective..."
+    },
+
+    "tip3": {
+      "timestamp": "20190319",
+      "type" : "anchor",
+      "message": "ㄷ, ㅌ + ㅣ = ?"
+    },
+
+    "tip4": {
+      "timestamp": "20190319",
+      "type" : "anchor",
+      "message": "How to read naturally when the consonant 'ㅇ' comes after Batchim?"
     }
+
   }
 
 function getRandomInt(max) {
