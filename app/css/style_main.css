@@ -76,7 +76,8 @@ a:link, a:visited {
   text-align: center;
   padding-top: 20px;
   padding-bottom: 20px;
-  overflow: auto;
+  overflow-x: scroll;
+  white-space: nowrap;
 }
 
 .page__footer__date {
