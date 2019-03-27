@@ -9,5 +9,5 @@ if(currentPage.match('tip')) {
 }
 
 $('.page__footer__content').click(function() {
-  localStorage.setItem("currentPage", currentPage); 
+  localStorage.setItem("currentPage", currentPage);
 })

@@ -74,8 +74,7 @@ a:link, a:visited {
 .page__footer__content {
   font-size: 3em;
   text-align: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 20px;
   overflow-x: scroll;
   white-space: nowrap;
 }

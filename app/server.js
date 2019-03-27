@@ -4,6 +4,31 @@ const fs = require('fs');
 const port = 3000;
 const mustache = require("mustache");
 
+function readFileMustache(filename) {
+  console.log("filename:" +filename);
+    return new Promise((resolve, reject) => {
+        fs.readFile(filename, "utf-8", (err, text) => {
+            // if (err) reject(err);
+            resolve(text);
+        });
+    });
+};
+
+function readMustache(template_header, template_footer, filename, res) {
+  let headerPromise = readFileMustache(template_header);
+  let footerPromise = readFileMustache(template_footer);
+  let pagePromise = readFileMustache(filename);
+  Promise.all([headerPromise, footerPromise, pagePromise]).then(function(values) {
+
+    var template = values[2];
+    var data = {
+      header: values[0],
+      footer: values[1]
+    }
+    serveMustache(template, data, res);
+  });
+}
+
 let serveMustache = (template, data, res) => {
   var html = mustache.render(template, data);
   res.statusCode = 200;
@@ -36,15 +61,11 @@ let handleRequest = (req, res) => {
       let filetype = filetypeResult[filetypeResult.length-1];
 
       if(filetype == 'html') {
-        fs.readFile("template_footer.html", "utf8", (err, text_footer) => {
-          fs.readFile(urlRegexResult[1], "utf8", (err, text) => {
-          var template = text;
-          var data = {
-            footer: text_footer,
-          }
-          serveMustache(template, data, res);
-          })
-        })
+        if(filename.match('tip')) {
+          readMustache("template_header_tip.html", "template_footer_tip.html", urlRegexResult[1], res);
+        } else {
+          readMustache("", "template_footer.html", urlRegexResult[1], res);
+        }
 
       } else if(filetype == 'css') {
         serveFile(filename, 'text/css', res)
