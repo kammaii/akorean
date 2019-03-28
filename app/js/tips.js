@@ -28,7 +28,14 @@ var tips =
       "timestamp": "20190319",
       "type" : "anchor",
       "message": "How to read naturally when the consonant 'ㅇ' comes after Batchim?"
+    },
+
+    "tip5": {
+      "timestamp": "20190319",
+      "type" : "anchor",
+      "message": "Is there any good tools for learning language?"
     }
+
 
   }
 

@@ -6,6 +6,9 @@ let currentPage = currentPath.substring(currentPath.lastIndexOf('/')+1);
 if(currentPage.match('tip')) {
   let lastPage = localStorage.getItem("currentPage");
   document.getElementById("backpage").href = "../" + lastPage;
+} else if(currentPage.match('supporter')) {
+  let lastPage = localStorage.getItem("currentPage");
+  document.getElementById("backpage").href = lastPage;
 }
 
 $('.page__footer__content').click(function() {
