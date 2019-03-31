@@ -1,6 +1,6 @@
 .page__content {
   display: grid;
-  grid-template-rows: 60% 30% 10%;
+  grid-template-rows: 55% 5% 30% 10%;
 }
 
 .page__content__learning {
@@ -23,8 +23,8 @@
 }
 
 .page__content__learning__bat {
-  font-family: misaeng;
-  font-size: 40em;
+  font-family: nanum;
+  font-size: 25em;
   text-align: center;
   margin: auto;
 }
@@ -37,6 +37,12 @@
 
 .page__content__learning__button {
   height: 50px;
+}
+
+.page__content__count {
+  text-align: right;
+  padding-right: 50px;
+  font-size: 2em;
 }
 
 .page__content__3buttons {

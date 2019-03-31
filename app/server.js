@@ -77,6 +77,8 @@ let handleRequest = (req, res) => {
         serveFile(filename, 'font/ttf', res)
       } else if(filetype == 'mp3') {
         serveFile(filename, 'audio/mpeg', res)
+      } else if(filetype == 'wav') {
+        serveFile(filename, 'audio/wav', res)
       } else if(filetype == 'jpg') {
         serveFile(filename, 'image/jpg', res)
       } else {

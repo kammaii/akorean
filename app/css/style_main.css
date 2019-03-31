@@ -2,9 +2,10 @@
   font-family: godoMaum;
   src: url(font/godoMaum.ttf);
 }
+
 @font-face {
-  font-family: misaeng;
-  src: url(font/SDMiSaeng.ttf);
+  font-family: nanum;
+  src: url(font/NanumGothic-Regular.ttf);
 }
 
 html {

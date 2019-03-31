@@ -21,7 +21,7 @@ var tips =
     "tip3": {
       "timestamp": "20190319",
       "type" : "anchor",
-      "message": "ㄷ, ㅌ + ㅣ = ?"
+      "message": "(Batchim) ㄷ, ㅌ + (vowel)ㅣ = ?"
     },
 
     "tip4": {

@@ -21,6 +21,7 @@
           <div class="page__content__learning__convow" id="learning_conVow">ㄱ</div>
           <a href="" id="button_right" ontouchstart="rightHangul()"><img src="img/right.svg" alt="right" class="page__content__learning__button"></a>
         </div>
+        <div class="page__content__count" id="content_count">1/19</div>
         <div class="page__content__message" id="content_message">기역</div>
         <div class="page__content__3buttons">
           <button type="button" class="button" ontouchstart="audioPlay()">Listening</button>
@@ -36,6 +37,7 @@
   <script>
     let consonantArray = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ", "ㄲ", "ㄸ", "ㅃ", "ㅆ", "ㅉ"];
     let countClick = 0;
+    let countCharacter = document.getElementById("content_count");
     let hangul = document.getElementById("learning_conVow");
     let hint = document.getElementById('button_hint');
     let currentSound = undefined;
@@ -57,6 +59,7 @@
         }
         audioPlay();
         hangul.innerHTML = consonantArray[countClick];
+        countCharacter.innerHTML = countClick+1 +"/19";
         currentMsg.innerHTML = teachingMsg[countClick];
       },300);
       setTimeout(fadeIn, 300);
@@ -76,6 +79,7 @@
         }
         audioPlay();
         hangul.innerHTML = consonantArray[countClick];
+        countCharacter.innerHTML = countClick+1 +"/19";
         currentMsg.innerHTML = teachingMsg[countClick];
       }, 300);
       setTimeout(fadeIn, 300);

@@ -18,7 +18,10 @@
 
       <div class="page__content">
         <div class="page__content__answer" id="answer"></div>
-        <div class="page__content__messagelw" id="message"></div>
+        <div class="page__content__messageContainer">
+          <div class="page__content__messagelw" id="message"></div>
+          <div class="page__content__countQuiz" id="countQuiz">1/10</div>
+        </div>
         <div class="page__content__answerSelect__l2" id="answerSelect">
           <div class="page__content__answerSelect__con" id="selectCon"><strong>Consonant</strong></div>
           <div class="page__content__answerSelect__vow" id="selectVow"><strong>Vowel</strong></div>
@@ -59,11 +62,17 @@
   let batSelector = [1,4,7,8,16,17,21];
   let currentSound = null;
   let currentProblemNo = 1;
+  let countQuiz = document.getElementById('countQuiz');
   let message = document.getElementById('message');
   let correct_answer_no = 0;
 
   // let autoAudio = document.getElementById('playAudio')
   // autoAudio.setAttribute("src",'audio/ass/'+uniResult[currentProblemNo]+'.mp3');
+
+  function soundEffect(result) {
+    currentSound = new Audio('audio/'+ result);
+    currentSound.play();
+  }
 
   function audioPlay() {
     currentSound = new Audio('audio/assy/'+uniResult+'.mp3');
@@ -80,7 +89,8 @@
     document.getElementById("nextBtn").disabled = false;
 
     if(user_answer.innerHTML == correct_answer) {
-      message.innerHTML = "Correct answer!"
+      message.innerHTML = "Correct answer!";
+      soundEffect("correct.wav");
       correct_answer_no += 1;
     } else {
       message.innerHTML = "Wrong answer! The answer is... : " + correct_answer;
@@ -114,6 +124,7 @@
         comment.innerHTML = "You can do it!"
       }
     } else {
+      countQuiz.innerHTML = currentProblemNo + "/10";
       quiz();
       audioPlay();
     }

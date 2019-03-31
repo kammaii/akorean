@@ -19,7 +19,10 @@
         <div>
           <input class="page__content__answer__l3" id="answer" type="text" name="answer">
         </div>
-        <div class="page__content__messagelw" id="message"></div>
+        <div class="page__content__messageContainer">
+          <div class="page__content__messagelw" id="message"></div>
+          <div class="page__content__countQuiz" id="countQuiz">1/10</div>
+        </div>
         <div class="page__content__messagelw__l3">
           Listen and write correct word into the box!
         </div>
@@ -77,12 +80,18 @@
   ]
   let currentSound = null;
   let currentProblemNo = 1;
+  let countQuiz = document.getElementById('countQuiz');
   let message = document.getElementById('message');
   let correct_answer_no = 0;
   let user_answer = document.getElementById('answer');
 
   // let autoAudio = document.getElementById('playAudio')
   // autoAudio.setAttribute("src",'audio/ass/'+uniResult[currentProblemNo]+'.mp3');
+
+  function soundEffect(result) {
+    currentSound = new Audio('audio/'+ result);
+    currentSound.play();
+  }
 
   function audioPlay() {
     console.log("정답:"+words[currentProblemNo]);
@@ -101,7 +110,8 @@
     document.getElementById("nextBtn").disabled = false;
 
     if(user_answer.value == correct_answer) {
-      message.innerHTML = "Correct answer!"
+      message.innerHTML = "Correct answer!";
+      soundEffect("correct.wav");
       correct_answer_no += 1;
     } else {
       message.innerHTML = "Wrong answer! The answer is... : " + correct_answer;
@@ -133,6 +143,7 @@
       }
     }
     if (currentProblemNo <= 10) {
+      countQuiz.innerHTML = currentProblemNo + "/10";
       audioPlay();
     }
   }
