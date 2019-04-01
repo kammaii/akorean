@@ -39,19 +39,6 @@ public class MainActivity extends Activity {
             webSettings.setMediaPlaybackRequiresUserGesture(false);
         }
 
-        final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
-
-        // Configure refresh on swipe down
-        swipeRefreshLayout.setOnRefreshListener(
-                new SwipeRefreshLayout.OnRefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        webView.loadUrl(url);
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
-                }
-        );
-
         webView.setWebChromeClient(new WebChromeClient());
         webView.setWebViewClient(new WebViewClient());
 
