@@ -129,6 +129,11 @@
       hangul.classList.remove('show');
     }
 
+    $( document ).ready(function() {
+      currentSound = new Audio('audio/vowel/ㅏ.mp3');
+      currentSound.play();
+    });
+
     // Audio play function
     function audioPlay() {
       if(currentSound) {
