@@ -81,6 +81,8 @@ let handleRequest = (req, res) => {
         serveFile(filename, 'audio/wav', res)
       } else if(filetype == 'jpg') {
         serveFile(filename, 'image/jpg', res)
+      } else if(filetype == 'png') {
+        serveFile(filename, 'image/png', res)
       } else {
         serveFile('opening.html', 'text/html', res)
       }
