@@ -172,18 +172,18 @@
     console.log(uniResult);
 
     //Function to make boxes of consonant and vowels
-    randomConArrayNo = randomConArrayNo.slice(0,4);
-    randomVowArrayNo = randomVowArrayNo.slice(0,4);
+    randomConArrayNo = randomConArrayNo.slice(0,3);
+    randomVowArrayNo = randomVowArrayNo.slice(0,3);
 
     randomConArrayNo = mix(randomConArrayNo);
     randomVowArrayNo = mix(randomVowArrayNo);
 
-    for(let i=0; i<4; i++) {
+    for(let i=0; i<3; i++) {
       let boxes = createCharacters(conUni_Array[randomConArrayNo[i]], randomConArrayNo[i], "con");
       divCon.appendChild(boxes);
     }
 
-    for(let i=0; i<4; i++) {
+    for(let i=0; i<3; i++) {
       let boxes = createCharacters(vowUni_Array[randomVowArrayNo[i]], randomVowArrayNo[i], "vow");
       divVow.appendChild(boxes);
     }

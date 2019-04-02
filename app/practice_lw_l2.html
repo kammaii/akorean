@@ -173,28 +173,48 @@
 
     uniResult = uniCode(randomConArrayNo[0], randomVowArrayNo[0], randomBatArrayNo[0]);
     audioPlay();
-    console.log(uniResult);
 
     //Function to make boxes of consonant and vowels
-    randomConArrayNo = randomConArrayNo.slice(0,4);
-    randomVowArrayNo = randomVowArrayNo.slice(0,4);
-    randomBatArrayNo = randomBatArrayNo.slice(0,4);
+    randomConArrayNo = randomConArrayNo.slice(0,3);
+    randomVowArrayNo = randomVowArrayNo.slice(0,3);
+    randomBatArrayNo = randomBatArrayNo.slice(0,3);
+
+      // To control the quiz easier
+    if (randomBatArrayNo[0] == 1) { // ㄱ,ㄴ,ㅇ
+      randomBatArrayNo[1] = 4;
+      randomBatArrayNo[2] = 21;
+    } else if (randomBatArrayNo[0] == 4) { // ㄴ,ㄱ,ㅂ
+      randomBatArrayNo[1] = 1;
+      randomBatArrayNo[2] = 17;
+    } else if (randomBatArrayNo[0] ==7) { // ㄷ,ㄹ,ㅁ
+      randomBatArrayNo[1] = 8;
+      randomBatArrayNo[2] = 16;
+    } else if (randomBatArrayNo[0] == 16) { // ㅁ,ㄷ,ㅂ
+      randomBatArrayNo[1] = 7;
+      randomBatArrayNo[2] = 17;
+    } else if (randomBatArrayNo[0] == 17) { // ㅂ,ㄴ, ㅁ
+      randomBatArrayNo[1] = 4;
+      randomBatArrayNo[2] = 16;
+    } else if (randomBatArrayNo[0] == 21) { // ㅇ,ㄱ,ㄷ
+      randomBatArrayNo[1] = 1;
+      randomBatArrayNo[2] = 7;
+    }
 
     randomConArrayNo = mix(randomConArrayNo);
     randomVowArrayNo = mix(randomVowArrayNo);
     randomBatArrayNo = mix(randomBatArrayNo);
 
-    for(let i=0; i<4; i++) {
+    for(let i=0; i<3; i++) {
       let boxes = createCharacters(conUni_Array[randomConArrayNo[i]], randomConArrayNo[i], "con");
       divCon.appendChild(boxes);
     }
 
-    for(let i=0; i<4; i++) {
+    for(let i=0; i<3; i++) {
       let boxes = createCharacters(vowUni_Array[randomVowArrayNo[i]], randomVowArrayNo[i], "vow");
       divVow.appendChild(boxes);
     }
 
-    for(let i=0; i<4; i++) {
+    for(let i=0; i<3; i++) {
       let boxes = createCharacters(batUni_Array[randomBatArrayNo[i]], randomBatArrayNo[i], "bat");
       divBat.appendChild(boxes);
     }
