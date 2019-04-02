@@ -69,6 +69,7 @@
 
   function soundEffect(result) {
     currentSound = new Audio('audio/'+ result);
+    currentSound.volume = 0.3;
     currentSound.play();
   }
 
