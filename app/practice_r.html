@@ -3,16 +3,16 @@
   <head>
     <meta charset="utf-8">
     <title>Awesome Korean</title>
-    <link rel="stylesheet" href="css/style_main.css">
-    <link rel="stylesheet" href="css/style_practice_r.css">
+    <link rel="stylesheet" href="/css/style_main.css">
+    <link rel="stylesheet" href="/css/style_practice_r.css">
   </head>
   <body>
     <div class="page">
 
       <div class="page__header">
-        <a href="home.html"><img src="img/home.svg" alt="home" class="page__header__icon"></a>
+        <a href="/home.html"><img src="/img/home.svg" alt="home" class="page__header__icon"></a>
         <h1>Awesome Korean</h1>
-        <a href="practice_menu.html"><img src="img/back.svg" alt="back" class="page__header__icon"></a>
+        <a href="/practice_menu.html"><img src="/img/back.svg" alt="back" class="page__header__icon"></a>
       </div>
 
       <div class="page__content">
@@ -152,7 +152,7 @@
   for(let i=0; i<10; i++) {
     audioTarget = document.getElementById("sentence"+i).innerHTML;
     audioTitle = audioTarget.match(hangulRegex);
-    audioArray[i] = new Audio('audio/reading/' + audioTitle + '.mp3');
+    audioArray[i] = new Audio('/audio/reading/' + audioTitle + '.mp3');
   }
 
   function btn_play() {

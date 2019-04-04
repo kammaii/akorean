@@ -3,23 +3,23 @@
   <head>
     <meta charset="utf-8">
     <title>Awesome Korean</title>
-    <link rel="stylesheet" href="css/style_main.css">
-    <link rel="stylesheet" href="css/style_learning.css">
+    <link rel="stylesheet" href="/css/style_main.css">
+    <link rel="stylesheet" href="/css/style_learning.css">
   </head>
   <body>
     <div class="page">
 
       <div class="page__header">
-        <a href="home.html"><img src="img/home.svg" alt="home" class="page__header__icon"></a>
+        <a href="/home.html"><img src="/img/home.svg" alt="home" class="page__header__icon"></a>
         <h1>Awesome Korean</h1>
-        <a href="learning_menu.html"><img src="img/back.svg" alt="back" class="page__header__icon"></a>
+        <a href="/learning_menu.html"><img src="/img/back.svg" alt="back" class="page__header__icon"></a>
       </div>
 
       <div class="page__content" id="content">
         <div class="page__content__learning">
-          <a href="" id="button_left" ontouchstart="leftHangul()"><img src="img/left.svg" alt="left" class="page__content__learning__button"></a>
+          <a href="" id="button_left" ontouchstart="leftHangul()"><img src="/img/left.svg" alt="left" class="page__content__learning__button"></a>
           <div class="page__content__learning__convow" id="learning_conVow">ㄱ</div>
-          <a href="" id="button_right" ontouchstart="rightHangul()"><img src="img/right.svg" alt="right" class="page__content__learning__button"></a>
+          <a href="" id="button_right" ontouchstart="rightHangul()"><img src="/img/right.svg" alt="right" class="page__content__learning__button"></a>
         </div>
         <div class="page__content__count" id="content_count">1/19</div>
         <div class="page__content__message" id="content_message">기역</div>
@@ -142,7 +142,7 @@
     }
 
     $( document ).ready(function() {
-      currentSound = new Audio('audio/consonant/ㄱ.mp3');
+      currentSound = new Audio('/audio/consonant/ㄱ.mp3');
       currentSound.play();
     });
 
@@ -152,20 +152,20 @@
         currentSound.pause();
         currentSound.currentTime = 0;
       }
-      currentSound = new Audio('audio/consonant/'+consonantArray[countClick]+'.mp3');
+      currentSound = new Audio('/audio/consonant/'+consonantArray[countClick]+'.mp3');
       currentSound.play();
     }
 
     // Writing play function
     function writingPlay() {
-      hangul.innerHTML = "<img src=img/consonant/"+consonantArray[countClick]+".svg width=600 height=580 align=middle>";
+      hangul.innerHTML = "<img src=/img/consonant/"+consonantArray[countClick]+".svg width=600 height=580 align=middle>";
     }
 
     // Hint touch event
     hint.addEventListener('touchstart', function(e) {
       e.preventDefault();
       if(hint.disabled == false) {
-        hangul.innerHTML = "<img src=img/hint/"+consonantArray[countClick]+"_hint.svg width=600 height=580 align=middle>";
+        hangul.innerHTML = "<img src=/img/hint/"+consonantArray[countClick]+"_hint.svg width=600 height=580 align=middle>";
       } else {
         hint.disabled = true;
       }

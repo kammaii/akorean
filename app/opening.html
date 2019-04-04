@@ -35,7 +35,7 @@
   <body>
     <div id="background">
       <div id="logo">
-        <img src="img/logo.svg">
+        <img src="/img/logo.svg">
       </div>
     </div>
   </body>
@@ -43,12 +43,12 @@
     let bg = document.getElementById("background");
     let rnum = Math.floor(Math.random()*11);
 
-    bg.style.backgroundImage = "url(img/bg/" + rnum + ".png)";
+    bg.style.backgroundImage = "url(/img/bg/" + rnum + ".png)";
 
     bg.addEventListener("animationend", animationEnd);
 
     function animationEnd() {
-      window.open("home.html","_self")
+      window.open("/home.html","_self")
     }
   </script>
 </html>

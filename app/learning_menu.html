@@ -3,51 +3,51 @@
   <head>
     <meta charset="utf-8">
     <title>Awesome Korean</title>
-    <link rel="stylesheet" href="css/style_main.css">
-    <link rel="stylesheet" href="css/style_menu.css">
+    <link rel="stylesheet" href="/css/style_main.css">
+    <link rel="stylesheet" href="/css/style_menu.css">
   </head>
   <body>
     <div class="page">
 
       <div class="page__header">
-        <a href="home.html"><img src="img/home.svg" alt="home" class="page__header__icon"></a>
+        <a href="/home.html"><img src="/img/home.svg" alt="home" class="page__header__icon"></a>
         <h1>Awesome Korean</h1>
-        <a href="home.html"><img src="img/back.svg" alt="back" class="page__header__icon"></a>
+        <a href="/home.html"><img src="/img/back.svg" alt="back" class="page__header__icon"></a>
       </div>
 
       <div class="page__content">
         <div class="menu">
           <div class="menu__button">
-            <a href="intro_con.html" id="tutorialToggle1">Consonants</a>
+            <a href="/intro_con.html" id="tutorialToggle1">Consonants</a>
           </div>
           <div class="menu__button">
-            <a href="intro_vow.html" id="tutorialToggle2">Vowels</a>
+            <a href="/intro_vow.html" id="tutorialToggle2">Vowels</a>
           </div>
           <div class="menu__button">
-            <a href="intro_assy1.html" id="tutorialToggle3">Assembly 1</a>
+            <a href="/intro_assy1.html" id="tutorialToggle3">Assembly 1</a>
           </div>
           <div class="menu__button">
-            <a href="intro_bat.html" id="tutorialToggle4">Last consonants</a>
+            <a href="/intro_bat.html" id="tutorialToggle4">Last consonants</a>
           </div>
           <div class="menu__button">
-            <a href="intro_assy2.html" id="tutorialToggle5">Assembly 2</a>
+            <a href="/intro_assy2.html" id="tutorialToggle5">Assembly 2</a>
           </div>
         </div>
       </div>
 
       {{{footer}}}
 
-      <script src="js/storage_tutorial.js"></script>
+      <script src="/js/storage_tutorial.js"></script>
 
     </div>
   </body>
   <script>
     if(getTutorialToggle() == false) {
-      document.getElementById("tutorialToggle1").href = "learning_con.html";
-      document.getElementById("tutorialToggle2").href = "learning_vow.html";
-      document.getElementById("tutorialToggle3").href = "learning_assy_main.html";
-      document.getElementById("tutorialToggle4").href = "learning_bat.html";
-      document.getElementById("tutorialToggle5").href = "learning_assy_main.html";
+      document.getElementById("tutorialToggle1").href = "/learning_con.html";
+      document.getElementById("tutorialToggle2").href = "/learning_vow.html";
+      document.getElementById("tutorialToggle3").href = "/learning_assy_main.html";
+      document.getElementById("tutorialToggle4").href = "/learning_bat.html";
+      document.getElementById("tutorialToggle5").href = "/learning_assy_main.html";
     }
   </script>
 </html>

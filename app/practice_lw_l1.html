@@ -3,17 +3,17 @@
   <head>
     <meta charset="utf-8">
     <title>Awesome Korean</title>
-    <link rel="stylesheet" href="css/style_main.css">
-    <link rel="stylesheet" href="css/style_practice_lw.css">
-    <script src="js/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="/css/style_main.css">
+    <link rel="stylesheet" href="/css/style_practice_lw.css">
+    <script src="/js/jquery-3.3.1.min.js"></script>
   </head>
   <body>
     <div class="page">
 
       <div class="page__header">
-        <a href="home.html"><img src="img/home.svg" alt="home" class="page__header__icon"></a>
+        <a href="/home.html"><img src="/img/home.svg" alt="home" class="page__header__icon"></a>
         <h1>Awesome Korean</h1>
-        <a href="practice_lw_menu.html"><img src="img/back.svg" alt="back" class="page__header__icon"></a>
+        <a href="/practice_lw_menu.html"><img src="/img/back.svg" alt="back" class="page__header__icon"></a>
       </div>
 
       <div class="page__content">
@@ -36,8 +36,8 @@
           <div class="page__content__result__score" id="score"></div>
           <div class="page__content__result__comment" id="comment"></div>
           <div>
-            <a href="practice_lw_l1.html">
-              <img class="page__content__result__again" src="img/again.svg" alt="again">
+            <a href="/practice_lw_l1.html">
+              <img class="page__content__result__again" src="/img/again.svg" alt="again">
             </a>
           </div>
         </div>
@@ -68,13 +68,13 @@
   // autoAudio.setAttribute("src",'audio/ass/'+uniResult[currentProblemNo]+'.mp3');
 
   function soundEffect(result) {
-    currentSound = new Audio('audio/'+ result);
+    currentSound = new Audio('/audio/'+ result);
     currentSound.volume = 0.3;
     currentSound.play();
   }
 
   function audioPlay() {
-    currentSound = new Audio('audio/assy/'+uniResult+'.mp3');
+    currentSound = new Audio('/audio/assy/'+uniResult+'.mp3');
     currentSound.play();
   }
 
