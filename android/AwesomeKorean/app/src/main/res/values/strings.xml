@@ -2,4 +2,7 @@
     <string name="app_name">Awesome Korean</string>
     <string name="channel_name">Awesome Korean</string>
     <string name="channel_description">Notifications from Awesome Korean</string>
+    <string name="exit_message">Are you sure you want to exit?</string>
+    <string name="exit_yes_button">Yes</string>
+    <string name="exit_no_button">No</string>
 </resources>

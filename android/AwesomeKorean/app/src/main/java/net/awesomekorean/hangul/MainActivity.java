@@ -1,8 +1,10 @@
 package net.awesomekorean.hangul;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -15,6 +17,9 @@ public class MainActivity extends Activity {
 
     final String url = "http://app.awesomekorean.net";
     public final static String CHANNEL_ID="akorean";
+    public boolean clickedYes = false;
+
+    public WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +29,7 @@ public class MainActivity extends Activity {
         //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.setContentView(R.layout.activity_main);
 
-        final WebView webView = findViewById(R.id.webView1);
+        webView = findViewById(R.id.webView1);
 
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -61,5 +66,31 @@ public class MainActivity extends Activity {
             notificationManager.createNotificationChannel(channel);
         }
 
+
+
+    }
+
+    public void doOnBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final MainActivity thisActivity = this;
+        builder.setMessage(R.string.exit_message)
+                .setPositiveButton(R.string.exit_yes_button, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        thisActivity.doOnBackPressed();
+                    }
+                })
+                .setNegativeButton(R.string.exit_no_button, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        clickedYes = false;
+                    }
+                });
+        // Create the AlertDialog object and return it
+        builder.create();
+        builder.show();
     }
 }
