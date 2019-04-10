@@ -2,21 +2,26 @@ package net.awesomekorean.hangul;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import java.util.Calendar;
+
 public class MainActivity extends Activity {
 
     final String url = "http://app.awesomekorean.net";
     public final static String CHANNEL_ID="akorean";
+    public final static String LOG_PREFIX = "AKOREAN";
     public boolean clickedYes = false;
 
     public WebView webView;
@@ -52,22 +57,24 @@ public class MainActivity extends Activity {
 
         webView.loadUrl(url);
 
-        // Create a Notification Channel.
-        String channelName = "Awesome Korean";
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = getString(R.string.channel_name);
-            String description = getString(R.string.channel_description);
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
+        createNotificationChannel(this);
 
+        // Example of setting an alarm 1 minute from now
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        // this a 24 hour clock
+        // 2 in afternoon == 14
+        int hour = calendar.get(Calendar.HOUR);
+        int min = calendar.get(Calendar.MINUTE);
 
+        NotificationAlarm notificationAlarm = new NotificationAlarm();
+        Notification notification = notificationAlarm.createNotification(this,
+                "Awesome Korean Time",
+                "Don't forget to study Korean!");
 
+        notificationAlarm.scheduleNotification(this, notification, hour, min + 1 );
+
+        Log.e(LOG_PREFIX, "Main Activity Started");
     }
 
     public void doOnBackPressed() {
@@ -92,5 +99,20 @@ public class MainActivity extends Activity {
         // Create the AlertDialog object and return it
         builder.create();
         builder.show();
+    }
+
+    private void createNotificationChannel(Context context) {
+        // Create a Notification Channel
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = context.getString(R.string.channel_name);
+            String description = context.getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(MainActivity.CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }

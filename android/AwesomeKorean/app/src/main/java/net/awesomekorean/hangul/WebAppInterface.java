@@ -1,5 +1,7 @@
 package net.awesomekorean.hangul;
 
+import android.app.AlarmManager;
+import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -39,5 +41,12 @@ public class WebAppInterface {
     }
 
 
+    //
+    //
+    public void setAlarm(int hour, int minute) {
+        NotificationAlarm notificationAlarm = new NotificationAlarm();
+        Notification notification = notificationAlarm.createNotification(mContext, "Awesome Korean Time", "Don't forget to study Korean!");
+        notificationAlarm.scheduleNotification(mContext, notification, hour, minute);
+    }
 
 }
