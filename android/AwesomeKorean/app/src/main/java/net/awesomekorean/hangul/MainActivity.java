@@ -19,7 +19,8 @@ import java.util.Calendar;
 
 public class MainActivity extends Activity {
 
-    final String url = "http://app.awesomekorean.net";
+    !!! Hey Danny - remember to change this to point to the IP address of your laptop (and then just delete this line!)
+    final String url = "http://192.168.1.151:3000";
     public final static String CHANNEL_ID="akorean";
     public final static String LOG_PREFIX = "AKOREAN";
     public boolean clickedYes = false;
@@ -58,21 +59,6 @@ public class MainActivity extends Activity {
         webView.loadUrl(url);
 
         createNotificationChannel(this);
-
-        // Example of setting an alarm 1 minute from now
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        // this a 24 hour clock
-        // 2 in afternoon == 14
-        int hour = calendar.get(Calendar.HOUR);
-        int min = calendar.get(Calendar.MINUTE);
-
-        NotificationAlarm notificationAlarm = new NotificationAlarm();
-        Notification notification = notificationAlarm.createNotification(this,
-                "Awesome Korean Time",
-                "Don't forget to study Korean!");
-
-        notificationAlarm.scheduleNotification(this, notification, hour, min + 1 );
 
         Log.e(LOG_PREFIX, "Main Activity Started");
     }

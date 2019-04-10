@@ -9,6 +9,8 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.webkit.JavascriptInterface;
 
+import java.util.Calendar;
+
 public class WebAppInterface {
     Context mContext;
 
@@ -40,13 +42,24 @@ public class WebAppInterface {
         notificationManager.notify(notificationId, mBuilder.build());
     }
 
+    @JavascriptInterface
+    public void scheduleNotification(int hour, int minute) {
 
-    //
-    //
-    public void setAlarm(int hour, int minute) {
+        // Example of setting an alarm 1 minute from now
+        //Calendar calendar = Calendar.getInstance();
+        //calendar.setTimeInMillis(System.currentTimeMillis());
+        // this a 24 hour clock
+        // 2 in afternoon == 14
+        //calendar.set(Calendar.HOUR, hour);
+        //calendar.set(Calendar.MINUTE, minute);
+
         NotificationAlarm notificationAlarm = new NotificationAlarm();
-        Notification notification = notificationAlarm.createNotification(mContext, "Awesome Korean Time", "Don't forget to study Korean!");
-        notificationAlarm.scheduleNotification(mContext, notification, hour, minute);
+        Notification notification = notificationAlarm.createNotification(mContext,
+                "Awesome Korean Time",
+                "Don't forget to study Korean!");
+
+        notificationAlarm.scheduleNotification(mContext, notification, hour, minute );
+
     }
 
 }
