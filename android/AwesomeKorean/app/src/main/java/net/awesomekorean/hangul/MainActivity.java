@@ -19,8 +19,7 @@ import java.util.Calendar;
 
 public class MainActivity extends Activity {
 
-    !!! Hey Danny - remember to change this to point to the IP address of your laptop (and then just delete this line!)
-    final String url = "http://192.168.1.151:3000";
+    final String url = "http://192.168.1.39:3000";
     public final static String CHANNEL_ID="akorean";
     public final static String LOG_PREFIX = "AKOREAN";
     public boolean clickedYes = false;
