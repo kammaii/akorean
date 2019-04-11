@@ -33,7 +33,7 @@ var tips =
     "tip5": {
       "timestamp": "20190319",
       "type" : "anchor",
-      "message": "Is there any good tools for learning language?"
+      "message": "Do you know of any good tools for learning a language?"
     }
 
 
