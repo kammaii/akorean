@@ -75,9 +75,12 @@ public class NotificationAlarm {
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, 0);
 
         Log.d(MainActivity.LOG_PREFIX, "Scheduled Notification for: " + hour + ":" + minute);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 24*60*60*1000, currentScheduledAlarm);
+        long everyDay = 24*60*60*1000;
+        //long every2min = 2*60*1000;
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), everyDay, currentScheduledAlarm);
         //alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), currentScheduledAlarm);
 
     }
