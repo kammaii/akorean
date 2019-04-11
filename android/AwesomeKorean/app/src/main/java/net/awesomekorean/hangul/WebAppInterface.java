@@ -15,6 +15,7 @@ import java.util.Calendar;
 
 public class WebAppInterface {
     Context mContext;
+    NotificationAlarm notificationAlarm = new NotificationAlarm();
 
     /** Instantiate the interface and set the context */
     WebAppInterface(Context c) {
@@ -57,7 +58,6 @@ public class WebAppInterface {
         //calendar.set(Calendar.HOUR, hour);
         //calendar.set(Calendar.MINUTE, minute);
 
-        NotificationAlarm notificationAlarm = new NotificationAlarm();
         Notification notification = notificationAlarm.createNotification(mContext,
                 "Awesome Korean Time",
                 "Don't forget to study Korean!");
@@ -67,6 +67,12 @@ public class WebAppInterface {
 
         notificationAlarm.scheduleNotification(mContext, notification, h, m);
 
+    }
+
+    @JavascriptInterface
+    public void cancelNotification() {
+        Log.d(MainActivity.LOG_PREFIX, "Cancelling notification from web");
+        notificationAlarm.cancelNotification(mContext);
     }
 
 }

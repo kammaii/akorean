@@ -13,6 +13,8 @@ import java.util.Calendar;
 
 public class NotificationAlarm {
 
+    PendingIntent currentScheduledAlarm = null;
+
         /*
         Intent notifyIntent = new Intent(context, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -46,12 +48,20 @@ public class NotificationAlarm {
                 30000, alarmIntent);
 */
 
+    public void cancelNotification(Context context) {
+        Log.d(MainActivity.LOG_PREFIX, "Attempt to cancel the existing notification");
+        if(currentScheduledAlarm != null ) {
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            alarmManager.cancel(currentScheduledAlarm);
+        }
+    }
+
     public void scheduleNotification(Context context, Notification notification, Integer hour, Integer minute) {
 
         Intent notificationIntent = new Intent(context, NotificationPublisher.class);
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 7);
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
+        currentScheduledAlarm = PendingIntent.getBroadcast(context, 0,
                 notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -67,7 +77,8 @@ public class NotificationAlarm {
         calendar.set(Calendar.MINUTE, minute);
 
         Log.d(MainActivity.LOG_PREFIX, "Scheduled Notification for: " + hour + ":" + minute);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 24*60*60*1000, currentScheduledAlarm);
+        //alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), currentScheduledAlarm);
 
     }
 

@@ -6,6 +6,12 @@ function scheduleNotification(hour, min) {
   }
 }
 
+function cancelNotification() {
+  if(typeof Android !== 'undefined') {
+    Android.cancelNotification();
+  }
+}
+
 // The format is "HH:mm", "HH:mm:ss" or "HH:mm:ss.SSS" where HH is 00-23, mm is 00-59, ss is 00-59, and SSS is 000-999.
 $("input[type=time]").on("change", function() {
 
@@ -19,6 +25,7 @@ $("input[type=time]").on("change", function() {
   if(hour && minute) {
     console.log(`hour: ${hour}, minute: ${minute}` );
     localStorage.setItem("alarmTime", hour+":"+minute);
+    cancelNotification();
     scheduleNotification(hour, minute);
   }
 
@@ -33,8 +40,7 @@ $('#alarmSwitch').click(function(event) {
     document.getElementById("alarmTime").disabled = false;
   } else {
     document.getElementById("alarmTime").disabled = true;
-    // TODO: need to implement cancel
-    //scheduleNotification(null);
+    cancelNotification();
   }
 })
 
