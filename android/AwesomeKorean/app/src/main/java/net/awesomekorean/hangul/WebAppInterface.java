@@ -1,12 +1,14 @@
 package net.awesomekorean.hangul;
 
 import android.app.AlarmManager;
+import android.app.IntentService;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+import android.util.Log;
 import android.webkit.JavascriptInterface;
 
 import java.util.Calendar;
@@ -43,7 +45,9 @@ public class WebAppInterface {
     }
 
     @JavascriptInterface
-    public void scheduleNotification(int hour, int minute) {
+    public void scheduleNotification(String hour, String minute) {
+
+        Log.d(MainActivity.LOG_PREFIX, "scheduleNotification called from web. Hour: " + hour + ", Minute: " + minute);
 
         // Example of setting an alarm 1 minute from now
         //Calendar calendar = Calendar.getInstance();
@@ -58,7 +62,10 @@ public class WebAppInterface {
                 "Awesome Korean Time",
                 "Don't forget to study Korean!");
 
-        notificationAlarm.scheduleNotification(mContext, notification, hour, minute );
+        Integer h = Integer.parseInt(hour);
+        Integer m = Integer.parseInt(minute);
+
+        notificationAlarm.scheduleNotification(mContext, notification, h, m);
 
     }
 

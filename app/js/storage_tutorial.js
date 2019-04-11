@@ -6,7 +6,8 @@
  **/
 function getItem(key, defaultValue) {
   let value = localStorage.getItem(key);
-  if(value != undefined) {
+  if(typeof value !== 'undefined' && value !== null && value !== 'null') {
+    //console.log("Value is already set in local storage");
   } else {
     value = defaultValue;
     localStorage.setItem(key, value);

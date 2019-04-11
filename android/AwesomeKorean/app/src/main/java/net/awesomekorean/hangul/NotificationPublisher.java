@@ -14,7 +14,7 @@ public class NotificationPublisher extends BroadcastReceiver {
 
     public void onReceive(Context context, Intent intent) {
 
-        Log.e(MainActivity.LOG_PREFIX, "Inside NotificationPublisher");
+        Log.d(MainActivity.LOG_PREFIX, "Inside NotificationPublisher. Attempt to display Notification ... ");
 
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         Notification notification = intent.getParcelableExtra(NOTIFICATION);

@@ -5,7 +5,6 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
@@ -47,12 +46,13 @@ public class NotificationAlarm {
                 30000, alarmIntent);
 */
 
-    public void scheduleNotification(Context context, Notification notification, int hour, int minute) {
+    public void scheduleNotification(Context context, Notification notification, Integer hour, Integer minute) {
 
         Intent notificationIntent = new Intent(context, NotificationPublisher.class);
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 7);
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
+                notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
@@ -66,6 +66,7 @@ public class NotificationAlarm {
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
 
+        Log.d(MainActivity.LOG_PREFIX, "Scheduled Notification for: " + hour + ":" + minute);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
     }
@@ -77,12 +78,18 @@ public class NotificationAlarm {
     }
 
     public Notification createNotification(Context context, String notificationTitle, String notificationContent) {
+
+        // Create an intent that will open MainActivity when the notification is clicked
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+
         // Create the actual notification
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, MainActivity.CHANNEL_ID)
                 .setSmallIcon(android.R.drawable.ic_menu_compass)
                 .setContentTitle(notificationTitle)
                 .setContentText(notificationContent)
-                //.setContentIntent(pendingIntent)
+                .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true);
 

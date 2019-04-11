@@ -59,7 +59,7 @@ public class MainActivity extends Activity {
 
         createNotificationChannel(this);
 
-        Log.e(LOG_PREFIX, "Main Activity Started");
+        Log.d(LOG_PREFIX, "Main Activity Started");
     }
 
     public void doOnBackPressed() {
