@@ -15,42 +15,11 @@ public class NotificationAlarm {
 
     PendingIntent currentScheduledAlarm = null;
 
-        /*
-        Intent notifyIntent = new Intent(context, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
-
-        int alarmType = AlarmManager.ELAPSED_REALTIME;
-        final int FIFTEEN_SEC_MILLIS = 15000;
-        */
-
-/*
-        // Set the alarm to start at specific time of day
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 8);
-        calendar.set(Calendar.MINUTE, 23);
-
-        Intent intent = new Intent(this, AlarmReceiver.class);
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
-*/
-
-    // With setInexactRepeating(), you have to use one of the AlarmManager interval
-    // constants--in this case, AlarmManager.INTERVAL_DAY.
-    /*        AlarmManager alarmManager = (AlarmManager) this.getSystemService(this.ALARM_SERVICE);*/
-/*
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY, alarmIntent);
-*/
-
-/*        /// Set the alarm to start every 15 seconds
-        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() +30000,
-                30000, alarmIntent);
-*/
 
     public void cancelNotification(Context context) {
         Log.d(MainActivity.LOG_PREFIX, "Attempt to cancel the existing notification");
         if(currentScheduledAlarm != null ) {
+            Log.d(MainActivity.LOG_PREFIX, "Canceling the notification");
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             alarmManager.cancel(currentScheduledAlarm);
         }
