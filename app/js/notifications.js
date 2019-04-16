@@ -38,6 +38,8 @@ $('#alarmSwitch').click(function(event) {
   localStorage.setItem("alarmSwitch", alarmSwitch);
   if(alarmSwitch == true) {
     document.getElementById("alarmTime").disabled = false;
+    cancelNotification();
+    scheduleNotification(hour, minute);
   } else {
     document.getElementById("alarmTime").disabled = true;
     cancelNotification();
