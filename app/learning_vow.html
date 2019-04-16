@@ -22,7 +22,7 @@
           <a href="" id="button_right" ontouchstart="rightHangul()"><img src="/img/right.svg" alt="right" class="page__content__learning__button"></a>
         </div>
         <div class="page__content__count" id="content_count">1/21 </div>
-        <div class="page__content__message" id="content_message"></div>
+        <div class="page__content__message" id="content_message">Make your mouth bigger.</div>
         <div class="page__content__3buttons">
           <button type="button" class="button" ontouchstart="audioPlay()">Listening</button>
           <button type="button" id="button_writing"class="button" ontouchstart="writingPlay()">Writing</button>
@@ -41,7 +41,7 @@
     let hangul = document.getElementById("learning_conVow");
     let currentSound = null;
     let currentMsg = document.getElementById('content_message')
-    let teachingMsg = ["", "", "", "", "", "", "", "", "", "", "", "", "almost same with [ㅐ]", "almost same with [ㅒ]", "ㅗ + ㅏ", "ㅜ + ㅓ", "ㅗ + ㅐ", "ㅜ + ㅔ</br> almost same with [ㅙ]", "ㅗ + ㅣ</br>[ㅙ] also available (recommend)", "ㅜ + ㅣ", "ㅡ + ㅣ"]
+    let teachingMsg = ["Make your mouth bigger.", "", "Say 'Uh-oh'. vowel 'ㅓ' has a similar mouth shape with 'uh'." , "", "", "", "make your lips like an octopus.", "", "Say 'cheese'. The mouth shape is similar when you sound [z] in 'cheese'.", "Say 'smile' imagine you are taking a picture. That mouth shape is 'ㅣ'.", "", "", "almost same with [ㅐ]", "almost same with [ㅒ]", "ㅗ + ㅏ", "ㅜ + ㅓ", "ㅗ + ㅐ", "ㅜ + ㅔ</br> almost same with [ㅙ]", "ㅗ + ㅣ</br>[ㅙ] also available (recommend)", "ㅜ + ㅣ", "ㅡ + ㅣ"]
 
     function leftHangul() {
       fadeOut();
