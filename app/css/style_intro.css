@@ -14,6 +14,11 @@ h1, h2, h3 {
   line-height: 2;
 }
 
+.page__content__intro__supporter {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+}
+
 .page__content__intro__button {
   display: block;
   padding: 10px;
