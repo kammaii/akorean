@@ -54,7 +54,9 @@ public class MainActivity extends Activity {
         webView.setWebViewClient(new WebViewClient());
 
         // Here is where we setup the connection between javascript and android
-        webView.addJavascriptInterface(new WebAppInterface(this), "Android");
+        WebAppInterface webAppInterface = new WebAppInterface(this);
+        String javascriptVariable = "Android";
+        webView.addJavascriptInterface(webAppInterface,javascriptVariable);
 
         webView.loadUrl(url);
 
