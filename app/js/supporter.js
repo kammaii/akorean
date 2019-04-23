@@ -8,18 +8,13 @@ function makePurchase(skuId) {
 
 $( document ).ready(function() {
 
-  $(".page__content__intro__button").on("click", function() {
+  $(".page__content__intro__button").on("click", function(evt) {
 
-    alert("it works!");
-
-      // get the css id of the element that was clicked
-      // for now, I'm just hard coding This
-      // a.korean.hangul.donation.1
-      // a.korean.hangul.donation.5
-      // a.korean.hangul.donation.10
-
-      let skuId = "a.korean.hangul.donation.1";
-      makePurchase(skuId);
+    // make sure that the id of the links are equal to the
+    // skuIds set in the Google Play store.
+    let skuId = evt.target.id;
+    //alert("Attempting to purchase: " + skuId);
+    makePurchase(skuId);
   });
 
 });
