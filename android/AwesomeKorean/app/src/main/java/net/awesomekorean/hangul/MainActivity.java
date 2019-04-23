@@ -20,7 +20,7 @@ import java.util.Calendar;
 public class MainActivity extends Activity {
 
     //final String url = "http://192.168.1.151:3000";
-    final String url = "http://app.awesomekorean.net";
+    final String url = "https://app.awesomekorean.net";
     public final static String CHANNEL_ID="akorean";
     public final static String LOG_PREFIX = "AKOREAN";
     public boolean clickedYes = false;
