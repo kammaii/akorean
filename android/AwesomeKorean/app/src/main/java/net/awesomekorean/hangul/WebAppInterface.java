@@ -2,10 +2,12 @@ package net.awesomekorean.hangul;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
@@ -93,68 +95,88 @@ public class WebAppInterface {
     @JavascriptInterface
     public void makePurchase(final String skuId) {
 
-        Log.d(MainActivity.LOG_PREFIX, "Attempting to make purchase");
+        Log.d(MainActivity.LOG_PREFIX, "Attempting to lookup purchase: " + skuId);
 
-        BillingClient billingClient;
-
-        billingClient = BillingClient.newBuilder(mContext).setListener(
+        final BillingClient billingClient = BillingClient.newBuilder(mContext).setListener(
 
                 new PurchasesUpdatedListener() {
                     @Override
                     public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
-                        Log.d(MainActivity.LOG_PREFIX, "Inside onPurchasesUpdated!");
-                        for(Purchase purchase : purchases) {
-                            Log.d(MainActivity.LOG_PREFIX, purchase.toString());
+                        Log.d(MainActivity.LOG_PREFIX, "Inside onPurchasesUpdated after looking up purchases");
+                        if(purchases != null) {
+                            for (Purchase purchase : purchases) {
+                                Log.d(MainActivity.LOG_PREFIX, purchase.toString());
+                            }
                         }
                     }
                 }
 
         ).build();
 
-        // Sku == Puchase Item
-        final List<SkuDetails> skuDetails = new ArrayList<>();
-
-        // Look up the details for the sku, for example: "a.korean.hangul.donation.1"
-        List<String> skuList = new ArrayList<>();
-        skuList.add(skuId);
-        SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
-        params.setSkusList(skuList).setType(BillingClient.SkuType.INAPP);
-        billingClient.querySkuDetailsAsync(params.build(),
-                new SkuDetailsResponseListener() {
-                    @Override
-                    public void onSkuDetailsResponse(int responseCode, List<SkuDetails> skuDetailsList) {
-                        if (responseCode == BillingClient.BillingResponse.OK
-                                && skuDetailsList != null) {
-                            for (SkuDetails nextSkuDetail : skuDetailsList) {
-                                String sku = nextSkuDetail.getSku();
-                                String price = nextSkuDetail.getPrice();
-                                String desc = nextSkuDetail.getDescription();
-                                skuDetails.add(nextSkuDetail);
-                                if (skuId.equals(sku)) {
-                                    Toast.makeText(mContext, desc, Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        }
-
-                    }
-                });
-
         // query for all items
-        /*
         billingClient.startConnection(new BillingClientStateListener() {
             @Override
             public void onBillingSetupFinished(@BillingClient.BillingResponse int billingResponseCode) {
+                Log.d(MainActivity.LOG_PREFIX, "BillingSetupFinished");
+                Log.d(MainActivity.LOG_PREFIX, "Response Code: "+ billingResponseCode);
+
                 if (billingResponseCode == BillingClient.BillingResponse.OK) {
                     // The BillingClient is ready. You can query purchases here.
+
+                    // Sku == Puchase Item
+                    final List<SkuDetails> skuDetails = new ArrayList<>();
+
+                    // Look up the details for the sku, for example: "a.korean.hangul.donation.1"
+                    List<String> skuList = new ArrayList<>();
+                    skuList.add(skuId);
+                    SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
+                    params.setSkusList(skuList).setType(BillingClient.SkuType.INAPP);
+                    billingClient.querySkuDetailsAsync(
+                            params.build(),
+                            new SkuDetailsResponseListener() {
+                                @Override
+                                public void onSkuDetailsResponse(int responseCode, List<SkuDetails> skuDetailsList) {
+                                    Log.d(MainActivity.LOG_PREFIX,"Got response from sku query!");
+                                    Log.d(MainActivity.LOG_PREFIX,"Response Code: " + responseCode);
+                                    if (responseCode == BillingClient.BillingResponse.OK
+                                            && skuDetailsList != null) {
+                                        for (final SkuDetails nextSkuDetail : skuDetailsList) {
+                                            String sku = nextSkuDetail.getSku();
+                                            String price = nextSkuDetail.getPrice();
+                                            String desc = nextSkuDetail.getDescription();
+                                            skuDetails.add(nextSkuDetail);
+                                            if (skuId.equals(sku)) {
+                                                Log.d(MainActivity.LOG_PREFIX, "Found Item! " + skuId);
+
+                                                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                                                builder.setMessage("Thanks for your Support! Would you like to donate " + price + "?")
+                                                        .setPositiveButton(R.string.exit_yes_button, new DialogInterface.OnClickListener() {
+                                                            public void onClick(DialogInterface dialog, int id) {
+                                                                actuallyMakePurchase(nextSkuDetail);
+                                                            }
+                                                        })
+                                                        .setNegativeButton(R.string.exit_no_button, new DialogInterface.OnClickListener() {
+                                                            public void onClick(DialogInterface dialog, int id) {
+                                                                // nothing to do
+                                                            }
+                                                        });
+                                                // Create the AlertDialog object and return it
+                                                builder.create();
+                                                builder.show();
+
+                                            }
+                                        }
+                                    }
+                                }
+                            });
                 }
             }
             @Override
             public void onBillingServiceDisconnected() {
-                // Try to restart the connection on the next request to
-                // Google Play by calling the startConnection() method.
+                Log.d(MainActivity.LOG_PREFIX, "Hmm, disconnected while trying to find purchases??");
             }
         });
-        */
+
 
 
         // Actually purchase the product
@@ -163,6 +185,7 @@ public class WebAppInterface {
                 .setSkuDetails(skuDetails)
                 .build();
         int responseCode = billingClient.launchBillingFlow(flowParams);
+
         */
 
         // Retrieve a list of purchased products
@@ -181,5 +204,57 @@ public class WebAppInterface {
                     }
                 });
                 */
+    }
+
+    public void actuallyMakePurchase(final SkuDetails skuDetails) {
+
+        Log.d(MainActivity.LOG_PREFIX, "Attempting to make purchase: " + skuDetails.getSku());
+
+        final BillingClient billingClient = BillingClient.newBuilder(mContext).setListener(
+
+                new PurchasesUpdatedListener() {
+                    @Override
+                    public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
+                        Log.d(MainActivity.LOG_PREFIX, "Inside onPurchasesUpdated after actually making purchase");
+                        if(purchases != null) {
+                            for (Purchase purchase : purchases) {
+                                Log.d(MainActivity.LOG_PREFIX, purchase.toString());
+                            }
+                        }
+                    }
+                }
+
+        ).build();
+
+        billingClient.startConnection(
+                new BillingClientStateListener() {
+                    @Override
+                    public void onBillingSetupFinished(@BillingClient.BillingResponse int billingResponseCode) {
+                        Log.d(MainActivity.LOG_PREFIX, "BillingSetupFinished");
+                        Log.d(MainActivity.LOG_PREFIX, "Response Code: " + billingResponseCode);
+
+                        if (billingResponseCode == BillingClient.BillingResponse.OK) {
+                            // The BillingClient is ready. You can query purchases here.
+
+                            // Make Purchase!
+                            BillingFlowParams flowParams = BillingFlowParams.newBuilder()
+                                    //.setSku(skuId)
+                                    .setSkuDetails(skuDetails)
+                                    .build();
+
+                            int purchaseResponseCode = billingClient.launchBillingFlow((Activity)mContext, flowParams);
+                            Log.d(MainActivity.LOG_PREFIX,"Successfully completed purchase!");
+                            Log.d(MainActivity.LOG_PREFIX, "Response Code: " + purchaseResponseCode);
+
+                        }
+                    }
+
+                    @Override
+                    public void onBillingServiceDisconnected() {
+                        Log.d(MainActivity.LOG_PREFIX, "Hmm, disconnected while trying to make a purchase??");
+                    }
+                });
+
+
     }
 }
