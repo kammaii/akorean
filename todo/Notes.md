@@ -39,3 +39,14 @@ Test Driven Development
 # Object Oriented
 
 - Encapsulation (hide details of how something works)
+
+# Interfaces
+
+Interfaces describe characteristics of something
+
+Implementing Interfaces
+Classes, Parent Classes and Child Classes 
+
+# State
+
+Pieces of your program that can change

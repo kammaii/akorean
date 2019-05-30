@@ -2,35 +2,28 @@ package net.awesomekorean;
 
 public class Notes {
 
-  private Note[] todos;
+  private AwesomeArrayList todos;
   private int noteCount = 0;
 
   public Notes() {
-    todos = new Note[0];
+    todos = new AwesomeArrayList();
   }
 
-  public Note[] getTodos() {
+  public AwesomeArrayList getTodos() {
     return this.todos;
   }
 
-  public void addTodo(String newTodo) {
-
-    Note[] oldTodos = todos;
-
-    noteCount++;
-    todos = new Note[noteCount];
-
-    // copy old todos into new todos
-    for(int i=0; i<oldTodos.length; i++) {
-      todos[i] = oldTodos[i];
-    }
-
-    todos[noteCount-1] = new Note(newTodo);
-
+  public void addTodo(Note  newTodo) {
+    todos.add(newTodo);
   }
 
-  public void removeTodo(int arrayIndex) {
+  public void removeTodo(Note note){
 
+    // Danny, try to implement AwesomeArrayList.remove()
+    // Here's a hint: try to use similar solution to the code below inside AwesomeArrayList.remove()
+
+
+    /*
     // create array that is one index less than todos
     noteCount--;
     Note[] newTodos = new Note[noteCount];
@@ -45,6 +38,7 @@ public class Notes {
     }
 
     todos = newTodos;
+    */
 
   }
 }
