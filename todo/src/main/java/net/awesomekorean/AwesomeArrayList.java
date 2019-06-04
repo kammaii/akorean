@@ -1,10 +1,6 @@
 package net.awesomekorean;
 
-
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 public class AwesomeArrayList implements List {
 
@@ -21,8 +17,7 @@ public class AwesomeArrayList implements List {
   }
 
   public boolean isEmpty() {
-    // Danny, can you implement this?
-    return true;
+    return (notes == null || notes.length <= 0);
   }
 
   @Override
@@ -94,7 +89,24 @@ public class AwesomeArrayList implements List {
 
   @Override
   public Object remove(int index) {
-    return null;
+    arraySize--;
+
+    Object[] newTodos = new Note[arraySize];
+    Object removed = null;
+
+    int j=0;
+    for(int i=0; i<notes.length; i++) {
+      if(index != i) {
+        newTodos[j] = notes[i];
+        j++;
+      } else {
+        removed = notes[i];
+      }
+    }
+
+    notes = newTodos;
+    return removed;
+
   }
 
   @Override

@@ -42,11 +42,33 @@ Test Driven Development
 
 # Interfaces
 
-Interfaces describe characteristics of something
+Interfaces describe behavior of something
 
 Implementing Interfaces
 Classes, Parent Classes and Child Classes 
 
+## extends
+
+Interface Taste
+getTaste function
+
+Interface Color
+getColor function
+
+Interface Fruit extends Taste, Color
+
+Class Watermelon implements Fruit
+define getTaste and getColor
+
+
+
+
+
+
+
+
 # State
 
 Pieces of your program that can change
+
+
