@@ -28,4 +28,23 @@ public class Note {
     return isComplete;
   }
 
+  @Override
+  public String toString() {
+    return todo;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if(o == null) {
+      return false;
+    }
+
+    if(o instanceof Note){
+      Note otherNote = (Note)o;
+      return (otherNote.getTodo().equals(this.getTodo()));
+    } else {
+      return false;
+    }
+  }
+
 }

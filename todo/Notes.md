@@ -60,15 +60,20 @@ Interface Fruit extends Taste, Color
 Class Watermelon implements Fruit
 define getTaste and getColor
 
-
-
-
-
-
-
-
 # State
 
 Pieces of your program that can change
+
+
+# Equals (Equality)
+
+Two types of equality
+
+1. Two things exactly the same? Do both of these things point to
+ the same memory addresss? ( == )
+ 
+2. Are these two things logically the same. 
+
+# Iterators 
 
 

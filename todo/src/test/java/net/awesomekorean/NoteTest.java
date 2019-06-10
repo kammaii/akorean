@@ -2,6 +2,8 @@ package net.awesomekorean;
 
 import org.junit.Test;
 
+import java.util.Iterator;
+
 import static org.junit.Assert.*;
 
 public class NoteTest {
@@ -36,14 +38,14 @@ public class NoteTest {
     // Danny - try to implement AwesomeArrayList.isEmpty so this test will pass
     assertEquals(false, notes.getTodos().isEmpty());
 
-    /*
-    notes.addTodo("Take Kids to School.");
+    Note note2 = new Note("Take Kids to School.");
+    notes.addTodo(note2);
 
-    assertTrue(notes.getTodos().length ==  2);
+    assertTrue(notes.getTodos().size() ==  2);
 
-    assertEquals("Take Kids to School.", notes.getTodos()[1].getTodo());
-    assertEquals("Buy food from store.", notes.getTodos()[0].getTodo());
-    */
+    assertEquals(note2, notes.getTodos().get(1));
+    assertEquals(note1, notes.getTodos().get(0));
+
 
   }
 
@@ -83,13 +85,79 @@ public class NoteTest {
 
     Note note2 = new Note("Take Kids to School.");
     notes.addTodo(note2);
+    notes.addTodo(note2);
 
-    assertEquals(2, notes.getTodos().size());
+    Note note3 = new Note("Take Kids to School.");
+    notes.addTodo(note3);
+
+    assertEquals(4, notes.getTodos().size());
 
     notes.getTodos().remove(note2);
 
-    // Danny, try and implement the remove(Object o) method to fix this
-    assertEquals(1, notes.getTodos().size());
+    // We had 4 notes, removed "Take Kids to School", why isn't this 1 ???
+    assertEquals(2, notes.getTodos().size());
+
+  }
+
+  @Test
+  public void equalsIsTricky() {
+
+    String one = new String("Hello");
+    String two = new String("Hello");
+    String three = one;
+
+    System.out.println(one == two);
+    assertTrue(one != two);
+
+    System.out.println(one == one);
+    assertTrue(one == one);
+
+    System.out.println(one == three);
+    assertTrue(one == three);
+
+    assertTrue(one.equals(two));
+
+
+    Note note1 = new Note("This is a note");
+    Note note2 = new Note("This is a note");
+
+    assertTrue(note1.equals(note2));
+
+    //assertEquals(one, two);
+  }
+
+  @Test
+  public void iteratorFun() {
+
+    AwesomeArrayList list1 = new AwesomeArrayList();
+    assertEquals(0, list1.size());
+
+    Note note1 = new Note("Buy food from store.");
+    list1.add(note1);
+
+    assertEquals(1, list1.size());
+
+    Note note2 = new Note("Take Kids to School.");
+    list1.add(note2);
+
+    assertEquals(2, list1.size());
+
+    /*
+     * Have to implement "ListIterator" for this
+    Iterator i = list1.listIterator();
+    while(i.hasNext()) {
+      assertNotNull(i.next());
+    }*/
+
+    for(int i = 0; i<list1.size(); i++) {
+      list1.get(i);
+    }
+
+    // This uses "iterator"
+    for(Object n : list1) {
+      System.out.println(n.toString());
+      assertNotNull(n);
+    }
 
   }
 
@@ -106,8 +174,9 @@ public class NoteTest {
 
     Note note2 = new Note("Take Kids to School.");
     list1.add(note2);
+    list1.add(note2);
 
-    assertEquals(2, list1.size());
+    assertEquals(3, list1.size());
 
     AwesomeArrayList list2 = new AwesomeArrayList();
     assertEquals(0, list2.size());
@@ -119,12 +188,7 @@ public class NoteTest {
 
     list2.addAll(list1);
 
-    // Danny, try to implement addAll(Collection c) to fix this
-    assertEquals(3, list2.size());
+    assertEquals(4, list2.size());
 
   }
-
-
-
-
 }

@@ -27,7 +27,25 @@ public class AwesomeArrayList implements List {
 
   @Override
   public Iterator iterator() {
-    return null;
+
+    return new Iterator() {
+
+      private int cursor = 0;
+
+      @Override
+      public boolean hasNext() {
+        System.out.println("We're in hasNext");
+        return cursor < notes.length;
+      }
+
+      @Override
+      public Object next() {
+        Object n = notes[cursor];
+        cursor++;
+        return n;
+      }
+
+    };
   }
 
   @Override
@@ -53,13 +71,56 @@ public class AwesomeArrayList implements List {
 
   @Override
   public boolean remove(Object o) {
-    // Danny, can you implement this?
-    return false;
+    int found = 0;
+    //arraySize--;
+    //Object[] newTodos = new Note[arraySize];
+
+    for(int i=0; i<notes.length; i++) {
+      Object next = notes[i];
+      if(o == next) {
+        found++;
+      }
+    }
+
+    Object[] newTodos = null;
+    if(found > 0) {
+      arraySize = arraySize - found;
+      newTodos = new Note[arraySize];
+      int j=0;
+      for(int i=0; i<notes.length; i++) {
+        Object next = notes[i];
+        if(o != next) {
+          newTodos[j] = next;
+          j++;
+        }
+      }
+      notes = newTodos;
+    }
+
+    return found > 0;
   }
 
   @Override
   public boolean addAll(Collection c) {
-    return false;
+
+    if(c == null || c.size() <= 0) {
+      return false;
+    }
+
+    arraySize = arraySize + c.size();
+    Object[] newTodos = new Note[arraySize];
+
+    for(int i=0; i< notes.length; i++ ) {
+      newTodos[i] = notes[i];
+    }
+
+    int j=notes.length;
+    for(Object o : c) {
+      newTodos[j] = o;
+      j++;
+    }
+
+    return true;
   }
 
   @Override
@@ -74,7 +135,9 @@ public class AwesomeArrayList implements List {
 
   @Override
   public Object get(int index) {
-    return null;
+    if(notes != null && index >= 0 && index < notes.length) {
+      return notes[index];
+    } else return null;
   }
 
   @Override
