@@ -2,7 +2,9 @@ package net.awesomekorean;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -105,9 +107,15 @@ public class NoteTest {
     String one = new String("Hello");
     String two = new String("Hello");
     String three = one;
+    String four = "Hello";
+    String five = "Hello";
+
 
     System.out.println(one == two);
     assertTrue(one != two);
+
+    System.out.println(four == five);
+    assertTrue(four == five);
 
     System.out.println(one == one);
     assertTrue(one == one);
@@ -116,7 +124,6 @@ public class NoteTest {
     assertTrue(one == three);
 
     assertTrue(one.equals(two));
-
 
     Note note1 = new Note("This is a note");
     Note note2 = new Note("This is a note");
@@ -137,10 +144,19 @@ public class NoteTest {
 
     assertEquals(1, list1.size());
 
-    Note note2 = new Note("Take Kids to School.");
+    for(Object next : list1) {
+      // Danny, here's a challenge!!
+      // The code never makes it here?? Why not??
+      // Here's a hint: What should "hasNext" return when index is 0 and there is only one item?
+
+      System.out.println(next);
+      assertNotNull(next);
+    }
+
+   /* Note note2 = new Note("Take Kids to School.");
     list1.add(note2);
 
-    assertEquals(2, list1.size());
+    assertEquals(2, list1.size());*/
 
     /*
      * Have to implement "ListIterator" for this
@@ -149,7 +165,7 @@ public class NoteTest {
       assertNotNull(i.next());
     }*/
 
-    for(int i = 0; i<list1.size(); i++) {
+    /*for(int i = 0; i<list1.size(); i++) {
       list1.get(i);
     }
 
@@ -157,7 +173,7 @@ public class NoteTest {
     for(Object n : list1) {
       System.out.println(n.toString());
       assertNotNull(n);
-    }
+    }*/
 
   }
 
@@ -186,7 +202,11 @@ public class NoteTest {
 
     assertEquals(1, list2.size());
 
+
+    List list3 = new ArrayList();
+
     list2.addAll(list1);
+    list2.addAll(list3);
 
     assertEquals(4, list2.size());
 

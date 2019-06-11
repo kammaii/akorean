@@ -28,24 +28,10 @@ public class AwesomeArrayList implements List {
   @Override
   public Iterator iterator() {
 
-    return new Iterator() {
+    // Here we are passing a reference to the current AwesomeArrayList ("this") to the AwesomeArrayListIterator's
+    //constructor
+    return new AwesomeArrayListIterator(this);
 
-      private int cursor = 0;
-
-      @Override
-      public boolean hasNext() {
-        System.out.println("We're in hasNext");
-        return cursor < notes.length;
-      }
-
-      @Override
-      public Object next() {
-        Object n = notes[cursor];
-        cursor++;
-        return n;
-      }
-
-    };
   }
 
   @Override
@@ -103,6 +89,16 @@ public class AwesomeArrayList implements List {
   @Override
   public boolean addAll(Collection c) {
 
+    // when we are at this line, c is an AwesomeArrayList
+    // type cast
+    // We can't implement like this because this won't work for ANY type of Collection
+    /*AwesomeArrayList a = (AwesomeArrayList) c; // throw an error
+    Object[] oldList = ((AwesomeArrayList) c).notes;
+    for(int i = 0; i<oldList.length; i++) {
+      // one way to iterate over the list of notes inside AwesomeArrayList
+    }*/
+
+
     if(c == null || c.size() <= 0) {
       return false;
     }
@@ -115,6 +111,7 @@ public class AwesomeArrayList implements List {
     }
 
     int j=notes.length;
+
     for(Object o : c) {
       newTodos[j] = o;
       j++;
@@ -134,8 +131,10 @@ public class AwesomeArrayList implements List {
   }
 
   @Override
+  // the same as notes[index] = this.get(index)
   public Object get(int index) {
-    if(notes != null && index >= 0 && index < notes.length) {
+    if(notes != null
+            && index >= 0 && index < notes.length) {
       return notes[index];
     } else return null;
   }

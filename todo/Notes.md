@@ -77,3 +77,15 @@ Two types of equality
 # Iterators 
 
 
+# Literals
+
+The literal representation of a concept is just plain text
+
+For example: 
+
+new String("Hello") // not a literal representation
+"Hello" // literal representation
+
+
+
+
