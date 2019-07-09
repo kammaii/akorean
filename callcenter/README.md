@@ -12,3 +12,10 @@ method `dispatchCall()` which assigns a call to the first available
 employee
 
 
+# csv files
+
+Comma Separated Values
+
+# Queue vs list
+ArrayQueue = FIFO first in first out
+ArrayList = LIFO last in first out

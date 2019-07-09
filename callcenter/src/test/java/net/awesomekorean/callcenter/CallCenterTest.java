@@ -17,6 +17,9 @@ public class CallCenterTest {
   public void processIncomingCalls() {
 
     CallCenter callCenter = new CallCenter();
+    callCenter.readEmployees("./src/test/resources/employees.csv");
+
+    // process calls
     callCenter.readCalls("./src/test/resources/calls.txt");
 
   }
