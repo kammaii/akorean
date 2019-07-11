@@ -19,3 +19,20 @@ Comma Separated Values
 # Queue vs list
 ArrayQueue = FIFO first in first out
 ArrayList = LIFO last in first out
+
+# Popular Databases
+
+MySQL
+Postgresql
+
+These are both relational database systems
+
+SQL = Standard Query Language
+
+Example of sql : 
+
+select * from employee;
+
+# Type Cast
+
+Forcing a change of object type

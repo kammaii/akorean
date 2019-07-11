@@ -2,7 +2,7 @@ package net.awesomekorean.callcenter;
 
 public class Receptionist implements Employee, Person<PersonName> {
 
-  PersonName name;
+  private PersonName name;
 
   public Receptionist(PersonName name ) {
     this.name = name;

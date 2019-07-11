@@ -20,7 +20,19 @@ public class PersonName {
 
   @Override
   public String toString() {
-    return firstName;
+    String name = "";
+    if(firstName != null && firstName.length() > 0) {
+      name += firstName;
+    }
+
+    if(lastName != null && lastName.length() > 0) {
+      if(name.length() > 0) {
+        name += " ";
+      }
+      name += lastName;
+    }
+
+    return name;
   }
 
 }
