@@ -36,3 +36,7 @@ select * from employee;
 # Type Cast
 
 Forcing a change of object type
+
+# Polymorphism
+
+Same methods, but different implementation

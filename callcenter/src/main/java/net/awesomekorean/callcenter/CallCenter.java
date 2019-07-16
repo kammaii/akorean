@@ -7,21 +7,71 @@ import java.util.List;
 public class CallCenter {
 
   private List<Employee> employees;
-  private List activeCalls;
+  private List<TelephoneCall> activeCalls;
 
   public CallCenter(String pathToEmployeesFile) {
-    employees = new ArrayList<Employee>();
+    employees = new ArrayList<>();
     readEmployees(pathToEmployeesFile);
 
-    activeCalls = new ArrayList();
+    activeCalls = new ArrayList<>();
   }
+
+  public Receptionist getNextAvailableReceptionist(){
+
+    // First find all receptionists from list of employees
+    List<Receptionist> receptionists = new ArrayList<>();
+    for(Employee employee : employees) {
+      if(employee.getEmployeeType().equals(EmployeeType.RECEPTIONIST)) {
+        receptionists.add((Receptionist)employee);
+      }
+    }
+
+    // For each receptionist, see if they are currently in an active call
+    for(TelephoneCall activeCall : activeCalls) {
+      Employee receiver = activeCall.getReceiver();
+
+      // This will work, but be careful!!
+      /*if(receiver instanceof Receptionist) {
+
+        }*/
+
+      // Study this code and think about why it won't work???
+      // Why should you never change a list while iterating ???
+      for (Receptionist receptionist : receptionists) {
+
+        // is receiver the same person as this receptionist???
+        if (receiver.equals(receptionist)) {
+
+          // what happens when you remove an item from a list while you're iterating over it??
+          receptionists.remove(receptionist);
+
+        }
+
+      }
+
+    }
+
+    if(receptionists.size() > 0) {
+      return receptionists.get(0);
+    } else {
+      return null;
+    }
+  }
+
 
   public void dispatchCall(String callerName) {
 
-    if(activeCalls.size() > 0) {
-      // if receptionist is available
+    System.out.println("New call from:  " + callerName);
 
-      // figure out who to dispatch to??
+    if(activeCalls.size() > 0) {
+
+      Receptionist receptionist = getNextAvailableReceptionist();
+      if(receptionist != null) {
+        activeCalls.add(new TelephoneCall(callerName, receptionist));
+        System.out.println("Receptionist named " + receptionist.getName() + " received call from "+ callerName);
+      }
+
+
     } else {
       // this is the first call, so just dispatch to receptionist
       // find receptionist inside employees

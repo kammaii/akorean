@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.*;
 
+import static java.nio.charset.StandardCharsets.UTF_16;
 import static org.junit.Assert.*;
 
 public class CallCenterTest {
@@ -35,6 +36,17 @@ public class CallCenterTest {
 
     Receptionist kathy = new Receptionist(new PersonName("Kathy", "Paroulek"));
     assertEquals("Kathy Paroulek", kathy.getName().toString());
+
+  }
+
+  @Test
+  public void koreanEquals() {
+    String one = "경찰";
+    String two = "경찰";
+    assertTrue(one.equals(two));
+
+    String wordQuiz1Answer = "경찰";
+    String word = "경찰";
 
   }
 }
