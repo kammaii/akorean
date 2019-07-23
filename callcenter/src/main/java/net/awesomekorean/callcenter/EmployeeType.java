@@ -2,6 +2,8 @@ package net.awesomekorean.callcenter;
 
 public class EmployeeType {
 
+  // Challenge: convert this to a Enum (Enumerated)
+
   // immutable == final
   // mutable == you can change it
 

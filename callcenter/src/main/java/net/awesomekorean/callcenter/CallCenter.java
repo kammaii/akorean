@@ -16,48 +16,42 @@ public class CallCenter {
     activeCalls = new ArrayList<>();
   }
 
-  public Receptionist getNextAvailableReceptionist(){
+
+  public Employee findNextAvailable(String employeeType) {
+
+    List<Employee> availableEmployees = new ArrayList<Employee>();
 
     // First find all receptionists from list of employees
-    List<Receptionist> receptionists = new ArrayList<>();
+    List<Employee> employees = new ArrayList<>();
     for(Employee employee : employees) {
-      if(employee.getEmployeeType().equals(EmployeeType.RECEPTIONIST)) {
-        receptionists.add((Receptionist)employee);
+      if(employee.getEmployeeType().equals(employeeType)) {
+        employees.add(employee);
       }
     }
 
-    // For each receptionist, see if they are currently in an active call
-    for(TelephoneCall activeCall : activeCalls) {
-      Employee receiver = activeCall.getReceiver();
+    // For each employee, see if they are currently in an active call
+    for(Employee employee : employees) {
+      boolean foundAvailableEmployee = false;
 
-      // This will work, but be careful!!
-      /*if(receiver instanceof Receptionist) {
+      for (TelephoneCall activeCall : activeCalls) {
 
-        }*/
-
-      // Study this code and think about why it won't work???
-      // Why should you never change a list while iterating ???
-      for (Receptionist receptionist : receptionists) {
-
-        // is receiver the same person as this receptionist???
-        if (receiver.equals(receptionist)) {
-
-          // what happens when you remove an item from a list while you're iterating over it??
-          receptionists.remove(receptionist);
-
+        Employee receiver = activeCall.getReceiver();
+        if (!receiver.equals(employee)) {
+          foundAvailableEmployee = true;
         }
-
       }
 
+      if (!foundAvailableEmployee) {
+        availableEmployees.add(employee);
+      }
     }
 
-    if(receptionists.size() > 0) {
-      return receptionists.get(0);
+    if(availableEmployees.size() > 0) {
+      return availableEmployees.get(0);
     } else {
       return null;
     }
   }
-
 
   public void dispatchCall(String callerName) {
 
@@ -65,10 +59,17 @@ public class CallCenter {
 
     if(activeCalls.size() > 0) {
 
-      Receptionist receptionist = getNextAvailableReceptionist();
+      Employee receptionist = findNextAvailable(EmployeeType.RECEPTIONIST);
       if(receptionist != null) {
         activeCalls.add(new TelephoneCall(callerName, receptionist));
-        System.out.println("Receptionist named " + receptionist.getName() + " received call from "+ callerName);
+        System.out.println("Receptionist named " + ((Receptionist)receptionist).getName() + " received call from "+ callerName);
+      } else {
+        // we need to find next manager
+        Employee manager = findNextAvailable(EmployeeType.MANAGER);
+        if(manager != null) {
+          activeCalls.add(new TelephoneCall(callerName, manager));
+          System.out.println("Manager named " + ((Manager)manager).getName() + " received call from "+ callerName);
+        }
       }
 
 

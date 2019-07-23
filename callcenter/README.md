@@ -40,3 +40,16 @@ Forcing a change of object type
 # Polymorphism
 
 Same methods, but different implementation
+
+# Concurrent
+
+2 pieces of code trying to change the same thing at the same time
+
+# Multiple Threads
+
+Javascript only has 1 thread. In javascript we must use callbacks.
+
+In Java we can use multiple threads.
+
+Android uses multiple threads, one for each activity.
+
