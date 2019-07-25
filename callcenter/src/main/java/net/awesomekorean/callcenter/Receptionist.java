@@ -1,6 +1,6 @@
 package net.awesomekorean.callcenter;
 
-public class Receptionist implements Employee, Person<PersonName> {
+public class Receptionist implements Employee<PersonName> {
 
   private PersonName name;
 
@@ -9,7 +9,7 @@ public class Receptionist implements Employee, Person<PersonName> {
   }
 
   @Override
-  public String getEmployeeType() {
+  public EmployeeType getEmployeeType() {
     return EmployeeType.RECEPTIONIST;
   }
 

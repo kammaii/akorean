@@ -49,4 +49,11 @@ public class CallCenterTest {
     String word = "경찰";
 
   }
+
+  @Test
+  public void employeeTypeTest() {
+    assertEquals(EmployeeType.MANAGER, EmployeeType.MANAGER);
+    String manager = "Manager";
+    assertEquals(manager, EmployeeType.MANAGER.toString());
+  }
 }

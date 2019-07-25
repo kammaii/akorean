@@ -1,6 +1,6 @@
 package net.awesomekorean.callcenter;
 
-public class Director implements Employee, Person<String> {
+public class Director implements Employee<String> {
 
   String name ;
 
@@ -9,12 +9,12 @@ public class Director implements Employee, Person<String> {
   }
 
   @Override
-  public String getEmployeeType() {
-    return "Director";
+  public EmployeeType getEmployeeType() {
+    return EmployeeType.DIRECTOR;
   }
 
   @Override
   public String getName() {
-    return null;
+    return name;
   }
 }

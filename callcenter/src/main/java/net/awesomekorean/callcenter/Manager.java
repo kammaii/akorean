@@ -1,6 +1,6 @@
 package net.awesomekorean.callcenter;
 
-public class Manager implements Employee, Person<String> {
+public class Manager implements Employee<String> {
 
   private String name;
 
@@ -9,7 +9,7 @@ public class Manager implements Employee, Person<String> {
   }
 
   @Override
-  public String getEmployeeType() {
+  public EmployeeType getEmployeeType() {
     //??EmployeeType employeeType = new EmployeeType();
     return EmployeeType.MANAGER;
   }

@@ -17,37 +17,37 @@ public class CallCenter {
   }
 
 
-  public Employee findNextAvailable(String employeeType) {
+  public Employee findNextAvailable(EmployeeType employeeType) {
 
-    List<Employee> availableEmployees = new ArrayList<Employee>();
+    List<Employee> result = new ArrayList<>();
 
     // First find all receptionists from list of employees
-    List<Employee> employees = new ArrayList<>();
+    List<Employee> candidates = new ArrayList<>();
     for(Employee employee : employees) {
       if(employee.getEmployeeType().equals(employeeType)) {
-        employees.add(employee);
+        candidates.add(employee);
       }
     }
 
-    // For each employee, see if they are currently in an active call
-    for(Employee employee : employees) {
-      boolean foundAvailableEmployee = false;
+    // For each candidate, see if they are currently in an active call
+    for(Employee employee : candidates) {
+      boolean isAvailable = true;
 
       for (TelephoneCall activeCall : activeCalls) {
-
         Employee receiver = activeCall.getReceiver();
-        if (!receiver.equals(employee)) {
-          foundAvailableEmployee = true;
+        if (receiver.equals(employee)) {
+          isAvailable = false;
         }
       }
 
-      if (!foundAvailableEmployee) {
-        availableEmployees.add(employee);
+      if (isAvailable) {
+        result.add(employee);
       }
+
     }
 
-    if(availableEmployees.size() > 0) {
-      return availableEmployees.get(0);
+    if(result.size() > 0) {
+      return result.get(0);
     } else {
       return null;
     }
@@ -62,15 +62,23 @@ public class CallCenter {
       Employee receptionist = findNextAvailable(EmployeeType.RECEPTIONIST);
       if(receptionist != null) {
         activeCalls.add(new TelephoneCall(callerName, receptionist));
-        System.out.println("Receptionist named " + ((Receptionist)receptionist).getName() + " received call from "+ callerName);
+        System.out.println("Receptionist named " + receptionist.getName() + " received call from "+ callerName);
       } else {
         // we need to find next manager
         Employee manager = findNextAvailable(EmployeeType.MANAGER);
         if(manager != null) {
           activeCalls.add(new TelephoneCall(callerName, manager));
-          System.out.println("Manager named " + ((Manager)manager).getName() + " received call from "+ callerName);
+          System.out.println("Manager named " + manager.getName() + " received call from "+ callerName);
+        } else {
+          // we need to find next manager
+          Employee director = findNextAvailable(EmployeeType.DIRECTOR);
+          if(director != null) {
+            activeCalls.add(new TelephoneCall(callerName, director));
+            System.out.println("Director named " + director.getName() + " received call from "+ callerName);
+          }
         }
       }
+
 
 
     } else {
@@ -172,12 +180,12 @@ public class CallCenter {
           String employeeType = line.substring(line.indexOf(",") + 1);
 
           Employee employee = null;
-          if (employeeType.equals(EmployeeType.RECEPTIONIST)) {
+          if (employeeType.equals(EmployeeType.RECEPTIONIST.toString())) {
             PersonName personName = new PersonName(name, "");
             employee = new Receptionist(personName);
-          } else if (employeeType.equals(EmployeeType.MANAGER)) {
+          } else if (employeeType.equals(EmployeeType.MANAGER.toString())) {
             employee = new Manager(name);
-          } else if (employeeType.equals(EmployeeType.DIRECTOR)) {
+          } else if (employeeType.equals(EmployeeType.DIRECTOR.toString())) {
             employee = new Director(name);
           }
 

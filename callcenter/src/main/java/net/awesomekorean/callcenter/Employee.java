@@ -1,7 +1,9 @@
 package net.awesomekorean.callcenter;
 
-public interface Employee {
+public interface Employee<T> {
 
-  public String getEmployeeType();
+  public EmployeeType getEmployeeType();
+
+  public T getName();
 
 }
