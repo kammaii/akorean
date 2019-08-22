@@ -1,8 +1,10 @@
 package net.awesomekorean.callcenter;
 
 import java.io.*;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class CallCenter {
 
@@ -112,9 +114,10 @@ public class CallCenter {
       if(receptionist != null) {
         TelephoneCall telephoneCall = new TelephoneCall(callerName, receptionist);
         activeCalls.add(telephoneCall);
+        System.out.println("Receptionist named " + receptionist.getName() + " received call from "+ callerName);
+      } else {
+        throw new IllegalStateException("Can't find any receptionists??!!!");
       }
-
-      System.out.println("Receptionist named " + receptionist.getName() + " received call from "+ callerName);
 
     }
 
@@ -162,6 +165,54 @@ public class CallCenter {
 
   private void readEmployees(String pathToFile) {
 
+    String url = "jdbc:postgresql://localhost/akorean";
+    Properties props = new Properties();
+    props.setProperty("user", "CHANGEME");
+    props.setProperty("password", "");
+
+
+    try {
+      Connection conn = DriverManager.getConnection(url, props);
+      String query = "SELECT EMPLOYEE_NAME, EMPLOYEE_TYPE FROM callcenter.employee";
+
+      Statement statement = conn.createStatement();
+      ResultSet resultSet = statement.executeQuery(query);
+
+      while(resultSet.next()) {
+
+        String employeeName = resultSet.getString("EMPLOYEE_NAME");
+        System.out.println(employeeName);
+
+        String employeeType = resultSet.getString("EMPLOYEE_TYPE");
+        System.out.println(employeeType);
+
+        Employee employee = null;
+        if (employeeType.toUpperCase().equals(EmployeeType.RECEPTIONIST.toString().toUpperCase())) {
+          PersonName personName = new PersonName(employeeName, "");
+          employee = new Receptionist(personName);
+        } else if (employeeType.toUpperCase().equals(EmployeeType.MANAGER.toString().toUpperCase())) {
+          employee = new Manager(employeeName);
+        } else if (employeeType.toUpperCase().equals(EmployeeType.DIRECTOR.toString().toUpperCase())) {
+          employee = new Director(employeeName);
+        } else {
+          throw new IllegalStateException("Found employee type that is not defined");
+        }
+
+        employees.add(employee);
+
+      }
+
+      resultSet.close();
+      statement.close();
+      conn.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+  }
+
+  private void readEmployeesFromCSVFile(String pathToFile) {
+
     if(pathToFile == null) {
       System.out.println("Oops, null file");
       return;
@@ -202,4 +253,6 @@ public class CallCenter {
     }
 
   }
+
+
 }

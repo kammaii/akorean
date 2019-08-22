@@ -1,0 +1,32 @@
+DROP TABLE IF EXISTS dave.employee;
+DROP SEQUENCE IF EXISTS dave.EMPLOYEE_SEQ;
+DROP SCHEMA IF EXISTS dave;
+
+CREATE SCHEMA dave
+    AUTHORIZATION dparoulek;
+
+CREATE SEQUENCE dave.EMPLOYEE_SEQ
+    INCREMENT 1
+    START 0
+    MINVALUE 0
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+ALTER SEQUENCE dave.EMPLOYEE_SEQ
+    OWNER TO dparoulek;
+
+
+CREATE TABLE dave.employee
+(
+    EMPLOYEE_NAME text COLLATE pg_catalog."default",
+    EMPLOYEE_ID bigint NOT NULL DEFAULT nextval('dave.EMPLOYEE_SEQ'::regclass),
+    EMPLOYEE_TYPE text COLLATE pg_catalog."default",
+    CONSTRAINT EMPLOYEE_pkey PRIMARY KEY (EMPLOYEE_ID)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE dave.employee
+    OWNER to dparoulek;

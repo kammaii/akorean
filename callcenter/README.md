@@ -53,3 +53,9 @@ In Java we can use multiple threads.
 
 Android uses multiple threads, one for each activity.
 
+
+# SQL - Structured Query Language
+
+DML (data manipulation language) - select, update, delete (add and remove data)
+DDL (data definition language) - create, drop, alter (create tables, create users)
+
