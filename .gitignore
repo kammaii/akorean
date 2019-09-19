@@ -7,3 +7,5 @@ todo/target
 callcenter/.idea
 callcenter/target
 db/
+webservice/.idea
+webservice/target
