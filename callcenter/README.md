@@ -59,3 +59,6 @@ Android uses multiple threads, one for each activity.
 DML (data manipulation language) - select, update, delete (add and remove data)
 DDL (data definition language) - create, drop, alter (create tables, create users)
 
+# Dependency Injection
+
+For example Callcenter is dependent on a Databasemanager

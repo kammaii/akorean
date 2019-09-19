@@ -17,7 +17,7 @@ public class CallCenterTest {
   @Test
   public void processIncomingCalls() {
 
-    CallCenter callCenter = new CallCenter("./src/test/resources/employees.csv");
+    CallCenter callCenter = new CallCenter();
 
     // process calls
     callCenter.processCalls("./src/test/resources/calls.txt");

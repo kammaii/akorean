@@ -1,9 +1,13 @@
 package net.awesomekorean.callcenter;
 
+import net.awesomekorean.callcenter.db.DatabaseManager;
+import net.awesomekorean.callcenter.db.EmployeeDatabaseCall;
+
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 public class CallCenter {
@@ -11,11 +15,14 @@ public class CallCenter {
   private List<Employee> employees;
   private List<TelephoneCall> activeCalls;
 
-  public CallCenter(String pathToEmployeesFile) {
+  private DatabaseManager databaseManager;
+
+  public CallCenter(DatabaseManager databaseManager) {
     employees = new ArrayList<>();
-    readEmployees(pathToEmployeesFile);
+    readEmployees();
 
     activeCalls = new ArrayList<>();
+    this.databaseManager = databaseManager;
   }
 
 
@@ -163,27 +170,20 @@ public class CallCenter {
 
   }
 
-  private void readEmployees(String pathToFile) {
-
-    String url = "jdbc:postgresql://localhost/akorean";
-    Properties props = new Properties();
-    props.setProperty("user", "CHANGEME");
-    props.setProperty("password", "");
-
+  private void readEmployees() {
 
     try {
-      Connection conn = DriverManager.getConnection(url, props);
-      String query = "SELECT EMPLOYEE_NAME, EMPLOYEE_TYPE FROM callcenter.employee";
 
-      Statement statement = conn.createStatement();
-      ResultSet resultSet = statement.executeQuery(query);
+      EmployeeDatabaseCall employeeDatabaseCall = new EmployeeDatabaseCall();
+      List<Map> results = databaseManager.execute(employeeDatabaseCall);
 
-      while(resultSet.next()) {
 
-        String employeeName = resultSet.getString("EMPLOYEE_NAME");
+      for(Map<String, String> result : results) {
+
+        String employeeName = result.get("EmployeeName");
         System.out.println(employeeName);
 
-        String employeeType = resultSet.getString("EMPLOYEE_TYPE");
+        String employeeType = result.get("Employee Type");
         System.out.println(employeeType);
 
         Employee employee = null;
@@ -202,9 +202,6 @@ public class CallCenter {
 
       }
 
-      resultSet.close();
-      statement.close();
-      conn.close();
     } catch (SQLException e) {
       e.printStackTrace();
     }
