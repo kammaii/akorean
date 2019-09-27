@@ -4,11 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import com.sun.tools.internal.ws.wsdl.document.Output;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -45,8 +44,32 @@ public class UsersHandler implements HttpHandler {
     // return list of all users
     if(requestMethod.equalsIgnoreCase("GET")) {
 
-      String response = gson.toJson(httpServer.getUsers());
-      httpServer.respond200(httpExchange, response);
+
+      if(url.equals("/users")) {
+        String response = gson.toJson(httpServer.getUsers());
+        httpServer.respond200(httpExchange, response);
+      } else {
+        // get individual users
+        String urlStr = url.toString();
+        int idx = urlStr.lastIndexOf("/");
+        String idStr = urlStr.substring(idx+1);
+        System.out.println("USER ID: " + idStr);
+
+        List<Map<String, String>> users = httpServer.getUsers();
+        Map<String, String> found = null;
+        for(Map<String, String> user : users) {
+          if(user.get("id").equals(idStr)) {
+            found = user;
+          }
+        }
+
+        if(found != null) {
+          String response = gson.toJson(found);
+          httpServer.respond200(httpExchange, response);
+        } else {
+          httpServer.respond404(httpExchange);
+        }
+      }
 
     }
 
@@ -61,6 +84,10 @@ public class UsersHandler implements HttpHandler {
       for(String key : queryParams.keySet()) {
         System.out.println("  " + key + ": '" + queryParams.get(key) + "'");
       }
+
+      List<Map<String, String>> users = httpServer.getUsers();
+      queryParams.put("id", httpServer.getUniqueId().toString());
+      users.add(queryParams);
 
       // return the new user as json
       String response = gson.toJson(queryParams);

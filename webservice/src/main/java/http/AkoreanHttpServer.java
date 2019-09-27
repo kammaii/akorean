@@ -14,9 +14,15 @@ import java.util.*;
 public class AkoreanHttpServer {
 
   private List<Map<String, String>> users = new ArrayList<>();
+  Integer uniqueId = 0;
 
   public List<Map<String, String>> getUsers() {
     return users;
+  }
+
+  public Integer getUniqueId() {
+    uniqueId = uniqueId + 1;
+    return uniqueId;
   }
 
   // Java Http Servers
@@ -40,6 +46,22 @@ public class AkoreanHttpServer {
   void respond200(HttpExchange httpExchange, String response) {
     try {
       httpExchange.sendResponseHeaders(200, response.getBytes().length);
+
+      OutputStream os = httpExchange.getResponseBody();
+      os.write(response.getBytes());
+      os.close();
+    }
+    catch (IOException e) {
+      System.out.println("Error occurred when trying to send response");
+      System.out.println(e.getMessage());
+    }
+  }
+
+  void respond404(HttpExchange httpExchange) {
+    String response = "not found";
+    try {
+      httpExchange.sendResponseHeaders(404, response.getBytes().length);
+
       OutputStream os = httpExchange.getResponseBody();
       os.write(response.getBytes());
       os.close();
