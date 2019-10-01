@@ -1,5 +1,7 @@
-package http;
+package akorean.webservice;
 
+import akorean.db.AkoreanDAO;
+import akorean.db.DatabaseManager;
 import com.sun.net.httpserver.HttpContext;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -13,16 +15,16 @@ import java.util.*;
 
 public class AkoreanHttpServer {
 
-  private List<Map<String, String>> users = new ArrayList<>();
-  Integer uniqueId = 0;
+  private DatabaseManager databaseManager;
+  private AkoreanDAO akoreanDAO;
 
-  public List<Map<String, String>> getUsers() {
-    return users;
-  }
-
-  public Integer getUniqueId() {
-    uniqueId = uniqueId + 1;
-    return uniqueId;
+  /*
+   * Constructor Dependency Injection
+   *  Spring Framework - is a library that will do dependency injection
+   */
+  public AkoreanHttpServer(DatabaseManager databaseManager) {
+    this.databaseManager = databaseManager;
+    this.akoreanDAO = new AkoreanDAO(databaseManager);
   }
 
   // Java Http Servers
@@ -33,11 +35,17 @@ public class AkoreanHttpServer {
   public static void main(String[] args) throws IOException {
 
     HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
-
     HttpContext context = server.createContext("/users");
 
-    AkoreanHttpServer akoreanHttpServer = new AkoreanHttpServer();
-    HttpHandler usersHandler = new UsersHandler(akoreanHttpServer);
+    // TODO: move this to config file, or read from command line args
+    String serverAddress = "localhost";
+    String username = "root";
+    String password = "";
+    String db = "akorean";
+    DatabaseManager databaseManager = new DatabaseManager(serverAddress, username, password, db);
+    AkoreanDAO akoreanDAO = new AkoreanDAO(databaseManager);
+    AkoreanHttpServer akoreanHttpServer = new AkoreanHttpServer(databaseManager);
+    HttpHandler usersHandler = new UsersHandler(akoreanHttpServer, akoreanDAO);
     context.setHandler(usersHandler);
 
     server.start();
