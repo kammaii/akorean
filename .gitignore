@@ -6,6 +6,6 @@ todo/.idea
 todo/target
 callcenter/.idea
 callcenter/target
-db/
+/db/
 webservice/.idea
 webservice/target
