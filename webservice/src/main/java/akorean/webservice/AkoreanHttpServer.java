@@ -15,17 +15,18 @@ import java.util.*;
 
 public class AkoreanHttpServer {
 
-  private DatabaseManager databaseManager;
-  private AkoreanDAO akoreanDAO;
+  //private DatabaseManager databaseManager;
+  //private AkoreanDAO akoreanDAO;
 
   /*
    * Constructor Dependency Injection
    *  Spring Framework - is a library that will do dependency injection
-   */
+
   public AkoreanHttpServer(DatabaseManager databaseManager) {
     this.databaseManager = databaseManager;
     this.akoreanDAO = new AkoreanDAO(databaseManager);
   }
+  */
 
   // Java Http Servers
   // Tomcat
@@ -35,22 +36,28 @@ public class AkoreanHttpServer {
   public static void main(String[] args) throws IOException {
 
     HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
-    HttpContext context = server.createContext("/users");
+    HttpContext contextUsers = server.createContext("/users");
+    HttpContext contextUserName = server.createContext("/username");
 
     // TODO: move this to config file, or read from command line args
-    String serverAddress = "localhost";
-    String username = "root";
-    String password = "";
+    String serverAddress = "3.1.131.127";
+    String username = "akorean";
+    String password = "gabman84";
     String db = "akorean";
+
     DatabaseManager databaseManager = new DatabaseManager(serverAddress, username, password, db);
     AkoreanDAO akoreanDAO = new AkoreanDAO(databaseManager);
-    AkoreanHttpServer akoreanHttpServer = new AkoreanHttpServer(databaseManager);
-    HttpHandler usersHandler = new UsersHandler(akoreanHttpServer, akoreanDAO);
-    context.setHandler(usersHandler);
+    AkoreanHttpServer akoreanHttpServer = new AkoreanHttpServer();
+
+    HttpHandler handlerUsers = new HandlerUsers(akoreanHttpServer, akoreanDAO);
+    HttpHandler handlerUserName = new HandlerUserName(akoreanHttpServer, akoreanDAO);
+    contextUsers.setHandler(handlerUsers);
+    contextUserName.setHandler(handlerUserName);
 
     server.start();
   }
 
+  // respond 문제없음
   void respond200(HttpExchange httpExchange, String response) {
     try {
       httpExchange.sendResponseHeaders(200, response.getBytes().length);
@@ -65,6 +72,7 @@ public class AkoreanHttpServer {
     }
   }
 
+  // respond 문제있음
   void respond404(HttpExchange httpExchange) {
     String response = "not found";
     try {
@@ -80,6 +88,7 @@ public class AkoreanHttpServer {
     }
   }
 
+  // 유저 등록할 때 해당 내용 읽어오기
   String readInputStream(InputStream is) throws IOException {
     StringBuilder results = new StringBuilder();
     try (InputStreamReader reader = new InputStreamReader(is)) {

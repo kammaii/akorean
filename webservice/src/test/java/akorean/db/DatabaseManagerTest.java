@@ -17,9 +17,9 @@ import static org.junit.Assert.*;
 
 public class DatabaseManagerTest {
 
-  private String serverAddress = "localhost";
-  private String username = "root";
-  private String password = "";
+  private String serverAddress = "3.1.131.127";
+  private String username = "akorean";
+  private String password = "gabman84";
   private String databaseName = "akorean";
 
   @Test

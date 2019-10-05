@@ -18,6 +18,7 @@ public class AkoreanDAO {
   }
 
 
+  // 모든 유저 불러오기
   public List<Map<String, String>> getUsers() {
 
     try {
@@ -35,8 +36,8 @@ public class AkoreanDAO {
           ResultSet rs = statement.executeQuery(sql);
           List<Map<String, String>> results = new ArrayList<>();
 
-          while(rs.next()) {
-            Map<String, String> result = userResultSetToMap(rs);
+          while(rs.next()) {  // 결과를 순차적으로 보내기 위해 ResultSet 을 사용함. 결과가 아주 많으면 다운될 수 있으니까.
+            Map<String, String> result = resultSetToMap(rs);
             results.add(result);
           }
 
@@ -49,20 +50,20 @@ public class AkoreanDAO {
       System.out.println(e);
       return null;
     }
-
   }
 
+  // 아이디로 유저 불러오기
   public Map<String, String> getUserById(String userId) {
 
     try {
       return databaseManager.execute(new DatabaseCall<Map<String, String>>() {
 
-        String sql = "SELECT * FROM USERS WHERE USER_ID = "+ userId;
+        String sql = "SELECT * FROM USERS WHERE ID = "+ userId;
 
         @Override
         public Map<String, String> withConnection(Connection connection) throws SQLException {
 
-          System.out.println("Attempting find user with userId = '" + userId + "'");
+          System.out.println("Attempting find user with user Id = '" + userId + "'");
           System.out.println(sql);
 
           Statement statement = connection.createStatement();
@@ -70,17 +71,59 @@ public class AkoreanDAO {
           List<Map<String, String>> results = new ArrayList<>();
 
           while(rs.next()) {
-            Map<String, String> result = userResultSetToMap(rs);
+            Map<String, String> result = resultSetToMap(rs);
             results.add(result);
           }
 
           statement.close();
           if(results.size() <= 0) {
-            System.out.println("Unable to find user with userId= '" + userId + "'");
+            System.out.println("Unable to find user with user Id= '" + userId + "'");
             return null;
           }
           if(results.size() > 1) {
-            System.out.println("WARNING!!! Found multiple users with userId= '" + userId + "'");
+            System.out.println("WARNING!!! Found multiple users with user Id= '" + userId + "'");
+          }
+
+          return results.get(0);
+        }
+      });
+    } catch (SQLException e) {
+      System.out.println("ERROR: Unable to get users with user Id because of SQL Exception");
+      System.out.println(e);
+      return null;
+    }
+  }
+
+  // 이름으로 유저 불러오기
+  public Map<String, String> getByUserName(String userName) {
+
+    try {
+      return databaseManager.execute(new DatabaseCall<Map<String, String>>() {
+
+        String sql = "SELECT * FROM USERS WHERE NAME='" + userName + "'";
+
+        @Override
+        public Map<String, String> withConnection(Connection connection) throws SQLException {
+
+          System.out.println("Attempting find user with user name = '" + userName + "'");
+          System.out.println(sql);
+
+          Statement statement = connection.createStatement();
+          ResultSet rs = statement.executeQuery(sql);
+          List<Map<String, String>> results = new ArrayList<>();
+
+          while(rs.next()) {
+            Map<String, String> result = resultSetToMap(rs);
+            results.add(result);
+          }
+
+          statement.close();
+          if(results.size() <= 0) {
+            System.out.println("Unable to find user with username = '" + userName + "'");
+            return null;
+          }
+          if(results.size() > 1) {
+            System.out.println("WARNING!!! Found multiple users with username = '" + userName + "'");
           }
 
           return results.get(0);
@@ -94,17 +137,21 @@ public class AkoreanDAO {
 
   }
 
+  // 유저 등록하기
   public Map<String, String> insertUser(Map<String, String> newUser) {
 
     try {
       return databaseManager.execute(new DatabaseCall<Map<String, String>>() {
 
-        String username = newUser.get("USERNAME");
-        String email = newUser.get("EMAIL");
-        String password = newUser.get("PASSWORD");
+        String userName = newUser.get("NAME");
+        String userEmail = newUser.get("EMAIL");
+        String userPassword = newUser.get("PASSWORD");
+        String dateSignUp = newUser.get("DATE_SIGNUP");
+        String dateSignIn = newUser.get("DATE_SIGNIN");
 
-        String sql = "INSERT INTO USERS (USERNAME, EMAIL, PASSWORD) " +
-                "values ('" + username + "', '" + email + "', '" + password + "')";
+
+        String sql = "INSERT INTO USERS (NAME, EMAIL, PASSWORD, DATE_SIGNUP, DATE_SIGNIN) " +
+                "values ('" + userName + "', '" + userEmail + "', '" + userPassword + "', " + dateSignUp + ", " + dateSignIn + ")";
 
         @Override
         public Map<String, String> withConnection(Connection connection) throws SQLException {
@@ -119,7 +166,7 @@ public class AkoreanDAO {
           rs.next();
           Integer userId = rs.getInt(1);
 
-          newUser.put("USER_ID", userId.toString());
+          newUser.put("ID", userId.toString());
           statement.close();
 
           return newUser;
@@ -132,18 +179,24 @@ public class AkoreanDAO {
     }
   }
 
-  private Map<String, String> userResultSetToMap(ResultSet rs) throws SQLException {
-    String username = rs.getString("USERNAME");
-    String password = rs.getString("PASSWORD");
-    String email = rs.getString("EMAIL");
-    String userId = rs.getString("USER_ID");
+  // ResultSet 을 Map 으로 변경하기
+  private Map<String, String> resultSetToMap(ResultSet rs) throws SQLException {
+    String userId = rs.getString("ID");
+    String userName = rs.getString("NAME");
+    String userPassword = rs.getString("PASSWORD");
+    String userEmail = rs.getString("EMAIL");
+    String userSignUp = rs.getString("DATE_SIGNUP");
+    String userSignIn = rs.getString("DATE_SIGNIN");
 
     Map<String, String> result = new HashMap<>();
-    result.put("USERNAME", username);
-    result.put("PASSWORD", password);
-    result.put("EMAIL", email);
-    result.put("USER_ID", userId);
-    System.out.println("Found User: " + username);
+    result.put("ID", userId);
+    result.put("NAME", userName);
+    result.put("PASSWORD", userPassword);
+    result.put("EMAIL", userEmail);
+    result.put("DATE_SIGNUP", userSignIn);
+    result.put("DATE_SIGNIN", userSignUp);
+
+    System.out.println("Found User: " + userName);
     return result;
   }
 }
