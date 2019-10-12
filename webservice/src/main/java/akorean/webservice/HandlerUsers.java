@@ -8,6 +8,7 @@ import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -22,6 +23,7 @@ public class HandlerUsers implements HttpHandler {
     this.akoreanDAO = akoreanDAO;
   }
 
+
   @Override
   public void handle(HttpExchange httpExchange) throws IOException {
 
@@ -33,64 +35,75 @@ public class HandlerUsers implements HttpHandler {
 
     String requestMethod = httpExchange.getRequestMethod();
     System.out.println("Request Type: '" + requestMethod + "'");
-
-    /*
+/*
     Set<String> headers = httpExchange.getRequestHeaders().keySet();
     System.out.println("Request Headers:");
     for(String header : headers) {
       System.out.println("  " + header);
     }
-     */
-
+*/
     // Used to serialize java to json
     GsonBuilder gsonBuilder = new GsonBuilder();
     Gson gson = gsonBuilder.create();
 
-    // 전체 유저를 모두 불러오기
+    // GET 으로 요청이 들어왔을 때, 유저 정보 가져오기
     if(requestMethod.equalsIgnoreCase("GET")) {
 
-      if(url.toString().equals("/users")) {
-        String response = gson.toJson(akoreanDAO.getUsers()); // 여기까지가 Response 를 만드는 과정
-        System.out.println("Response : " + response);
-        httpServer.respond200(httpExchange, response);  // Response 결과를 httpServer 에 보내기
+        String[] urlSplit = url.toString().split("/");
+        String urlKey = urlSplit[2];
+        String urlValue = urlSplit[3];
+        System.out.println("USERS KEY: " + urlKey);
+        System.out.println("USERS VALUE: " + urlValue);
+        String response;
+        List<Map<String, String>> found = new ArrayList<>();
 
-        // 특정 아이디의 유저만 불러오기, "/users/1"
-      } else {
-        String urlStr = url.toString();
-        int idx = urlStr.lastIndexOf("/");
-        String idStr = urlStr.substring(idx+1);
+        switch (urlKey) {
 
-        Map<String, String> getUserById = akoreanDAO.getUserById(idStr);
+            case "all" :
+                found = akoreanDAO.getUsers();
+                break;
 
-        if(getUserById != null) {
-          String response = gson.toJson(getUserById);
-          System.out.println("Response : " + response);
-          httpServer.respond200(httpExchange, response);
-        } else {
-          httpServer.respond404(httpExchange);
+            case "id" :
+                found = akoreanDAO.getUserById(urlValue);
+                break;
+
+            case "name" :
+                found = akoreanDAO.getUserByName(urlValue);
+                break;
+
+            case "email" :
+                found = akoreanDAO.getUserByEmail(urlValue);
+                break;
         }
-      }
-    }
 
-    // create new user
-    if(requestMethod.equalsIgnoreCase("POST")) {
+        // Response 결과를 httpServer 에 보내기
+        if(found != null) {
+            response = gson.toJson(found);
+            System.out.println("RESPONSE : " + response);
+            httpServer.respond200(httpExchange, response);
+        } else {
+            httpServer.respond404(httpExchange);
+        }
 
-      String results = httpServer.readInputStream(httpExchange.getRequestBody());
-      System.out.println("Raw Http Body: " + results);
+        // create new user
+    } else if (requestMethod.equalsIgnoreCase("POST")) {
+        String requestBody = httpServer.readInputStream(httpExchange.getRequestBody());
+        System.out.println("Raw Http Body: " + requestBody);
+        User newUser = gson.fromJson(requestBody, User.class);
 
-      Map<String, String> queryParams = httpServer.splitQueryStr(results);
-      System.out.println("Parsed Http Body:");
-      for(String key : queryParams.keySet()) {
-        System.out.println("  " + key + ": '" + queryParams.get(key) + "'");
-      }
+        //Map<String, String> queryParams = httpServer.splitQueryStr(results);
+//        System.out.println("Parsed Http Body:");
+//        for(String key : queryParams.keySet()) {
+//            System.out.println("  " + key + ": '" + queryParams.get(key) + "'");
+  //      }
 
-      //TODO: !! Definitely need to validate the queryParams!!
-      // For example, make sure that username, password, and email are valid and not null.
-      Map<String, String> newUser = akoreanDAO.insertUser(queryParams);
+        //TODO: !! Definitely need to validate the queryParams!!
+        // For example, make sure that username, password, and email are valid and not null.
+        akoreanDAO.insertUser(newUser);
 
-      // return the new user as json
-      String response = gson.toJson(newUser);
-      httpServer.respond200(httpExchange, response);
+        // return the new user as json
+        String response = gson.toJson(newUser);
+        httpServer.respond200(httpExchange, response);
     }
   }
 }

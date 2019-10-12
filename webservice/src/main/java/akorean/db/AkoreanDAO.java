@@ -1,5 +1,7 @@
 package akorean.db;
 
+import akorean.webservice.User;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -46,29 +48,29 @@ public class AkoreanDAO {
         }
       });
     } catch (SQLException e) {
-      System.out.println("ERROR: Unable to get Users because of SQL Exception");
+      System.out.println("ERROR: Unable to get User because of SQL Exception");
       System.out.println(e);
       return null;
     }
   }
 
   // 아이디로 유저 불러오기
-  public Map<String, String> getUserById(String userId) {
+  public List<Map<String, String>> getUserById(String userId) {
 
     try {
-      return databaseManager.execute(new DatabaseCall<Map<String, String>>() {
+      return databaseManager.execute(new DatabaseCall<List<Map<String, String>>>() {
 
         String sql = "SELECT * FROM USERS WHERE ID = "+ userId;
 
         @Override
-        public Map<String, String> withConnection(Connection connection) throws SQLException {
+        public List<Map<String, String>> withConnection(Connection connection) throws SQLException {
 
           System.out.println("Attempting find user with user Id = '" + userId + "'");
           System.out.println(sql);
 
           Statement statement = connection.createStatement();
           ResultSet rs = statement.executeQuery(sql);
-          List<Map<String, String>> results = new ArrayList<>();
+          List<Map<String, String>> results = new ArrayList<>(1);
 
           while(rs.next()) {
             Map<String, String> result = resultSetToMap(rs);
@@ -84,7 +86,7 @@ public class AkoreanDAO {
             System.out.println("WARNING!!! Found multiple users with user Id= '" + userId + "'");
           }
 
-          return results.get(0);
+          return results;
         }
       });
     } catch (SQLException e) {
@@ -95,22 +97,22 @@ public class AkoreanDAO {
   }
 
   // 이름으로 유저 불러오기
-  public Map<String, String> getByUserName(String userName) {
+  public List<Map<String, String>> getUserByName(String userName) {
 
     try {
-      return databaseManager.execute(new DatabaseCall<Map<String, String>>() {
+      return databaseManager.execute(new DatabaseCall<List<Map<String, String>>>() {
 
         String sql = "SELECT * FROM USERS WHERE NAME='" + userName + "'";
 
         @Override
-        public Map<String, String> withConnection(Connection connection) throws SQLException {
+        public List<Map<String, String>> withConnection(Connection connection) throws SQLException {
 
           System.out.println("Attempting find user with user name = '" + userName + "'");
           System.out.println(sql);
 
           Statement statement = connection.createStatement();
           ResultSet rs = statement.executeQuery(sql);
-          List<Map<String, String>> results = new ArrayList<>();
+          List<Map<String, String>> results = new ArrayList<>(1); // List 의 capacity 를 1 로 제한
 
           while(rs.next()) {
             Map<String, String> result = resultSetToMap(rs);
@@ -125,17 +127,57 @@ public class AkoreanDAO {
           if(results.size() > 1) {
             System.out.println("WARNING!!! Found multiple users with username = '" + userName + "'");
           }
-
-          return results.get(0);
+          return results;
         }
       });
     } catch (SQLException e) {
-      System.out.println("ERROR: Unable to get Users because of SQL Exception");
+      System.out.println("ERROR: Unable to get User because of SQL Exception");
       System.out.println(e);
       return null;
     }
-
   }
+
+  // 이메일로 유저 불러오기
+  public List<Map<String, String>> getUserByEmail(String userEmail) {
+
+    try {
+      return databaseManager.execute(new DatabaseCall<List<Map<String, String>>>() {
+
+        String sql = "SELECT * FROM USERS WHERE EMAIL='" + userEmail + "'";
+
+        @Override
+        public List<Map<String, String>> withConnection(Connection connection) throws SQLException {
+
+          System.out.println("Attempting find user with user name = '" + userEmail + "'");
+          System.out.println(sql);
+
+          Statement statement = connection.createStatement();
+          ResultSet rs = statement.executeQuery(sql);
+          List<Map<String, String>> results = new ArrayList<>(1); // List 의 capacity 를 1 로 제한
+
+          while(rs.next()) {
+            Map<String, String> result = resultSetToMap(rs);
+            results.add(result);
+          }
+
+          statement.close();
+          if(results.size() <= 0) {
+            System.out.println("Unable to find user with user email = '" + userEmail + "'");
+            return null;
+          }
+          if(results.size() > 1) {
+            System.out.println("WARNING!!! Found multiple users with user email = '" + userEmail + "'");
+          }
+          return results;
+        }
+      });
+    } catch (SQLException e) {
+      System.out.println("ERROR: Unable to get User because of SQL Exception");
+      System.out.println(e);
+      return null;
+    }
+  }
+
 
   // 유저 등록하기
   public Map<String, String> insertUser(Map<String, String> newUser) {
@@ -179,6 +221,49 @@ public class AkoreanDAO {
     }
   }
 
+
+  public User insertUser(User newUser) {
+
+    try {
+      return databaseManager.execute(new DatabaseCall<User>() {
+
+        String userName = newUser.getName();
+        String userEmail = newUser.getEmail();
+        String userPassword = newUser.getPassword();
+        String dateSignUp = newUser.getDateSignUp();
+        String dateSignIn = newUser.getDateSignIn();
+
+
+        String sql = "INSERT INTO USERS (NAME, EMAIL, PASSWORD, DATE_SIGNUP, DATE_SIGNIN) " +
+                "values ('" + userName + "', '" + userEmail + "', '" + userPassword + "', " + dateSignUp + ", " + dateSignIn + ")";
+
+        @Override
+        public User withConnection(Connection connection) throws SQLException {
+
+          System.out.println("Attempting to insert new user");
+          System.out.println(sql);
+
+          Statement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+          int rows = statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+          ResultSet rs = statement.getGeneratedKeys();
+          rs.next();
+          //Integer userId = rs.getInt(1);
+
+          //newUser.put("ID", userId.toString());
+          statement.close();
+
+          return newUser;
+        }
+      });
+    } catch (SQLException e) {
+      System.out.println("ERROR: Unable to insert user because of SQL Exception");
+      System.out.println(e);
+      return null;
+    }
+  }
+
+
   // ResultSet 을 Map 으로 변경하기
   private Map<String, String> resultSetToMap(ResultSet rs) throws SQLException {
     String userId = rs.getString("ID");
@@ -193,8 +278,8 @@ public class AkoreanDAO {
     result.put("NAME", userName);
     result.put("PASSWORD", userPassword);
     result.put("EMAIL", userEmail);
-    result.put("DATE_SIGNUP", userSignIn);
-    result.put("DATE_SIGNIN", userSignUp);
+    result.put("DATE_SIGNUP", userSignUp);
+    result.put("DATE_SIGNIN", userSignIn);
 
     System.out.println("Found User: " + userName);
     return result;

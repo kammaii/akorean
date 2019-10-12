@@ -36,8 +36,7 @@ public class AkoreanHttpServer {
   public static void main(String[] args) throws IOException {
 
     HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
-    HttpContext contextUsers = server.createContext("/users");
-    HttpContext contextUserName = server.createContext("/username");
+    HttpContext context = server.createContext("/users");
 
     // TODO: move this to config file, or read from command line args
     String serverAddress = "3.1.131.127";
@@ -50,9 +49,7 @@ public class AkoreanHttpServer {
     AkoreanHttpServer akoreanHttpServer = new AkoreanHttpServer();
 
     HttpHandler handlerUsers = new HandlerUsers(akoreanHttpServer, akoreanDAO);
-    HttpHandler handlerUserName = new HandlerUserName(akoreanHttpServer, akoreanDAO);
-    contextUsers.setHandler(handlerUsers);
-    contextUserName.setHandler(handlerUserName);
+    context.setHandler(handlerUsers);
 
     server.start();
   }
