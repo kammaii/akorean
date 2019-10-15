@@ -180,48 +180,6 @@ public class AkoreanDAO {
 
 
   // 유저 등록하기
-  public Map<String, String> insertUser(Map<String, String> newUser) {
-
-    try {
-      return databaseManager.execute(new DatabaseCall<Map<String, String>>() {
-
-        String userName = newUser.get("NAME");
-        String userEmail = newUser.get("EMAIL");
-        String userPassword = newUser.get("PASSWORD");
-        String dateSignUp = newUser.get("DATE_SIGNUP");
-        String dateSignIn = newUser.get("DATE_SIGNIN");
-
-
-        String sql = "INSERT INTO USERS (NAME, EMAIL, PASSWORD, DATE_SIGNUP, DATE_SIGNIN) " +
-                "values ('" + userName + "', '" + userEmail + "', '" + userPassword + "', " + dateSignUp + ", " + dateSignIn + ")";
-
-        @Override
-        public Map<String, String> withConnection(Connection connection) throws SQLException {
-
-          System.out.println("Attempting to insert new user");
-          System.out.println(sql);
-
-          Statement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
-          int rows = statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
-          ResultSet rs = statement.getGeneratedKeys();
-          rs.next();
-          Integer userId = rs.getInt(1);
-
-          newUser.put("ID", userId.toString());
-          statement.close();
-
-          return newUser;
-        }
-      });
-    } catch (SQLException e) {
-      System.out.println("ERROR: Unable to insert user because of SQL Exception");
-      System.out.println(e);
-      return null;
-    }
-  }
-
-
   public User insertUser(User newUser) {
 
     try {
@@ -245,12 +203,10 @@ public class AkoreanDAO {
 
           Statement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-          int rows = statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+          statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
           ResultSet rs = statement.getGeneratedKeys();
           rs.next();
-          //Integer userId = rs.getInt(1);
 
-          //newUser.put("ID", userId.toString());
           statement.close();
 
           return newUser;

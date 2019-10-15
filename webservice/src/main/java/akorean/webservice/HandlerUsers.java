@@ -91,18 +91,13 @@ public class HandlerUsers implements HttpHandler {
         System.out.println("Raw Http Body: " + requestBody);
         User newUser = gson.fromJson(requestBody, User.class);
 
-        //Map<String, String> queryParams = httpServer.splitQueryStr(results);
-//        System.out.println("Parsed Http Body:");
-//        for(String key : queryParams.keySet()) {
-//            System.out.println("  " + key + ": '" + queryParams.get(key) + "'");
-  //      }
-
         //TODO: !! Definitely need to validate the queryParams!!
         // For example, make sure that username, password, and email are valid and not null.
         akoreanDAO.insertUser(newUser);
 
         // return the new user as json
         String response = gson.toJson(newUser);
+        System.out.println("RESPONSE : " + response);
         httpServer.respond200(httpExchange, response);
     }
   }
