@@ -8,10 +8,7 @@ import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class HandlerUsers implements HttpHandler {
 
@@ -58,7 +55,7 @@ public class HandlerUsers implements HttpHandler {
         List<Map<String, String>> found = new ArrayList<>();
 
         switch (urlKey) {
-
+/*
             case "all" :
                 found = akoreanDAO.getUsers();
                 break;
@@ -74,6 +71,8 @@ public class HandlerUsers implements HttpHandler {
             case "email" :
                 found = akoreanDAO.getUserByEmail(urlValue);
                 break;
+
+ */
         }
 
         // Response 결과를 httpServer 에 보내기
@@ -99,6 +98,32 @@ public class HandlerUsers implements HttpHandler {
         String response = gson.toJson(newUser);
         System.out.println("RESPONSE : " + response);
         httpServer.respond200(httpExchange, response);
+
+        // 유저 정보 업데이트 하기
+    } else if(requestMethod.equalsIgnoreCase("PATCH")) {
+        String[] urlSplit = url.toString().split("/");
+        String urlKey = urlSplit[2];
+        System.out.println("USERS KEY: " + urlKey);
+        String response;
+        Map<String, String> found = new HashMap<>();
+
+        switch (urlKey) {
+
+            case "login" :
+                String userEmail = urlSplit[3];
+                String userPass = urlSplit[4];
+                found = akoreanDAO.logInCheck(userEmail, userPass);
+                break;
+        }
+
+        if(found != null) {
+            response = gson.toJson(found);
+            System.out.println("RESPONSE : " + response);
+            httpServer.respond200(httpExchange, response);
+        } else {
+            httpServer.respond404(httpExchange);
+        }
+
     }
   }
 }

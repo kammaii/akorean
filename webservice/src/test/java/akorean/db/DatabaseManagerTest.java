@@ -28,7 +28,7 @@ public class DatabaseManagerTest {
     executeSqlFile(databaseManager, "create_db.sql");
     executeSqlFile(databaseManager, "seed_data.sql");
   }
-
+/*
   @Test
   public void getUsersTest() {
     DatabaseManager databaseManager = new DatabaseManager(serverAddress, username, password, databaseName);
@@ -37,7 +37,7 @@ public class DatabaseManagerTest {
     assertNotNull(users);
     assertTrue(users.size() > 0);
   }
-/*
+
   @Test
   public void insertUser() {
     DatabaseManager databaseManager = new DatabaseManager(serverAddress, username, password, databaseName);

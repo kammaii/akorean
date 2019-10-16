@@ -19,7 +19,7 @@ public class AkoreanDAO {
     this.databaseManager = databaseManager;
   }
 
-
+/*
   // 모든 유저 불러오기
   public List<Map<String, String>> getUsers() {
 
@@ -177,6 +177,49 @@ public class AkoreanDAO {
       return null;
     }
   }
+*/
+
+  // 로그인하기
+  public Map<String, String> logInCheck(String userEmail, String userPass) {
+
+    try {
+      return databaseManager.execute(new DatabaseCall<Map<String, String>>() {
+
+        String sql = "SELECT * FROM USERS WHERE EMAIL='" + userEmail + "' AND PASSWORD='" + userPass + "'";
+
+        @Override
+        public Map<String, String> withConnection(Connection connection) throws SQLException {
+
+          System.out.println("Attempting find user with user name = '" + userEmail + "'");
+          System.out.println(sql);
+
+          Statement statement = connection.createStatement();
+          ResultSet rs = statement.executeQuery(sql);
+          Map<String, String> result = new HashMap<>();
+
+          while(rs.next()) {
+            result = resultSetToMap(rs);
+          }
+
+          // 이메일과 비밀번호가 일치하는 유저를 찾았을 때, 로그인 날짜 업데이트 하기
+          if(result.size() != 0) {
+            String sql = "UPDATE USERS SET DATE_SIGNIN = NOW() WHERE EMAIL='" + userEmail + "' AND PASSWORD ='" + userPass + "'";
+            statement.executeUpdate(sql);
+            statement.close();
+            return result;
+
+          }else {
+            statement.close();
+            return null;
+          }
+        }
+      });
+    } catch (SQLException e) {
+      System.out.println("ERROR: Unable to get User because of SQL Exception");
+      System.out.println(e);
+      return null;
+    }
+  }
 
 
   // 유저 등록하기
@@ -230,12 +273,12 @@ public class AkoreanDAO {
     String userSignIn = rs.getString("DATE_SIGNIN");
 
     Map<String, String> result = new HashMap<>();
-    result.put("ID", userId);
-    result.put("NAME", userName);
-    result.put("PASSWORD", userPassword);
-    result.put("EMAIL", userEmail);
-    result.put("DATE_SIGNUP", userSignUp);
-    result.put("DATE_SIGNIN", userSignIn);
+    result.put("id", userId);
+    result.put("name", userName);
+    result.put("password", userPassword);
+    result.put("email", userEmail);
+    result.put("dateSignUp", userSignUp);
+    result.put("dateSignIn", userSignIn);
 
     System.out.println("Found User: " + userName);
     return result;
