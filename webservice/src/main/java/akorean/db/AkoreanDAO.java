@@ -185,13 +185,13 @@ public class AkoreanDAO {
     try {
       return databaseManager.execute(new DatabaseCall<Map<String, String>>() {
 
-        String sql = "SELECT * FROM USERS WHERE EMAIL='" + userEmail + "' AND PASSWORD='" + userPass + "'";
+        String sql = "SELECT * FROM USERS WHERE EMAIL='" + userEmail + "'";
 
         @Override
         public Map<String, String> withConnection(Connection connection) throws SQLException {
 
-          System.out.println("Attempting find user with user name = '" + userEmail + "'");
           System.out.println(sql);
+          System.out.println("Attempting find user with user email = '" + userEmail + "'");
 
           Statement statement = connection.createStatement();
           ResultSet rs = statement.executeQuery(sql);
@@ -201,21 +201,39 @@ public class AkoreanDAO {
             result = resultSetToMap(rs);
           }
 
-          // 이메일과 비밀번호가 일치하는 유저를 찾았을 때, 로그인 날짜 업데이트 하기
+          // 일치하는 이메일을 찾았을 때 비밀번호 일치여부 확인하기
           if(result.size() != 0) {
-            String sql = "UPDATE USERS SET DATE_SIGNIN = NOW() WHERE EMAIL='" + userEmail + "' AND PASSWORD ='" + userPass + "'";
-            statement.executeUpdate(sql);
-            statement.close();
-            return result;
+            System.out.println("Checking password '" +userPass+ "' is matching...");
 
-          }else {
-            statement.close();
-            return null;
+            // 로그인 성공
+            if(result.get("password").equals(userPass)) {
+              String msg = "Sign In succeed.";
+              System.out.println(msg);
+              result.put("msgFromServer", msg);
+              String sql = "UPDATE USERS SET DATE_SIGNIN = NOW() WHERE EMAIL='" + userEmail + "' AND PASSWORD ='" + userPass + "'";
+              statement.executeUpdate(sql);
+
+            // 비밀번호 틀렸음
+            } else {
+              String msg = "ERROR : Wrong password.";
+              System.out.println(msg);
+              result.put("msgFromServer", msg);
+            }
+
+            // 일치하는 이메일을 못 찾았음
+          } else {
+            String msg = "ERROR : No matching email.";
+            System.out.println(msg);
+            result.put("msgFromServer", msg);
           }
+
+          statement.close();
+          return result;
         }
       });
+
     } catch (SQLException e) {
-      System.out.println("ERROR: Unable to get User because of SQL Exception");
+      System.out.println("ERROR: Unable to get User because of SQL Exception.");
       System.out.println(e);
       return null;
     }

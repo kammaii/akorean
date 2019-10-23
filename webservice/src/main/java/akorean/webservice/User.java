@@ -7,6 +7,7 @@ public class User {
         private String password;
         private String dateSignUp;
         private String dateSignIn;
+        private String msgFromServer;
 
         public User(String name, String email, String password) {
             this.name = name;

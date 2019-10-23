@@ -99,7 +99,7 @@ public class HandlerUsers implements HttpHandler {
         System.out.println("RESPONSE : " + response);
         httpServer.respond200(httpExchange, response);
 
-        // 유저 정보 업데이트 하기
+        // 로그인 or 유저 정보 업데이트 하기
     } else if(requestMethod.equalsIgnoreCase("PATCH")) {
         String[] urlSplit = url.toString().split("/");
         String urlKey = urlSplit[2];
@@ -123,7 +123,6 @@ public class HandlerUsers implements HttpHandler {
         } else {
             httpServer.respond404(httpExchange);
         }
-
     }
   }
 }
