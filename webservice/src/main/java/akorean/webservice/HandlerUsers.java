@@ -52,7 +52,7 @@ public class HandlerUsers implements HttpHandler {
         System.out.println("USERS KEY: " + urlKey);
         System.out.println("USERS VALUE: " + urlValue);
         String response;
-        List<Map<String, String>> found = new ArrayList<>();
+        Map<String, String> found = new HashMap<>();
 
         switch (urlKey) {
 /*
@@ -67,12 +67,10 @@ public class HandlerUsers implements HttpHandler {
             case "name" :
                 found = akoreanDAO.getUserByName(urlValue);
                 break;
-
+*/
             case "email" :
                 found = akoreanDAO.getUserByEmail(urlValue);
                 break;
-
- */
         }
 
         // Response 결과를 httpServer 에 보내기
@@ -84,7 +82,7 @@ public class HandlerUsers implements HttpHandler {
             httpServer.respond404(httpExchange);
         }
 
-        // create new user
+        // 새로운 유저 만들기
     } else if (requestMethod.equalsIgnoreCase("POST")) {
         String requestBody = httpServer.readInputStream(httpExchange.getRequestBody());
         System.out.println("Raw Http Body: " + requestBody);

@@ -136,38 +136,31 @@ public class AkoreanDAO {
       return null;
     }
   }
-
+*/
   // 이메일로 유저 불러오기
-  public List<Map<String, String>> getUserByEmail(String userEmail) {
+  public Map<String, String> getUserByEmail(String userEmail) {
 
     try {
-      return databaseManager.execute(new DatabaseCall<List<Map<String, String>>>() {
+      return databaseManager.execute(new DatabaseCall<Map<String, String>>() {
 
         String sql = "SELECT * FROM USERS WHERE EMAIL='" + userEmail + "'";
 
         @Override
-        public List<Map<String, String>> withConnection(Connection connection) throws SQLException {
+        public Map<String, String> withConnection(Connection connection) throws SQLException {
 
           System.out.println("Attempting find user with user name = '" + userEmail + "'");
           System.out.println(sql);
 
           Statement statement = connection.createStatement();
           ResultSet rs = statement.executeQuery(sql);
-          List<Map<String, String>> results = new ArrayList<>(1); // List 의 capacity 를 1 로 제한
+          Map<String, String> results = null;
 
-          while(rs.next()) {
-            Map<String, String> result = resultSetToMap(rs);
-            results.add(result);
+          if(rs.next()) {
+            results = resultSetToMap(rs);
           }
 
           statement.close();
-          if(results.size() <= 0) {
-            System.out.println("Unable to find user with user email = '" + userEmail + "'");
-            return null;
-          }
-          if(results.size() > 1) {
-            System.out.println("WARNING!!! Found multiple users with user email = '" + userEmail + "'");
-          }
+
           return results;
         }
       });
@@ -177,7 +170,7 @@ public class AkoreanDAO {
       return null;
     }
   }
-*/
+
 
   // 로그인하기
   public Map<String, String> logInCheck(String userEmail, String userPass) {
@@ -259,8 +252,8 @@ public class AkoreanDAO {
         @Override
         public User withConnection(Connection connection) throws SQLException {
 
-          System.out.println("Attempting to insert new user");
           System.out.println(sql);
+          System.out.println("Attempting to insert new user");
 
           Statement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
