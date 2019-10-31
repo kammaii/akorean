@@ -1,6 +1,7 @@
 package akorean.webservice;
 
-import akorean.db.AkoreanDAO;
+import akorean.db.AkoreanCollectionsDAO;
+import akorean.db.AkoreanUsersDAO;
 import akorean.db.DatabaseManager;
 import com.sun.net.httpserver.HttpContext;
 import com.sun.net.httpserver.HttpExchange;
@@ -16,7 +17,7 @@ import java.util.*;
 public class AkoreanHttpServer {
 
   //private DatabaseManager databaseManager;
-  //private AkoreanDAO akoreanDAO;
+  //private AkoreanUsersDAO akoreanDAO;
 
   /*
    * Constructor Dependency Injection
@@ -24,7 +25,7 @@ public class AkoreanHttpServer {
 
   public AkoreanHttpServer(DatabaseManager databaseManager) {
     this.databaseManager = databaseManager;
-    this.akoreanDAO = new AkoreanDAO(databaseManager);
+    this.akoreanDAO = new AkoreanUsersDAO(databaseManager);
   }
   */
 
@@ -36,7 +37,8 @@ public class AkoreanHttpServer {
   public static void main(String[] args) throws IOException {
 
     HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
-    HttpContext context = server.createContext("/users");
+    HttpContext contextUsers = server.createContext("/users");
+    HttpContext contextCollections = server.createContext("/collections");
 
     // TODO: move this to config file, or read from command line args
     String serverAddress = "3.1.131.127";
@@ -45,11 +47,14 @@ public class AkoreanHttpServer {
     String db = "akorean";
 
     DatabaseManager databaseManager = new DatabaseManager(serverAddress, username, password, db);
-    AkoreanDAO akoreanDAO = new AkoreanDAO(databaseManager);
+    AkoreanUsersDAO akoreanUsersDAO = new AkoreanUsersDAO(databaseManager);
+    AkoreanCollectionsDAO akoreanCollectionsDAO = new AkoreanCollectionsDAO(databaseManager);
     AkoreanHttpServer akoreanHttpServer = new AkoreanHttpServer();
 
-    HttpHandler handlerUsers = new HandlerUsers(akoreanHttpServer, akoreanDAO);
-    context.setHandler(handlerUsers);
+    HttpHandler handlerUsers = new HandlerUsers(akoreanHttpServer, akoreanUsersDAO);
+    HttpHandler handlerCollections = new HandlerCollections(akoreanHttpServer, akoreanCollectionsDAO);
+    contextUsers.setHandler(handlerUsers);
+    contextCollections.setHandler(handlerCollections);
 
     server.start();
   }

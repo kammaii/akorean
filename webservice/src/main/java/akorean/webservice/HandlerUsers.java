@@ -1,6 +1,6 @@
 package akorean.webservice;
 
-import akorean.db.AkoreanDAO;
+import akorean.db.AkoreanUsersDAO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sun.net.httpserver.HttpExchange;
@@ -13,11 +13,11 @@ import java.util.*;
 public class HandlerUsers implements HttpHandler {
 
   private AkoreanHttpServer httpServer;
-  private AkoreanDAO akoreanDAO;
+  private AkoreanUsersDAO akoreanUsersDAO;
   HandlerUsers(AkoreanHttpServer akoreanHttpServer,
-               AkoreanDAO akoreanDAO) {
+               AkoreanUsersDAO akoreanUsersDAO) {
     this.httpServer = akoreanHttpServer;
-    this.akoreanDAO = akoreanDAO;
+    this.akoreanUsersDAO = akoreanUsersDAO;
   }
 
 
@@ -57,23 +57,21 @@ public class HandlerUsers implements HttpHandler {
         switch (urlKey) {
 /*
             case "all" :
-                found = akoreanDAO.getUsers();
+                found = akoreanUsersDAO.getUsers();
                 break;
 
             case "id" :
-                found = akoreanDAO.getUserById(urlValue);
                 break;
 
             case "name" :
-                found = akoreanDAO.getUserByName(urlValue);
+                found = akoreanUsersDAO.getUserByName(urlValue);
                 break;
 */
             case "email" :
-                found = akoreanDAO.getUserByEmail(urlValue);
+                found = akoreanUsersDAO.getUserByEmail(urlValue);
                 break;
         }
 
-        // Response 결과를 httpServer 에 보내기
         if(found != null) {
             response = gson.toJson(found);
             System.out.println("RESPONSE : " + response);
@@ -82,20 +80,29 @@ public class HandlerUsers implements HttpHandler {
             httpServer.respond404(httpExchange);
         }
 
+
         // 새로운 유저 만들기
     } else if (requestMethod.equalsIgnoreCase("POST")) {
+
         String requestBody = httpServer.readInputStream(httpExchange.getRequestBody());
         System.out.println("Raw Http Body: " + requestBody);
-        User newUser = gson.fromJson(requestBody, User.class);
 
-        //TODO: !! Definitely need to validate the queryParams!!
-        // For example, make sure that username, password, and email are valid and not null.
-        akoreanDAO.insertUser(newUser);
+        switch (url.toString()) {
 
-        // return the new user as json
-        String response = gson.toJson(newUser);
-        System.out.println("RESPONSE : " + response);
-        httpServer.respond200(httpExchange, response);
+            case "users" :
+                User newUser = gson.fromJson(requestBody, User.class);
+
+                //TODO: !! Definitely need to validate the queryParams!!
+                // For example, make sure that username, password, and email are valid and not null.
+                akoreanUsersDAO.insertUser(newUser);
+
+                // return the new user as json
+                String response = gson.toJson(newUser);
+                System.out.println("RESPONSE : " + response);
+                httpServer.respond200(httpExchange, response);
+                break;
+
+        }
 
         // 로그인 or 유저 정보 업데이트 하기
     } else if(requestMethod.equalsIgnoreCase("PATCH")) {
@@ -110,7 +117,7 @@ public class HandlerUsers implements HttpHandler {
             case "login" :
                 String userEmail = urlSplit[3];
                 String userPass = urlSplit[4];
-                found = akoreanDAO.logInCheck(userEmail, userPass);
+                found = akoreanUsersDAO.logInCheck(userEmail, userPass);
                 break;
         }
 

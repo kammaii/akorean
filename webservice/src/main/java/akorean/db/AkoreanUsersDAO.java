@@ -11,11 +11,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AkoreanDAO {
+public class AkoreanUsersDAO {
 
   DatabaseManager databaseManager;
 
-  public AkoreanDAO(DatabaseManager databaseManager) {
+  public AkoreanUsersDAO(DatabaseManager databaseManager) {
     this.databaseManager = databaseManager;
   }
 
@@ -53,49 +53,8 @@ public class AkoreanDAO {
       return null;
     }
   }
-
-  // 아이디로 유저 불러오기
-  public List<Map<String, String>> getUserById(String userId) {
-
-    try {
-      return databaseManager.execute(new DatabaseCall<List<Map<String, String>>>() {
-
-        String sql = "SELECT * FROM USERS WHERE ID = "+ userId;
-
-        @Override
-        public List<Map<String, String>> withConnection(Connection connection) throws SQLException {
-
-          System.out.println("Attempting find user with user Id = '" + userId + "'");
-          System.out.println(sql);
-
-          Statement statement = connection.createStatement();
-          ResultSet rs = statement.executeQuery(sql);
-          List<Map<String, String>> results = new ArrayList<>(1);
-
-          while(rs.next()) {
-            Map<String, String> result = resultSetToMap(rs);
-            results.add(result);
-          }
-
-          statement.close();
-          if(results.size() <= 0) {
-            System.out.println("Unable to find user with user Id= '" + userId + "'");
-            return null;
-          }
-          if(results.size() > 1) {
-            System.out.println("WARNING!!! Found multiple users with user Id= '" + userId + "'");
-          }
-
-          return results;
-        }
-      });
-    } catch (SQLException e) {
-      System.out.println("ERROR: Unable to get users with user Id because of SQL Exception");
-      System.out.println(e);
-      return null;
-    }
-  }
-
+*/
+/*
   // 이름으로 유저 불러오기
   public List<Map<String, String>> getUserByName(String userName) {
 
@@ -156,7 +115,7 @@ public class AkoreanDAO {
           Map<String, String> results = null;
 
           if(rs.next()) {
-            results = resultSetToMap(rs);
+            results = resultSetToMapUser(rs);
           }
 
           statement.close();
@@ -191,7 +150,7 @@ public class AkoreanDAO {
           Map<String, String> result = new HashMap<>();
 
           while(rs.next()) {
-            result = resultSetToMap(rs);
+            result = resultSetToMapUser(rs);
           }
 
           // 일치하는 이메일을 찾았을 때 비밀번호 일치여부 확인하기
@@ -275,7 +234,7 @@ public class AkoreanDAO {
 
 
   // ResultSet 을 Map 으로 변경하기
-  private Map<String, String> resultSetToMap(ResultSet rs) throws SQLException {
+  private Map<String, String> resultSetToMapUser(ResultSet rs) throws SQLException {
     String userId = rs.getString("ID");
     String userName = rs.getString("NAME");
     String userPassword = rs.getString("PASSWORD");

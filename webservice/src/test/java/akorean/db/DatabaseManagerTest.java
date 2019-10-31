@@ -32,7 +32,7 @@ public class DatabaseManagerTest {
   @Test
   public void getUsersTest() {
     DatabaseManager databaseManager = new DatabaseManager(serverAddress, username, password, databaseName);
-    AkoreanDAO akoreanDAO = new AkoreanDAO(databaseManager);
+    AkoreanUsersDAO akoreanDAO = new AkoreanUsersDAO(databaseManager);
     List<Map<String, String>> users = akoreanDAO.getUsers();
     assertNotNull(users);
     assertTrue(users.size() > 0);
@@ -41,7 +41,7 @@ public class DatabaseManagerTest {
   @Test
   public void insertUser() {
     DatabaseManager databaseManager = new DatabaseManager(serverAddress, username, password, databaseName);
-    AkoreanDAO akoreanDAO = new AkoreanDAO(databaseManager);
+    AkoreanUsersDAO akoreanDAO = new AkoreanUsersDAO(databaseManager);
     Map<String, String > newUser = new HashMap<>();
     newUser.put("USERNAME", "dave");
     newUser.put("EMAIL", "dave@gmail.com");
