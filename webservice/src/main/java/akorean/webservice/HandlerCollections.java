@@ -51,11 +51,10 @@ public class HandlerCollections implements HttpHandler {
           String dateLastSync = urlSplit[2];
           System.out.println("dateLastSync: " + dateLastSync);
           System.out.println("dateNow: " + dateNow);
-          String response;
           List<Map<String, String>> found = akoreanCollectionsDAO.getDownloadItems(dateLastSync, dateNow);
 
           if(found != null) {
-              response = gson.toJson(found);
+              String response = gson.toJson(found);
               System.out.println("RESPONSE : " + response);
               httpServer.respond200(httpExchange, response);
           } else {
@@ -71,15 +70,35 @@ public class HandlerCollections implements HttpHandler {
           List<Collection> collectionsToRespond = new ArrayList<>();
 
           // 업로드 하기
-          System.out.println("Attempting to insert new collections");
+          System.out.println("Attempting to INSERT new collections");
           for(Collection collection : collections) {
               collection.setDateSync(dateNow);  // 받은 컬렉션에 현재 시간 도장 찍기
               akoreanCollectionsDAO.insertItems(collection);
               collectionsToRespond.add(collection);
           }
-          System.out.println("Upload Finished");
+          System.out.println("UPLOAD Finished");
 
-          String response = gson.toJson(collections); // dateSync 에 도장 찍은 컬렉션을 다시 앱으로 보냄
+          String response = gson.toJson(collectionsToRespond); // dateSync 에 도장 찍은 컬렉션을 다시 앱으로 보냄
+          System.out.println("RESPONSE : " + response);
+          httpServer.respond200(httpExchange, response);
+
+      }else if (requestMethod.equalsIgnoreCase("PUT")) {
+
+          String requestBody = httpServer.readInputStream(httpExchange.getRequestBody());
+          System.out.println("Raw Http Body: " + requestBody);
+
+          List<Collection> collections = gson.fromJson(requestBody, new TypeToken<List<Collection>>(){}.getType());
+          List<Collection> collectionsToRespond = new ArrayList<>();
+
+          // 업데이트 하기
+          System.out.println("Attempting to UPDATE edit collections");
+          for(Collection collection : collections) {
+              collection.setDateSync(dateNow);  // 받은 컬렉션에 현재 시간 도장 찍기
+              akoreanCollectionsDAO.updateItems(collection);
+          }
+          System.out.println("UPDATE Finished");
+
+          String response = gson.toJson(collectionsToRespond); // dateSync 에 도장 찍은 컬렉션을 다시 앱으로 보냄
           System.out.println("RESPONSE : " + response);
           httpServer.respond200(httpExchange, response);
       }

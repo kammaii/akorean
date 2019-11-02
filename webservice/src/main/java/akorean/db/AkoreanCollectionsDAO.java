@@ -68,7 +68,7 @@ public class AkoreanCollectionsDAO {
         public List<Map<String, String>> withConnection(Connection connection) throws SQLException {
 
           System.out.println(sql);
-          System.out.println("Attempting find collections for downloading");
+          System.out.println("Attempting to find collections for downloading");
 
           Statement statement = connection.createStatement();
           ResultSet rs = statement.executeQuery(sql);
@@ -88,26 +88,26 @@ public class AkoreanCollectionsDAO {
         }
       });
     } catch (SQLException e) {
-      System.out.println("ERROR: Unable to insert user because of SQL Exception");
+      System.out.println("ERROR: SQL Exception");
       System.out.println(e);
       return null;
     }
   }
 
   // 컬렉션들 Insert 하기
-  public Collection insertItems(Collection newCollection) {
+  public Collection insertItems(Collection collection) {
 
     try {
       return databaseManager.execute(new DatabaseCall<Collection>() {
 
-        int userId = newCollection.getUserId();
-        String guid = newCollection.getGuid();
-        String front = newCollection.getFront();
-        String back = newCollection.getBack();
-        String audio = newCollection.getAudio();
-        String dateNew = newCollection.getDateNew();
-        String dateEdit = newCollection.getDateEdit();
-        String dateSync = newCollection.getDateSync();  // 업로드 할 아이템들에 현재 날짜 도장찍기
+        int userId = collection.getUserId();
+        String guid = collection.getGuid();
+        String front = collection.getFront();
+        String back = collection.getBack();
+        String audio = collection.getAudio();
+        String dateNew = collection.getDateNew();
+        String dateEdit = collection.getDateEdit();
+        String dateSync = collection.getDateSync();  // 업로드 할 아이템들에 현재 날짜 도장찍기
 
         String sql = "insert into COLLECTIONS (USER_ID, GUID, FRONT, BACK, AUDIO, DATE_NEW, DATE_EDIT, DATE_SYNC) " +
                 "values ('" + userId + "', '" + guid + "', '" + front + "', '" + back + "', '" + audio + "', '" + dateNew + "', '" + dateEdit + "', '" + dateSync + "')";
@@ -129,11 +129,49 @@ public class AkoreanCollectionsDAO {
         }
       });
     } catch (SQLException e) {
-      System.out.println("ERROR: Unable to insert user because of SQL Exception");
+      System.out.println("ERROR: SQL Exception");
       System.out.println(e);
       return null;
     }
   }
+
+  // 컬렉션들 UPDATE 하기
+  public Collection updateItems(Collection collection) {
+
+    try {
+      return databaseManager.execute(new DatabaseCall<Collection>() {
+
+        String guid = collection.getGuid();
+        String front = collection.getFront();
+        String back = collection.getBack();
+        String audio = collection.getAudio();
+        String dateSync = collection.getDateSync();
+
+        String sql = "update COLLECTIONS set FRONT='"+front+"', BACK='"+back+"', AUDIO='"+audio+"', DATE_SYNC='"+dateSync+"' where GUID='"+guid+"'";
+
+        @Override
+        public Collection withConnection(Connection connection) throws SQLException {
+
+          System.out.println(sql);
+
+          Statement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+          statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+          ResultSet rs = statement.getGeneratedKeys();
+          rs.next();
+
+          statement.close();
+
+          return null;
+        }
+      });
+    } catch (SQLException e) {
+      System.out.println("ERROR: SQL Exception");
+      System.out.println(e);
+      return null;
+    }
+  }
+
 
   /*
   // 아이디로 컬렉션 불러오기
