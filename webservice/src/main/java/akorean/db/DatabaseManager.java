@@ -29,6 +29,5 @@ public class DatabaseManager {
     try (Connection conn = DriverManager.getConnection(url, props)) {
       return call.withConnection(conn);
     }
-
   }
 }

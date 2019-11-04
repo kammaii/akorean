@@ -10,8 +10,7 @@ public class Collection {
     private String audio;
     private String dateNew;
     private String dateEdit;
-    private String dateSync;
-    private String msgFromServer;
+    private int deleted;
 
     public int getUserId() {
         return userId;
@@ -77,19 +76,11 @@ public class Collection {
         this.dateEdit = dateEdit;
     }
 
-    public String getDateSync() {
-        return dateSync;
+    public int getDeleted() {
+        return deleted;
     }
 
-    public void setDateSync(String dateSync) {
-        this.dateSync = dateSync;
-    }
-
-    public String getMsgFromServer() {
-        return msgFromServer;
-    }
-
-    public void setMsgFromServer(String msgFromServer) {
-        this.msgFromServer = msgFromServer;
+    public void setDeleted(int deleted) {
+        this.deleted = deleted;
     }
 }

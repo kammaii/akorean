@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -132,7 +133,7 @@ public class AkoreanUsersDAO {
 
 
   // 로그인하기
-  public Map<String, String> logInCheck(String userEmail, String userPass) {
+  public Map<String, String> logInCheck(String userEmail, String userPass){
 
     try {
       return databaseManager.execute(new DatabaseCall<Map<String, String>>() {
